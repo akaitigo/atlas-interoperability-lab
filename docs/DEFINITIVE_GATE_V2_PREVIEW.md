@@ -2,7 +2,7 @@
 
 ## 状態
 
-この契約は`feature/definitive-gate-v2`専用の準備実装です。Core v2は未確定であり、`2.0.0-draft.1`、`status: draft`として固定します。Labの`main`、既存v1 Composition、Evidence、Completion Certificateをv2へ昇格・上書きしません。
+この契約は`feature/definitive-gate-v2`専用の準備実装です。Core v2 Completion Policyは`2.0.0-draft.1`、`status: draft`として固定します。一方、Evidence Dependency Graph契約はCore正式main／CI成功commit `072d7ca77981f51754e824d70c6d4ecd55ea67e5`へ追随します。Labの`main`、既存v1 Composition、Evidence、Completion Certificateをv2へ昇格・上書きしません。
 
 Definitive評価とMigrationの前提としてInterop Non-Regression Gateを必ず実行します。既存統合範囲を縮小して全SubjectがDefinitiveに見えるよう加工することはできません。またComposition内の1 Subjectでも`subject-definitive`未達ならInterop全体をDefinitiveへ昇格しません。
 

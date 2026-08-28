@@ -14,6 +14,9 @@ def route(query: str) -> dict:
     non_regression = index["non_regression"]["command"]
     if any(keyword in normalized for keyword in ("非後退", "non-regression", "不足を隠", "scenario削除", "シナリオ削除", "ci縮小", "skip", "disabled", "optional化", "mock置換")):
         return {"decision":"non_regression_gate","command":non_regression,"baseline":index["non_regression"]["baseline"]}
+    if any(keyword in normalized for keyword in ("evidence dependency", "dependency graph", "stale", "digest-only", "digest only", "再実行漏れ", "output退避", "closure構造", "proof構造", "consumer互換")):
+        dependency = index["evidence_dependency"]
+        return {"decision":"evidence_dependency","status":"main-ci-confirmed","command":dependency["command"],"core_lock":dependency["core_lock"],"matrix":dependency["matrix"],"warning":dependency["warning"],"non_regression_command":non_regression}
     if any(keyword in normalized for keyword in ("depth", "parity", "18軸", "深度", "surface", "pattern proof", "850", "421", "統合trace", "個別proof")):
         depth = index["depth_reference"]
         scenario_boundary = any(keyword in normalized for keyword in ("surface", "pattern proof", "850", "421", "統合trace", "個別proof"))

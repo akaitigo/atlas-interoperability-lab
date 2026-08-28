@@ -72,3 +72,5 @@ Apache-2.0、NOTICE、第三者Manifest、SPDX SBOM、Core Lock、Fixture Releas
 すべてのInterop完成判定より先に、[Non-Regression Baseline](docs/NON_REGRESSION_BASELINE.md)を検証します。既存のScenario、Assertion、Component、Contract、Test、Integration Harness、Failure／Recovery Evidence、CIを削減して不足を隠す変更は、PublicationやDefinitive Gateへ到達する前に拒否されます。
 
 Core v2 Previewは、各構成Subjectの18軸Depth Parity、Interop固有Proof、FEの統合Scenario、Surface/Pattern別Proofを分離して評価します。`frontend-behavior-atlas@deadad18b6588d2c907170a451c3b5cea5ea4192`では統合Scenarioは10/10 passですが、850 row中421 gap、Atomic Authority Binding 0、completion eligible 0です。統合Traceを各rowの専用Proofへ流用せず、Subject Depthが1 satisfied／17 partialであることと併せて`incomplete`を保持します。
+
+Evidence Dependency互換性はCore正式main／CI成功commit `072d7ca77981f51754e824d70c6d4ecd55ea67e5`へ固定します。Codex、Claude Code、generic CLIの全consumerで同じCore CLI GateとDefinitive Certificate検証を実行し、stale、digest-only closure、再実行対象漏れ、output退避、Proof／Closure Plan構造縮小を同じ判定で拒否します。詳細は[Evidence Dependency consumer互換性](docs/EVIDENCE_DEPENDENCY_COMPATIBILITY.md)を参照してください。

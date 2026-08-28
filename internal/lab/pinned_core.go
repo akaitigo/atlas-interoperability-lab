@@ -18,22 +18,20 @@ func runPinnedV1Core(root string, args ...string) ([]byte, error) {
 	if err := LoadJSON(filepath.Join(root, "compositions", "fixture-stage2.json"), &composition); err != nil {
 		return nil, err
 	}
-	if err := verifyPinnedCoreCommit(root, composition.CoreContract.Repository, composition.CoreContract.Commit); err != nil {
-		return nil, err
-	}
-	coreRepository := filepath.Join(root, "..", composition.CoreContract.Repository)
-	archive, err := exec.Command("git", "-C", coreRepository, "archive", "--format=tar", composition.CoreContract.Commit).Output()
-	if err != nil {
-		return nil, fmt.Errorf("固定Core Archiveを取得できません: %w", err)
-	}
-	temporaryRoot, err := os.MkdirTemp("", "atlas-lab-pinned-core-")
+	return runPinnedCoreCommit(root, composition.CoreContract.Repository, composition.CoreContract.Commit, args...)
+}
+
+func runPinnedCoreCommit(root, repository, commit string, args ...string) ([]byte, error) {
+	absoluteRoot, err := filepath.Abs(root)
 	if err != nil {
 		return nil, err
 	}
-	defer os.RemoveAll(temporaryRoot)
-	if err := extractSafeTar(archive, temporaryRoot); err != nil {
+	root = absoluteRoot
+	temporaryRoot, cleanup, err := extractPinnedCore(root, repository, commit)
+	if err != nil {
 		return nil, err
 	}
+	defer cleanup()
 	commandArgs := append([]string{"-C", temporaryRoot, "run", "./cmd/atlas"}, args...)
 	cmd := exec.Command("go", commandArgs...)
 	cmd.Env = append(os.Environ(), "GOCACHE="+filepath.Join(root, ".cache", "go-build"))
@@ -42,6 +40,27 @@ func runPinnedV1Core(root string, args ...string) ([]byte, error) {
 		return output, fmt.Errorf("固定Core %s失敗: %w", strings.Join(args, " "), err)
 	}
 	return output, nil
+}
+
+func extractPinnedCore(root, repository, commit string) (string, func(), error) {
+	if err := verifyPinnedCoreCommit(root, repository, commit); err != nil {
+		return "", nil, err
+	}
+	coreRepository := filepath.Join(root, "..", repository)
+	archive, err := exec.Command("git", "-C", coreRepository, "archive", "--format=tar", commit).Output()
+	if err != nil {
+		return "", nil, fmt.Errorf("固定Core Archiveを取得できません: %w", err)
+	}
+	temporaryRoot, err := os.MkdirTemp("", "atlas-lab-pinned-core-")
+	if err != nil {
+		return "", nil, err
+	}
+	cleanup := func() { _ = os.RemoveAll(temporaryRoot) }
+	if err := extractSafeTar(archive, temporaryRoot); err != nil {
+		cleanup()
+		return "", nil, err
+	}
+	return temporaryRoot, cleanup, nil
 }
 
 func ValidateLegacyV1Bundle(root string) error {

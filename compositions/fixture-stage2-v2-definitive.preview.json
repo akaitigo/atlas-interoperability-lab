@@ -4,7 +4,7 @@
   "stage": 2,
   "core_contract": {
     "repository": "reference-atlas-core",
-    "base_commit": "b32f6afe888e2e07eef0e2e016f6f7d139582159",
+    "base_commit": "072d7ca77981f51754e824d70c6d4ecd55ea67e5",
     "policy_version": "2.0.0-draft.1",
     "status": "draft"
   },

@@ -157,6 +157,16 @@ func main() {
 		if report.Verdict != "pass" {
 			os.Exit(1)
 		}
+	case "evidence-dependency-matrix":
+		report, err := lab.RunEvidenceDependencyConsumerMatrix(root, "tests/fixtures/evidence-dependency-consumer.matrix.json")
+		if writeErr := lab.WriteJSON(filepath.Join(root, "evidence", "preview", "evidence-dependency-consumer.matrix.json"), report); writeErr != nil {
+			fatal(writeErr)
+		}
+		if err != nil {
+			printJSON(report)
+			fatal(err)
+		}
+		printJSON(report)
 	case "legacy-v1-check":
 		if err := lab.ValidateLegacyV1Bundle(root); err != nil {
 			fatal(err)
@@ -186,7 +196,7 @@ func main() {
 	}
 }
 func usage() {
-	fmt.Fprintln(os.Stderr, "usage: atlas-lab <validate|preflight|run|reproducibility|provenance|publication-gate|certificate|certificate-check|diagnose|self-audit|definitive-gate|depth-parity|definitive-matrix|definitive-migrate|definitive-preview-audit|legacy-v1-check|non-regression-gate>")
+	fmt.Fprintln(os.Stderr, "usage: atlas-lab <validate|preflight|run|reproducibility|provenance|publication-gate|certificate|certificate-check|diagnose|self-audit|definitive-gate|depth-parity|definitive-matrix|definitive-migrate|definitive-preview-audit|evidence-dependency-matrix|legacy-v1-check|non-regression-gate>")
 }
 func fatal(err error) { fmt.Fprintln(os.Stderr, "ERROR:", err); os.Exit(1) }
 

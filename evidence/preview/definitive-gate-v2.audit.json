@@ -33,6 +33,11 @@
       "detail": "検証済み"
     },
     {
+      "name": "evidence-dependency-consumer-matrix",
+      "verdict": "pass",
+      "detail": "検証済み"
+    },
+    {
       "name": "interop-non-regression",
       "verdict": "pass",
       "detail": "検証済み"

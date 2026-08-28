@@ -29,6 +29,13 @@
     "integration_proofs": "depth/fixture-stage2.integration-proofs.preview.json",
     "command": "go run ./cmd/atlas-lab depth-parity"
   },
+  "evidence_dependency": {
+    "core_lock": "compatibility/evidence-dependency-core.lock.json",
+    "matrix": "tests/fixtures/evidence-dependency-consumer.matrix.json",
+    "evidence": "evidence/preview/evidence-dependency-consumer.matrix.json",
+    "command": "go run ./cmd/atlas-lab evidence-dependency-matrix",
+    "warning": "consumer-independent-stale-closure"
+  },
   "definitive_gate_v2": {
     "status": "draft",
     "bounded_composition": "compositions/fixture-stage2-v2-bounded.preview.json",

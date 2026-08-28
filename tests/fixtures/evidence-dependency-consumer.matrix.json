@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "core_lock": "compatibility/evidence-dependency-core.lock.json",
+  "consumers": ["codex", "claude-code", "generic-cli"],
+  "cases": [
+    {
+      "id": "accept-current-closure",
+      "mutation": "none",
+      "expected_gate": "pass",
+      "expected_certificate": "pass"
+    },
+    {
+      "id": "reject-stale-status",
+      "mutation": "stale-status",
+      "expected_gate": "reject",
+      "expected_certificate": "reject",
+      "expected_error": "Evidence dependency graphはstaleです"
+    },
+    {
+      "id": "reject-digest-only-closure",
+      "mutation": "digest-only-closure",
+      "expected_gate": "reject",
+      "expected_certificate": "reject",
+      "expected_error": "digest書換えだけではClosureできません"
+    },
+    {
+      "id": "reject-missing-rerun-target",
+      "mutation": "missing-rerun-target",
+      "expected_gate": "reject",
+      "expected_certificate": "reject",
+      "expected_error": "rerun対象からoutputが漏れています"
+    },
+    {
+      "id": "reject-output-withdrawal",
+      "mutation": "output-withdrawal",
+      "expected_gate": "reject",
+      "expected_certificate": "reject",
+      "expected_error": "graphから欠落"
+    },
+    {
+      "id": "reject-proof-structure-shrink",
+      "mutation": "proof-structure-shrink",
+      "expected_gate": "reject",
+      "expected_certificate": "reject",
+      "expected_error": "構造が変化"
+    },
+    {
+      "id": "reject-closure-structure-shrink",
+      "mutation": "closure-structure-shrink",
+      "expected_gate": "reject",
+      "expected_certificate": "reject",
+      "expected_error": "構造が変化"
+    }
+  ]
+}

@@ -18,5 +18,6 @@ description: 固定済みSubject ReleaseのStage 2相互運用について、該
 9. Interopの実行・完成・移行判断より先に`non_regression_command`を通す。既存Scenario、Component、Contract、Test、Failure／Recovery Evidence、CIを削除・無効化・縮小・mock化して不足を隠す変更は拒否し、置換には旧ID Mappingと同等以上の統合ProofとMigration Evidenceを要求する。
 10. `depth_reference`と`subject_depth_parity`を読み、各構成Subjectの18軸が全て`satisfied`でない場合はInterop固有ProofやScenario成功で補完しない。`subject-depth-parity-incomplete`と`integration-proof-cannot-promote-depth-gap`を保持する。
 11. `scenario_contract`を読み、10件の統合Scenario成功と850件のSurface/Pattern rowを別に扱う。統合Traceを全rowの専用Proofへ流用せず、各rowの固有Evidence、Runtime Identity、Atomic Authority Binding、または明示gapを確認する。固定境界のgap=421、completion eligible=0を保持し、`integrated-trace-not-component-proof`を返す。
+12. staleまたはEvidence再実行Closureの問いでは`evidence_dependency`を読み、Core確定main commitのconsumer互換性Matrixを実行する。Codex、Claude Code、CLIで判定を変えず、Subject固有件数やprofileではなく、推移stale、実再実行、全output包含、Proof／Closure Plan構造不変だけを共通predicateとして扱う。
 
 検証軸とCanonical Pathの索引が必要な場合だけ [references/index.json](references/index.json) を読みます。

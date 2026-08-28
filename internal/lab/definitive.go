@@ -147,6 +147,9 @@ func evaluateDefinitiveComposition(root, compositionPath, asOf string, overrides
 	if composition.CoreContract.Status != "draft" || composition.CoreContract.PolicyVersion != "2.0.0-draft.1" {
 		return DefinitiveGateResult{}, fmt.Errorf("Core v2未確定中はdraft Preview契約だけを受理します")
 	}
+	if composition.CoreContract.BaseCommit != evidenceDependencyCoreCommit {
+		return DefinitiveGateResult{}, fmt.Errorf("Core Evidence Dependency確定main Commitと一致しません")
+	}
 	if err := verifyPinnedCoreCommit(root, composition.CoreContract.Repository, composition.CoreContract.BaseCommit); err != nil {
 		return DefinitiveGateResult{}, err
 	}
@@ -416,19 +419,20 @@ func RunDefinitiveMatrix(root, matrixPath string) (DefinitiveMatrixResult, error
 }
 
 type V2MigrationReport struct {
-	SchemaVersion              int                  `json:"schema_version"`
-	SourceCompositionID        string               `json:"source_composition_id"`
-	SourceDigest               string               `json:"source_digest"`
-	TargetPolicy               string               `json:"target_policy"`
-	CoreV2Status               string               `json:"core_v2_status"`
-	MigrationState             string               `json:"migration_state"`
-	WritesPerformed            bool                 `json:"writes_performed"`
-	DepthReferenceCommit       string               `json:"depth_reference_commit"`
-	RequiredDepthAxes          int                  `json:"required_depth_axes"`
-	RequiredSurfacePatternRows int                  `json:"required_surface_pattern_rows"`
-	OpenSurfacePatternGaps     int                  `json:"open_surface_pattern_gaps"`
-	Subjects                   []V2MigrationSubject `json:"subjects"`
-	Warnings                   []string             `json:"warnings"`
+	SchemaVersion                int                  `json:"schema_version"`
+	SourceCompositionID          string               `json:"source_composition_id"`
+	SourceDigest                 string               `json:"source_digest"`
+	TargetPolicy                 string               `json:"target_policy"`
+	CoreV2Status                 string               `json:"core_v2_status"`
+	MigrationState               string               `json:"migration_state"`
+	WritesPerformed              bool                 `json:"writes_performed"`
+	DepthReferenceCommit         string               `json:"depth_reference_commit"`
+	CoreEvidenceDependencyCommit string               `json:"core_evidence_dependency_commit"`
+	RequiredDepthAxes            int                  `json:"required_depth_axes"`
+	RequiredSurfacePatternRows   int                  `json:"required_surface_pattern_rows"`
+	OpenSurfacePatternGaps       int                  `json:"open_surface_pattern_gaps"`
+	Subjects                     []V2MigrationSubject `json:"subjects"`
+	Warnings                     []string             `json:"warnings"`
 }
 
 type V2MigrationSubject struct {
@@ -450,22 +454,23 @@ func PlanV2Migration(root, compositionPath string) (V2MigrationReport, error) {
 		return V2MigrationReport{}, err
 	}
 	report := V2MigrationReport{
-		SchemaVersion:              1,
-		SourceCompositionID:        validated.Manifest.ID,
-		SourceDigest:               validated.Digest,
-		TargetPolicy:               "2.0.0-draft.1",
-		CoreV2Status:               "draft",
-		MigrationState:             "requires-depth-parity-and-certificate-renewal",
-		WritesPerformed:            false,
-		DepthReferenceCommit:       feDepthReferenceCommit,
-		RequiredDepthAxes:          18,
-		RequiredSurfacePatternRows: 850,
-		OpenSurfacePatternGaps:     421,
-		Subjects:                   []V2MigrationSubject{},
-		Warnings:                   []string{"legacy-bundle-remains-verifiable", "core-v2-draft", "no-definitive-promotion", "subject-depth-parity-required", "integration-proof-not-substitute", "surface-pattern-proof-closure-required"},
+		SchemaVersion:                1,
+		SourceCompositionID:          validated.Manifest.ID,
+		SourceDigest:                 validated.Digest,
+		TargetPolicy:                 "2.0.0-draft.1",
+		CoreV2Status:                 "draft",
+		MigrationState:               "requires-depth-parity-and-certificate-renewal",
+		WritesPerformed:              false,
+		DepthReferenceCommit:         feDepthReferenceCommit,
+		CoreEvidenceDependencyCommit: evidenceDependencyCoreCommit,
+		RequiredDepthAxes:            18,
+		RequiredSurfacePatternRows:   850,
+		OpenSurfacePatternGaps:       421,
+		Subjects:                     []V2MigrationSubject{},
+		Warnings:                     []string{"legacy-bundle-remains-verifiable", "core-v2-draft", "no-definitive-promotion", "subject-depth-parity-required", "integration-proof-not-substitute", "surface-pattern-proof-closure-required", "evidence-dependency-consumer-matrix-required"},
 	}
 	for _, subject := range validated.Manifest.Subjects {
-		report.Subjects = append(report.Subjects, V2MigrationSubject{Name: subject.Name, SubjectID: subject.SubjectID, CurrentSchema: 1, Action: "complete-18-axis-depth-parity-close-surface-pattern-proofs-and-issue-v2-subject-certificate"})
+		report.Subjects = append(report.Subjects, V2MigrationSubject{Name: subject.Name, SubjectID: subject.SubjectID, CurrentSchema: 1, Action: "complete-18-axis-depth-parity-close-surface-pattern-proofs-verify-evidence-dependency-and-issue-v2-subject-certificate"})
 	}
 	return report, nil
 }
@@ -500,10 +505,15 @@ func AuditDefinitivePreview(root string) DefinitivePreviewAudit {
 	report.add("router-eval", routerErr)
 	var composition PreviewComposition
 	lockErr := LoadJSON(filepath.Join(root, "compositions", "fixture-stage2-v2-definitive.preview.json"), &composition)
-	if lockErr == nil && (composition.CoreContract.Status != "draft" || composition.CoreContract.PolicyVersion != "2.0.0-draft.1") {
+	if lockErr == nil && (composition.CoreContract.Status != "draft" || composition.CoreContract.PolicyVersion != "2.0.0-draft.1" || composition.CoreContract.BaseCommit != evidenceDependencyCoreCommit) {
 		lockErr = fmt.Errorf("Core v2 Preview Lockがdraftではありません")
 	}
 	report.add("core-v2-draft-lock", lockErr)
+	consumerMatrix, consumerMatrixErr := RunEvidenceDependencyConsumerMatrix(root, "tests/fixtures/evidence-dependency-consumer.matrix.json")
+	if consumerMatrixErr == nil && (consumerMatrix.Verdict != "pass" || consumerMatrix.CoreCommit != evidenceDependencyCoreCommit || consumerMatrix.CoreStatus != "main-ci-confirmed" || len(consumerMatrix.Results) != 21) {
+		consumerMatrixErr = fmt.Errorf("Evidence Dependency consumer互換性Matrixが確定main契約を保持していません")
+	}
+	report.add("evidence-dependency-consumer-matrix", consumerMatrixErr)
 	_, nonRegressionErr := NonRegressionGate(root)
 	report.add("interop-non-regression", nonRegressionErr)
 	report.add("neutral-language", ValidateNeutralLanguage(root))

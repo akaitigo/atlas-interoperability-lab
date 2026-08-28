@@ -20,3 +20,5 @@ v2準備契約は`composition-v2-preview.schema.json`と`subject-certificate-v2-
 `non-regression-baseline.schema.json`は歴史的Baseline Commit、対象Path、必須Profileを固定します。`non-regression-migration.schema.json`は置換時の旧ID Mapping、新Path、2件以上の統合Proof、1件以上のMigration Evidenceを要求します。
 
 Depth Parityは`fe-depth-reference-lock.schema.json`、`fe-scenario-contract-lock.schema.json`、`subject-depth-parity.schema.json`、`integration-depth-proofs.schema.json`へ分離します。外部Reference、各Subjectの18軸状態、Interop固有のlocal／container Proof、FE統合10 Scenario、Surface/Pattern 850 rowを混同しません。各rowのDigest、固有Evidence、Runtime Identity、Atomic Authority Bindingまたは明示gapを検証し、421 gap／completion eligible 0の状態では統合成功からSubjectまたはInterop完成を推論しません。
+
+Evidence Dependency consumer互換性は`evidence-dependency-core-lock.schema.json`と`evidence-dependency-consumer-matrix.schema.json`へ分離します。Core正式main commit、CLI Gate、Definitive Certificate検証を固定し、consumer名によらず同じstale／closure結果を要求します。Subject固有の件数とprofileはMatrix共通閾値に含めません。

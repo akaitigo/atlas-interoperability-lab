@@ -15,7 +15,7 @@
       "required": ["repository", "base_commit", "policy_version", "status"],
       "properties": {
         "repository": {"const": "reference-atlas-core"},
-        "base_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+        "base_commit": {"const": "072d7ca77981f51754e824d70c6d4ecd55ea67e5"},
         "policy_version": {"const": "2.0.0-draft.1"},
         "status": {"const": "draft"}
       }

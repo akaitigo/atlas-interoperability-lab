@@ -20,6 +20,8 @@ jobs:
         run: |
           git clone --no-checkout https://github.com/akaitigo/reference-atlas-core.git ../reference-atlas-core
           git -C ../reference-atlas-core checkout -B main cf9e6e2d981305c83f970c1f21a1ddc9c1109263
+          git -C ../reference-atlas-core checkout -B main 072d7ca77981f51754e824d70c6d4ecd55ea67e5
+          git -C ../reference-atlas-core cat-file -e cf9e6e2d981305c83f970c1f21a1ddc9c1109263^{commit}
       - name: Lock FE Depth Reference
         run: |
           git clone --no-checkout https://github.com/akaitigo/frontend-behavior-atlas.git ../frontend-behavior-atlas
@@ -35,6 +37,7 @@ jobs:
           go run ./cmd/atlas-lab depth-parity
           go run ./cmd/atlas-lab definitive-matrix
           go run ./cmd/atlas-lab definitive-migrate
+          go run ./cmd/atlas-lab evidence-dependency-matrix
           go run ./cmd/atlas-lab legacy-v1-check
           go run ./cmd/atlas-lab definitive-preview-audit
           git log --format='%H%x00%B%x00' | python3 ../reference-atlas-core/scripts/check_dco.py

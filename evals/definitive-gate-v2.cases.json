@@ -12,6 +12,7 @@
     {"id":"v2.legacy","query":"旧v1 Bundleを検証したい","decision":"legacy_v1","status":"verifiable"},
     {"id":"v2.non-regression","query":"Scenario削除やCI縮小を非後退Gateで拒否したい","decision":"non_regression_gate","command":"go run ./cmd/atlas-lab non-regression-gate"},
     {"id":"v2.depth-parity","query":"構成SubjectのDepth Parity 18軸とInterop Proofを確認したい","decision":"depth_parity","command":"go run ./cmd/atlas-lab depth-parity","warning":"integration-proof-cannot-promote-depth-gap"},
-    {"id":"v2.surface-pattern-proof","query":"統合Trace成功と850 Surface/Pattern Proofの421 gapを確認したい","decision":"depth_parity","command":"go run ./cmd/atlas-lab depth-parity","warning":"integrated-trace-not-component-proof"}
+    {"id":"v2.surface-pattern-proof","query":"統合Trace成功と850 Surface/Pattern Proofの421 gapを確認したい","decision":"depth_parity","command":"go run ./cmd/atlas-lab depth-parity","warning":"integrated-trace-not-component-proof"},
+    {"id":"v2.evidence-dependency","query":"CodexとClaude Codeでstale、digest-only closure、再実行漏れの判定を揃えたい","decision":"evidence_dependency","status":"main-ci-confirmed","command":"go run ./cmd/atlas-lab evidence-dependency-matrix","warning":"consumer-independent-stale-closure"}
   ]
 }

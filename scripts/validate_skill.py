@@ -27,6 +27,8 @@ def main() -> int:
         index.get("depth_reference", {}).get("lock") == "depth/fe-depth-reference.lock.json",
         index.get("depth_reference", {}).get("scenario_contract") == "depth/fe-scenario-contract.lock.json",
         index.get("depth_reference", {}).get("command") == "go run ./cmd/atlas-lab depth-parity",
+        index.get("evidence_dependency", {}).get("core_lock") == "compatibility/evidence-dependency-core.lock.json",
+        index.get("evidence_dependency", {}).get("command") == "go run ./cmd/atlas-lab evidence-dependency-matrix",
     )
     if not all(required):
         raise SystemExit("Router Skillのfrontmatter、UI metadata、Reference Indexが不正です")
