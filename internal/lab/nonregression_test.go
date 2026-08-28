@@ -109,16 +109,23 @@ func TestScenarioSuccessCannotPromoteIncompleteSubjectDepth(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if result.EffectiveState != "incomplete" || result.DefinitiveEligible || result.DepthParityEligible || !result.IntegrationProofsValid || result.DepthReferenceStatus != "incomplete" {
+	if result.EffectiveState != "incomplete" || result.DefinitiveEligible || result.DepthParityEligible || !result.IntegrationProofsValid || result.DepthReferenceStatus != "incomplete" || result.IntegratedScenariosPassed != 10 || result.SurfacePatternRows != 850 || result.PatternSpecificRows != 429 || result.RuntimeIdentityRows != 170 || result.PatternSpecificCaptureRows != 259 || result.SurfacePatternGaps != 421 || result.AuthorityAtomicRows != 0 || result.SurfacePatternEligible != 0 {
 		t.Fatalf("Depth不足をScenario成功で昇格しました: %#v", result)
 	}
 	depthWarnings := 0
+	scenarioWarnings := map[string]bool{}
 	for _, warning := range result.Warnings {
 		if warning.Code == "subject-depth-parity-incomplete" {
 			depthWarnings++
 		}
+		if warning.Code == "surface-pattern-proof-gaps" || warning.Code == "integrated-trace-not-component-proof" {
+			scenarioWarnings[warning.Code] = true
+		}
 	}
 	if depthWarnings != 2 {
 		t.Fatalf("各構成SubjectのDepth不足が保持されていません: %#v", result.Warnings)
+	}
+	if !scenarioWarnings["surface-pattern-proof-gaps"] || !scenarioWarnings["integrated-trace-not-component-proof"] {
+		t.Fatalf("統合Traceを個別Proofへ流用しない境界がありません: %#v", result.Warnings)
 	}
 }

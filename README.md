@@ -71,4 +71,4 @@ Apache-2.0、NOTICE、第三者Manifest、SPDX SBOM、Core Lock、Fixture Releas
 
 すべてのInterop完成判定より先に、[Non-Regression Baseline](docs/NON_REGRESSION_BASELINE.md)を検証します。既存のScenario、Assertion、Component、Contract、Test、Integration Harness、Failure／Recovery Evidence、CIを削減して不足を隠す変更は、PublicationやDefinitive Gateへ到達する前に拒否されます。
 
-Core v2 Previewは、各構成Subjectの18軸Depth ParityとInterop固有Proofも分離して評価します。現在のFixtureはInterop 10軸のlocal／container ProofがpassでもSubject Depthが1 satisfied／17 partialのため`incomplete`です。
+Core v2 Previewは、各構成Subjectの18軸Depth Parity、Interop固有Proof、FEの統合Scenario、Surface/Pattern別Proofを分離して評価します。`frontend-behavior-atlas@deadad18b6588d2c907170a451c3b5cea5ea4192`では統合Scenarioは10/10 passですが、850 row中421 gap、Atomic Authority Binding 0、completion eligible 0です。統合Traceを各rowの専用Proofへ流用せず、Subject Depthが1 satisfied／17 partialであることと併せて`incomplete`を保持します。

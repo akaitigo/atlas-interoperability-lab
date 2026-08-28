@@ -8,14 +8,14 @@
       "composition": "compositions/fixture-stage2-v2-definitive.preview.json",
       "expected_state": "incomplete",
       "expected_definitive_eligible": false,
-      "expected_warnings": ["subject-depth-parity-incomplete", "integration-proof-cannot-promote-depth-gap", "state-downgraded", "core-v2-draft"]
+      "expected_warnings": ["subject-depth-parity-incomplete", "integration-proof-cannot-promote-depth-gap", "surface-pattern-proof-gaps", "integrated-trace-not-component-proof", "state-downgraded", "core-v2-draft"]
     },
     {
       "id": "bounded-excluded",
       "composition": "compositions/fixture-stage2-v2-bounded.preview.json",
       "expected_state": "incomplete",
       "expected_definitive_eligible": false,
-      "expected_warnings": ["bounded-scope-only", "coverage-excluded", "not-subject-definitive", "subject-depth-parity-incomplete", "integration-proof-cannot-promote-depth-gap", "core-v2-draft"]
+      "expected_warnings": ["bounded-scope-only", "coverage-excluded", "not-subject-definitive", "subject-depth-parity-incomplete", "integration-proof-cannot-promote-depth-gap", "surface-pattern-proof-gaps", "integrated-trace-not-component-proof", "core-v2-draft"]
     },
     {
       "id": "definitive-excluded-downgrade",
@@ -23,7 +23,7 @@
       "certificate_overrides": {"sink":{"version":"v2.0.0","certificate":"fixtures/definitive-v2/sink-excluded.json","certificate_digest":"sha256:e31ca10c9227590ba0fe27731250317bf65277aaad06d4e7e64293297038fba2"}},
       "expected_state": "incomplete",
       "expected_definitive_eligible": false,
-      "expected_warnings": ["coverage-excluded", "not-subject-definitive", "subject-depth-parity-incomplete", "integration-proof-cannot-promote-depth-gap", "state-downgraded", "core-v2-draft"]
+      "expected_warnings": ["coverage-excluded", "not-subject-definitive", "subject-depth-parity-incomplete", "integration-proof-cannot-promote-depth-gap", "surface-pattern-proof-gaps", "integrated-trace-not-component-proof", "state-downgraded", "core-v2-draft"]
     },
     {
       "id": "definitive-infeasible-downgrade",
@@ -31,7 +31,7 @@
       "certificate_overrides": {"sink":{"version":"v2.0.0","certificate":"fixtures/definitive-v2/sink-infeasible.json","certificate_digest":"sha256:40180de66efc20e840d18ec61656259bbd5e130fdf0df8a701a684aef8a8c6d3"}},
       "expected_state": "incomplete",
       "expected_definitive_eligible": false,
-      "expected_warnings": ["coverage-infeasible", "not-subject-definitive", "subject-depth-parity-incomplete", "integration-proof-cannot-promote-depth-gap", "state-downgraded", "core-v2-draft"]
+      "expected_warnings": ["coverage-infeasible", "not-subject-definitive", "subject-depth-parity-incomplete", "integration-proof-cannot-promote-depth-gap", "surface-pattern-proof-gaps", "integrated-trace-not-component-proof", "state-downgraded", "core-v2-draft"]
     },
     {
       "id": "definitive-partial-incomplete",
@@ -39,7 +39,7 @@
       "certificate_overrides": {"sink":{"version":"v2.0.0","certificate":"fixtures/definitive-v2/sink-partial.json","certificate_digest":"sha256:2498d09df2505673a8d3c50ca8d968313d131de88d000e871441e3bf7e7d9213"}},
       "expected_state": "incomplete",
       "expected_definitive_eligible": false,
-      "expected_warnings": ["coverage-partial", "not-subject-definitive", "subject-depth-parity-incomplete", "integration-proof-cannot-promote-depth-gap", "state-downgraded", "core-v2-draft"]
+      "expected_warnings": ["coverage-partial", "not-subject-definitive", "subject-depth-parity-incomplete", "integration-proof-cannot-promote-depth-gap", "surface-pattern-proof-gaps", "integrated-trace-not-component-proof", "state-downgraded", "core-v2-draft"]
     },
     {
       "id": "definitive-v1-only-downgrade",
@@ -50,7 +50,7 @@
       },
       "expected_state": "incomplete",
       "expected_definitive_eligible": false,
-      "expected_warnings": ["legacy-v1-certificate", "subject-depth-parity-incomplete", "integration-proof-cannot-promote-depth-gap", "state-downgraded", "core-v2-draft"]
+      "expected_warnings": ["legacy-v1-certificate", "subject-depth-parity-incomplete", "integration-proof-cannot-promote-depth-gap", "surface-pattern-proof-gaps", "integrated-trace-not-component-proof", "state-downgraded", "core-v2-draft"]
     },
     {
       "id": "definitive-mixed-certificate-version",
@@ -58,7 +58,7 @@
       "certificate_overrides": {"sink":{"version":"v1.0.0","certificate":"fixtures/subjects/fixture-http-sink/completion-certificate.json","certificate_digest":"sha256:847542e6254fc6551f57f13e2b88252d413f2e1a6ffe6ca1bf21cba3f58eee21"}},
       "expected_state": "incomplete",
       "expected_definitive_eligible": false,
-      "expected_warnings": ["legacy-v1-certificate", "mixed-certificate-versions", "mixed-subject-release-versions", "subject-depth-parity-incomplete", "integration-proof-cannot-promote-depth-gap", "state-downgraded", "core-v2-draft"]
+      "expected_warnings": ["legacy-v1-certificate", "mixed-certificate-versions", "mixed-subject-release-versions", "subject-depth-parity-incomplete", "integration-proof-cannot-promote-depth-gap", "surface-pattern-proof-gaps", "integrated-trace-not-component-proof", "state-downgraded", "core-v2-draft"]
     },
     {
       "id": "definitive-revoked-rejected",
@@ -66,7 +66,7 @@
       "certificate_overrides": {"sink":{"version":"v2.0.0","certificate":"fixtures/definitive-v2/sink-revoked.json","certificate_digest":"sha256:13810da1c48f29464579b9525f7ddd70a84b29a456a98250ac11eca4f50c0d0d"}},
       "expected_state": "incomplete",
       "expected_definitive_eligible": false,
-      "expected_warnings": ["certificate-revoked", "subject-depth-parity-incomplete", "integration-proof-cannot-promote-depth-gap", "state-downgraded", "core-v2-draft"]
+      "expected_warnings": ["certificate-revoked", "subject-depth-parity-incomplete", "integration-proof-cannot-promote-depth-gap", "surface-pattern-proof-gaps", "integrated-trace-not-component-proof", "state-downgraded", "core-v2-draft"]
     },
     {
       "id": "definitive-renewed-candidate",
@@ -74,7 +74,7 @@
       "certificate_overrides": {"sink":{"version":"v2.1.0","certificate":"fixtures/definitive-v2/sink-renewed.json","certificate_digest":"sha256:5ad9fd8a1d2dd929cddf70b1b71f6e4ac87ac6cfb71bbb04ee2ebafd3879b9e4"}},
       "expected_state": "incomplete",
       "expected_definitive_eligible": false,
-      "expected_warnings": ["certificate-renewed", "mixed-subject-release-versions", "subject-depth-parity-incomplete", "integration-proof-cannot-promote-depth-gap", "state-downgraded", "core-v2-draft"]
+      "expected_warnings": ["certificate-renewed", "mixed-subject-release-versions", "subject-depth-parity-incomplete", "integration-proof-cannot-promote-depth-gap", "surface-pattern-proof-gaps", "integrated-trace-not-component-proof", "state-downgraded", "core-v2-draft"]
     },
     {
       "id": "bounded-partial-incomplete",
@@ -82,7 +82,7 @@
       "certificate_overrides": {"sink":{"version":"v2.0.0","certificate":"fixtures/definitive-v2/sink-partial.json","certificate_digest":"sha256:2498d09df2505673a8d3c50ca8d968313d131de88d000e871441e3bf7e7d9213"}},
       "expected_state": "incomplete",
       "expected_definitive_eligible": false,
-      "expected_warnings": ["bounded-scope-only", "coverage-partial", "not-subject-definitive", "subject-depth-parity-incomplete", "integration-proof-cannot-promote-depth-gap", "core-v2-draft"]
+      "expected_warnings": ["bounded-scope-only", "coverage-partial", "not-subject-definitive", "subject-depth-parity-incomplete", "integration-proof-cannot-promote-depth-gap", "surface-pattern-proof-gaps", "integrated-trace-not-component-proof", "core-v2-draft"]
     }
   ]
 }

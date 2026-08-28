@@ -23,7 +23,7 @@ jobs:
       - name: Lock FE Depth Reference
         run: |
           git clone --no-checkout https://github.com/akaitigo/frontend-behavior-atlas.git ../frontend-behavior-atlas
-          git -C ../frontend-behavior-atlas checkout --detach 4a0b2df8e2091a963bd0e0e1bbccef9c84b49a45
+          git -C ../frontend-behavior-atlas checkout --detach deadad18b6588d2c907170a451c3b5cea5ea4192
       - name: Unit and contract tests
         run: |
           go test ./...

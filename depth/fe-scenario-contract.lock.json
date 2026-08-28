@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "id": "fe-scenario-contract-v1",
+  "repository": "frontend-behavior-atlas",
+  "commit": "deadad18b6588d2c907170a451c3b5cea5ea4192",
+  "license": "Apache-2.0",
+  "scenario_index": {
+    "path": "evidence/scenarios/index.json",
+    "digest": "sha256:c70eeb43b85c4b4f8e57abacd4459fe8b01fa407ce355311f335dd5654c0f669"
+  },
+  "integration_results": {
+    "path": "artifacts/reference-system/results.json",
+    "digest": "sha256:f16ea6113c829379e10b8def5baf4cf82ba6596ffa4146792315ed688da6985a"
+  },
+  "expected": {
+    "patterns": 85,
+    "scenarios": 10,
+    "rows": 850,
+    "dedicated_artifacts": 850,
+    "pattern_specific_rows": 429,
+    "pattern_specific_runtime_rows": 170,
+    "pattern_specific_capture_rows": 259,
+    "pattern_specific_gaps": 421,
+    "integrated_trace_rows": 850,
+    "authority_atomic_rows": 0,
+    "completion_eligible_rows": 0,
+    "integration_passed": 10
+  }
+}

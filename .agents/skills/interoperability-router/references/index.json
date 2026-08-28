@@ -24,6 +24,7 @@
   },
   "depth_reference": {
     "lock": "depth/fe-depth-reference.lock.json",
+    "scenario_contract": "depth/fe-scenario-contract.lock.json",
     "subject_depth_parity": "depth/fixture-subjects.depth-parity.preview.json",
     "integration_proofs": "depth/fixture-stage2.integration-proofs.preview.json",
     "command": "go run ./cmd/atlas-lab depth-parity"

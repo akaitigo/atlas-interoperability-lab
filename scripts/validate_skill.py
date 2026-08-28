@@ -25,6 +25,7 @@ def main() -> int:
         index.get("definitive_gate_v2", {}).get("legacy_v1_command") == "go run ./cmd/atlas-lab legacy-v1-check",
         index.get("non_regression", {}).get("command") == "go run ./cmd/atlas-lab non-regression-gate",
         index.get("depth_reference", {}).get("lock") == "depth/fe-depth-reference.lock.json",
+        index.get("depth_reference", {}).get("scenario_contract") == "depth/fe-scenario-contract.lock.json",
         index.get("depth_reference", {}).get("command") == "go run ./cmd/atlas-lab depth-parity",
     )
     if not all(required):

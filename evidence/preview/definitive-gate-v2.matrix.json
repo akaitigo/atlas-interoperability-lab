@@ -7,9 +7,11 @@
       "effective_state": "incomplete",
       "warnings": [
         "core-v2-draft",
+        "integrated-trace-not-component-proof",
         "integration-proof-cannot-promote-depth-gap",
         "state-downgraded",
-        "subject-depth-parity-incomplete"
+        "subject-depth-parity-incomplete",
+        "surface-pattern-proof-gaps"
       ],
       "verdict": "pass"
     },
@@ -20,9 +22,11 @@
         "bounded-scope-only",
         "core-v2-draft",
         "coverage-excluded",
+        "integrated-trace-not-component-proof",
         "integration-proof-cannot-promote-depth-gap",
         "not-subject-definitive",
-        "subject-depth-parity-incomplete"
+        "subject-depth-parity-incomplete",
+        "surface-pattern-proof-gaps"
       ],
       "verdict": "pass"
     },
@@ -32,10 +36,12 @@
       "warnings": [
         "core-v2-draft",
         "coverage-excluded",
+        "integrated-trace-not-component-proof",
         "integration-proof-cannot-promote-depth-gap",
         "not-subject-definitive",
         "state-downgraded",
-        "subject-depth-parity-incomplete"
+        "subject-depth-parity-incomplete",
+        "surface-pattern-proof-gaps"
       ],
       "verdict": "pass"
     },
@@ -45,10 +51,12 @@
       "warnings": [
         "core-v2-draft",
         "coverage-infeasible",
+        "integrated-trace-not-component-proof",
         "integration-proof-cannot-promote-depth-gap",
         "not-subject-definitive",
         "state-downgraded",
-        "subject-depth-parity-incomplete"
+        "subject-depth-parity-incomplete",
+        "surface-pattern-proof-gaps"
       ],
       "verdict": "pass"
     },
@@ -58,10 +66,12 @@
       "warnings": [
         "core-v2-draft",
         "coverage-partial",
+        "integrated-trace-not-component-proof",
         "integration-proof-cannot-promote-depth-gap",
         "not-subject-definitive",
         "state-downgraded",
-        "subject-depth-parity-incomplete"
+        "subject-depth-parity-incomplete",
+        "surface-pattern-proof-gaps"
       ],
       "verdict": "pass"
     },
@@ -70,10 +80,12 @@
       "effective_state": "incomplete",
       "warnings": [
         "core-v2-draft",
+        "integrated-trace-not-component-proof",
         "integration-proof-cannot-promote-depth-gap",
         "legacy-v1-certificate",
         "state-downgraded",
-        "subject-depth-parity-incomplete"
+        "subject-depth-parity-incomplete",
+        "surface-pattern-proof-gaps"
       ],
       "verdict": "pass"
     },
@@ -82,12 +94,14 @@
       "effective_state": "incomplete",
       "warnings": [
         "core-v2-draft",
+        "integrated-trace-not-component-proof",
         "integration-proof-cannot-promote-depth-gap",
         "legacy-v1-certificate",
         "mixed-certificate-versions",
         "mixed-subject-release-versions",
         "state-downgraded",
-        "subject-depth-parity-incomplete"
+        "subject-depth-parity-incomplete",
+        "surface-pattern-proof-gaps"
       ],
       "verdict": "pass"
     },
@@ -97,9 +111,11 @@
       "warnings": [
         "certificate-revoked",
         "core-v2-draft",
+        "integrated-trace-not-component-proof",
         "integration-proof-cannot-promote-depth-gap",
         "state-downgraded",
-        "subject-depth-parity-incomplete"
+        "subject-depth-parity-incomplete",
+        "surface-pattern-proof-gaps"
       ],
       "verdict": "pass"
     },
@@ -109,10 +125,12 @@
       "warnings": [
         "certificate-renewed",
         "core-v2-draft",
+        "integrated-trace-not-component-proof",
         "integration-proof-cannot-promote-depth-gap",
         "mixed-subject-release-versions",
         "state-downgraded",
-        "subject-depth-parity-incomplete"
+        "subject-depth-parity-incomplete",
+        "surface-pattern-proof-gaps"
       ],
       "verdict": "pass"
     },
@@ -123,9 +141,11 @@
         "bounded-scope-only",
         "core-v2-draft",
         "coverage-partial",
+        "integrated-trace-not-component-proof",
         "integration-proof-cannot-promote-depth-gap",
         "not-subject-definitive",
-        "subject-depth-parity-incomplete"
+        "subject-depth-parity-incomplete",
+        "surface-pattern-proof-gaps"
       ],
       "verdict": "pass"
     }

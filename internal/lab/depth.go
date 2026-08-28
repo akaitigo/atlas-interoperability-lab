@@ -7,8 +7,8 @@ import (
 	"path/filepath"
 )
 
-const feDepthReferenceCommit = "4a0b2df8e2091a963bd0e0e1bbccef9c84b49a45"
-const feDepthReferenceDigest = "sha256:2452696f9807b7d4a8ffb22b3ba37f079a25a34ac2370d78423445b96064582a"
+const feDepthReferenceCommit = "deadad18b6588d2c907170a451c3b5cea5ea4192"
+const feDepthReferenceDigest = "sha256:4f88b8bfd22a9b8262e4a1e8184e50cded0372dd82458fbbcc308b3647876d0d"
 
 type PreviewArtifactLock struct {
 	Path   string `json:"path"`
@@ -105,6 +105,24 @@ func evaluateCompositionDepth(root string, composition PreviewComposition, resul
 		return false, err
 	}
 	result.DepthReferenceStatus = reference.Status
+	scenarioStats, err := validateFEScenarioContract(root, composition.ScenarioContractLock)
+	if err != nil {
+		return false, err
+	}
+	result.IntegratedScenariosPassed = scenarioStats.IntegrationPassed
+	result.SurfacePatternRows = scenarioStats.Rows
+	result.PatternSpecificRows = scenarioStats.PatternSpecificRows
+	result.RuntimeIdentityRows = scenarioStats.PatternSpecificRuntimeRows
+	result.PatternSpecificCaptureRows = scenarioStats.PatternSpecificCaptureRows
+	result.SurfacePatternGaps = scenarioStats.PatternSpecificGaps
+	result.AuthorityAtomicRows = scenarioStats.AuthorityAtomicRows
+	result.SurfacePatternEligible = scenarioStats.CompletionEligibleRows
+	if scenarioStats.PatternSpecificGaps > 0 || scenarioStats.CompletionEligibleRows != scenarioStats.Rows {
+		addDefinitiveWarning(result, "surface-pattern-proof-gaps", "", fmt.Sprintf("Surface/Pattern %d row中gap=%d、completion eligible=%dです。", scenarioStats.Rows, scenarioStats.PatternSpecificGaps, scenarioStats.CompletionEligibleRows))
+	}
+	if scenarioStats.IntegrationPassed > 0 && scenarioStats.CompletionEligibleRows < scenarioStats.Rows {
+		addDefinitiveWarning(result, "integrated-trace-not-component-proof", "", "統合Scenario Traceは各Surface/Pattern rowの固有Evidence、Runtime Identity、Atomic Authority Bindingを代替しません。")
+	}
 	if err := validateIntegrationDepthProofs(root, composition, reference, composition.IntegrationProofs); err != nil {
 		return false, err
 	}
@@ -125,17 +143,24 @@ func ValidateDepthInheritance(root string) error {
 	if err != nil {
 		return err
 	}
-	if result.DepthReferenceStatus != "incomplete" || result.DepthParityEligible || !result.IntegrationProofsValid || result.DefinitiveEligible || result.EffectiveState != "incomplete" {
+	if result.DepthReferenceStatus != "incomplete" || result.DepthParityEligible || !result.IntegrationProofsValid || result.DefinitiveEligible || result.EffectiveState != "incomplete" || result.IntegratedScenariosPassed != 10 || result.SurfacePatternRows != 850 || result.PatternSpecificRows != 429 || result.RuntimeIdentityRows != 170 || result.PatternSpecificCaptureRows != 259 || result.SurfacePatternGaps != 421 || result.AuthorityAtomicRows != 0 || result.SurfacePatternEligible != 0 {
 		return fmt.Errorf("Subject Depth不足とInterop Proofの分離が保持されていません")
 	}
 	depthWarnings := 0
+	scenarioWarnings := map[string]bool{}
 	for _, warning := range result.Warnings {
 		if warning.Code == "subject-depth-parity-incomplete" {
 			depthWarnings++
 		}
+		if warning.Code == "surface-pattern-proof-gaps" || warning.Code == "integrated-trace-not-component-proof" {
+			scenarioWarnings[warning.Code] = true
+		}
 	}
 	if depthWarnings != 2 {
 		return fmt.Errorf("各構成SubjectのDepth不足が保持されていません")
+	}
+	if !scenarioWarnings["surface-pattern-proof-gaps"] || !scenarioWarnings["integrated-trace-not-component-proof"] {
+		return fmt.Errorf("統合Scenario成功とSurface/Pattern Proof不足の分離が保持されていません")
 	}
 	return nil
 }

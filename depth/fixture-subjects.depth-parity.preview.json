@@ -2,8 +2,8 @@
   "schema_version": 1,
   "id": "fixture-subjects-depth-parity-preview",
   "reference_id": "fe-depth-reference-v1",
-  "reference_commit": "4a0b2df8e2091a963bd0e0e1bbccef9c84b49a45",
-  "reference_digest": "sha256:2452696f9807b7d4a8ffb22b3ba37f079a25a34ac2370d78423445b96064582a",
+  "reference_commit": "deadad18b6588d2c907170a451c3b5cea5ea4192",
+  "reference_digest": "sha256:4f88b8bfd22a9b8262e4a1e8184e50cded0372dd82458fbbcc308b3647876d0d",
   "subjects": [
     {
       "subject_id": "fixture-http-source",

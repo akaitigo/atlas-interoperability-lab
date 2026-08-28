@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/akaitigo/atlas-interoperability-lab/schemas/fe-scenario-contract-lock.schema.json",
+  "title": "FE Scenario Contract Lock",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "id", "repository", "commit", "license", "scenario_index", "integration_results", "expected"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "id": {"const": "fe-scenario-contract-v1"},
+    "repository": {"const": "frontend-behavior-atlas"},
+    "commit": {"const": "deadad18b6588d2c907170a451c3b5cea5ea4192"},
+    "license": {"const": "Apache-2.0"},
+    "scenario_index": {"$ref": "#/$defs/scenario_index"},
+    "integration_results": {"$ref": "#/$defs/integration_results"},
+    "expected": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["patterns", "scenarios", "rows", "dedicated_artifacts", "pattern_specific_rows", "pattern_specific_runtime_rows", "pattern_specific_capture_rows", "pattern_specific_gaps", "integrated_trace_rows", "authority_atomic_rows", "completion_eligible_rows", "integration_passed"],
+      "properties": {
+        "patterns": {"const": 85},
+        "scenarios": {"const": 10},
+        "rows": {"const": 850},
+        "dedicated_artifacts": {"const": 850},
+        "pattern_specific_rows": {"const": 429},
+        "pattern_specific_runtime_rows": {"const": 170},
+        "pattern_specific_capture_rows": {"const": 259},
+        "pattern_specific_gaps": {"const": 421},
+        "integrated_trace_rows": {"const": 850},
+        "authority_atomic_rows": {"const": 0},
+        "completion_eligible_rows": {"const": 0},
+        "integration_passed": {"const": 10}
+      }
+    }
+  },
+  "$defs": {
+    "scenario_index": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "digest"],
+      "properties": {
+        "path": {"const": "evidence/scenarios/index.json"},
+        "digest": {"const": "sha256:c70eeb43b85c4b4f8e57abacd4459fe8b01fa407ce355311f335dd5654c0f669"}
+      }
+    },
+    "integration_results": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "digest"],
+      "properties": {
+        "path": {"const": "artifacts/reference-system/results.json"},
+        "digest": {"const": "sha256:f16ea6113c829379e10b8def5baf4cf82ba6596ffa4146792315ed688da6985a"}
+      }
+    }
+  }
+}

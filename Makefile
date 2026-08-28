@@ -1,7 +1,7 @@
 CORE_DIR ?= ../reference-atlas-core
 CORE_COMMIT := cf9e6e2d981305c83f970c1f21a1ddc9c1109263
 FE_DIR ?= ../frontend-behavior-atlas
-FE_DEPTH_COMMIT := 4a0b2df8e2091a963bd0e0e1bbccef9c84b49a45
+FE_DEPTH_COMMIT := deadad18b6588d2c907170a451c3b5cea5ea4192
 GO_CACHE_DIR := $(CURDIR)/.cache/go-build
 
 .PHONY: test depth-reference lab-validate graph-check evidence-local evidence-container evidence reproducibility skill-validate skill-eval skill-eval-v2 non-regression definitive-preview legacy-v1-check diagnose provenance publication certificate core-validate core-audit dco-check self-audit cleanup-check check

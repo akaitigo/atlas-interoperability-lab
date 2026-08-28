@@ -22,7 +22,7 @@ func TestV1MigrationIsNonDestructive(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if report.WritesPerformed || report.MigrationState != "requires-depth-parity-and-certificate-renewal" || report.RequiredDepthAxes != 18 || len(report.Subjects) != 2 {
+	if report.WritesPerformed || report.MigrationState != "requires-depth-parity-and-certificate-renewal" || report.RequiredDepthAxes != 18 || report.RequiredSurfacePatternRows != 850 || report.OpenSurfacePatternGaps != 421 || len(report.Subjects) != 2 || !contains(report.Warnings, "surface-pattern-proof-closure-required") {
 		t.Fatalf("unexpected migration report: %#v", report)
 	}
 }

@@ -82,6 +82,15 @@
       },
       "id": "v2.depth-parity",
       "result": "pass"
+    },
+    {
+      "checks": {
+        "command": true,
+        "decision": true,
+        "warning": true
+      },
+      "id": "v2.surface-pattern-proof",
+      "result": "pass"
     }
   ],
   "core_v2_status": "draft",

@@ -9,7 +9,23 @@
   "depth_reference_status": "incomplete",
   "depth_parity_eligible": false,
   "integration_proofs_valid": true,
+  "integrated_scenarios_passed": 10,
+  "surface_pattern_rows": 850,
+  "pattern_specific_rows": 429,
+  "runtime_identity_rows": 170,
+  "pattern_specific_capture_rows": 259,
+  "surface_pattern_gaps": 421,
+  "authority_atomic_rows": 0,
+  "surface_pattern_eligible": 0,
   "warnings": [
+    {
+      "code": "surface-pattern-proof-gaps",
+      "message": "Surface/Pattern 850 row中gap=421、completion eligible=0です。"
+    },
+    {
+      "code": "integrated-trace-not-component-proof",
+      "message": "統合Scenario Traceは各Surface/Pattern rowの固有Evidence、Runtime Identity、Atomic Authority Bindingを代替しません。"
+    },
     {
       "code": "subject-depth-parity-incomplete",
       "subject": "source",
