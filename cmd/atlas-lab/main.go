@@ -104,13 +104,62 @@ func main() {
 		if report.Verdict != "pass" {
 			os.Exit(1)
 		}
+	case "definitive-gate":
+		fs := flag.NewFlagSet("definitive-gate", flag.ExitOnError)
+		composition := fs.String("composition", "compositions/fixture-stage2-v2-definitive.preview.json", "")
+		asOf := fs.String("as-of", "2026-08-28T12:00:00Z", "")
+		_ = fs.Parse(os.Args[2:])
+		report, err := lab.EvaluateDefinitiveComposition(root, *composition, *asOf)
+		if err != nil {
+			fatal(err)
+		}
+		printJSON(report)
+	case "definitive-matrix":
+		fs := flag.NewFlagSet("definitive-matrix", flag.ExitOnError)
+		matrix := fs.String("matrix", "tests/fixtures/definitive-gate-v2.matrix.json", "")
+		_ = fs.Parse(os.Args[2:])
+		report, err := lab.RunDefinitiveMatrix(root, *matrix)
+		if writeErr := lab.WriteJSON(filepath.Join(root, "evidence", "preview", "definitive-gate-v2.matrix.json"), report); writeErr != nil {
+			fatal(writeErr)
+		}
+		if err != nil {
+			printJSON(report)
+			fatal(err)
+		}
+		printJSON(report)
+	case "definitive-migrate":
+		fs := flag.NewFlagSet("definitive-migrate", flag.ExitOnError)
+		composition := fs.String("composition", "compositions/fixture-stage2.json", "")
+		_ = fs.Parse(os.Args[2:])
+		report, err := lab.PlanV2Migration(root, *composition)
+		if err != nil {
+			fatal(err)
+		}
+		if err := lab.WriteJSON(filepath.Join(root, "evidence", "preview", "definitive-gate-v2.migration.json"), report); err != nil {
+			fatal(err)
+		}
+		printJSON(report)
+	case "definitive-preview-audit":
+		report := lab.AuditDefinitivePreview(root)
+		if err := lab.WriteJSON(filepath.Join(root, "evidence", "preview", "definitive-gate-v2.audit.json"), report); err != nil {
+			fatal(err)
+		}
+		printJSON(report)
+		if report.Verdict != "pass" {
+			os.Exit(1)
+		}
+	case "legacy-v1-check":
+		if err := lab.ValidateLegacyV1Bundle(root); err != nil {
+			fatal(err)
+		}
+		printJSON(map[string]any{"schema_version": 1, "bundle": "fixture-http-stage2-v1", "core_policy_version": "1.0.0", "verdict": "pass"})
 	default:
 		usage()
 		os.Exit(2)
 	}
 }
 func usage() {
-	fmt.Fprintln(os.Stderr, "usage: atlas-lab <validate|preflight|run|reproducibility|provenance|publication-gate|certificate|certificate-check|diagnose|self-audit>")
+	fmt.Fprintln(os.Stderr, "usage: atlas-lab <validate|preflight|run|reproducibility|provenance|publication-gate|certificate|certificate-check|diagnose|self-audit|definitive-gate|definitive-matrix|definitive-migrate|definitive-preview-audit|legacy-v1-check>")
 }
 func fatal(err error) { fmt.Fprintln(os.Stderr, "ERROR:", err); os.Exit(1) }
 

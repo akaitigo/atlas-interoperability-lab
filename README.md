@@ -64,3 +64,7 @@ Apache-2.0、NOTICE、第三者Manifest、SPDX SBOM、Core Lock、Fixture Releas
 `self-audit`はRepository契約、Publication Gate、Core Completion Certificate、Core Audit、全CommitのDCO、Clean Worktreeを機械可読JSONで一括判定します。GitHub Remoteや公開可否はこのローカル完成判定とは分離します。
 
 詳細は[Architecture](docs/ARCHITECTURE.md)、[Machine-readable Contract](docs/CONTRACT.md)、[Runbook](operations/RUNBOOK.md)を参照してください。
+
+## Definitive Gate v2 Preview
+
+`feature/definitive-gate-v2`では、Core v2未確定中の準備として`bounded-complete`と`subject-definitive`を分離しています。全v2構成も`definitive-candidate`止まりで、`excluded`、`infeasible`、`partial`、v1-only、混在Certificate、失効を含む場合は必ず降格または拒否します。旧v1 Bundleは固定Core v1 Commitで引き続き検証できます。契約と移行条件は[Core Definitive Gate v2 Preview](docs/DEFINITIVE_GATE_V2_PREVIEW.md)を参照してください。

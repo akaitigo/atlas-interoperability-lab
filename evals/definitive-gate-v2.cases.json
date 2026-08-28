@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "minimum_pass_rate": 1.0,
+  "cases": [
+    {"id":"v2.definitive","query":"Core v2のSubject Definitive completeを確認したい","decision":"definitive_preview","status":"draft","warning":"core-v2-draft"},
+    {"id":"v2.bounded","query":"bounded/epoch-complete構成を確認したい","decision":"bounded_preview","status":"draft","warning":"core-v2-draft"},
+    {"id":"v2.excluded","query":"excludedを含むDefinitive構成の降格を確認したい","decision":"definitive_preview","command":"go run ./cmd/atlas-lab definitive-matrix"},
+    {"id":"v2.mixed","query":"v1/v2 Certificate混在Versionを確認したい","decision":"definitive_preview","command":"go run ./cmd/atlas-lab definitive-matrix"},
+    {"id":"v2.revoked","query":"失効CertificateのRouter挙動を確認したい","decision":"definitive_preview","command":"go run ./cmd/atlas-lab definitive-matrix"},
+    {"id":"v2.renewed","query":"失効後のCertificate更新を確認したい","decision":"definitive_preview","command":"go run ./cmd/atlas-lab definitive-matrix"},
+    {"id":"v2.migration","query":"旧Compositionからv2へ非破壊移行したい","decision":"migration_preview","warning":"no-definitive-promotion"},
+    {"id":"v2.legacy","query":"旧v1 Bundleを検証したい","decision":"legacy_v1","status":"verifiable"}
+  ]
+}

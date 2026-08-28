@@ -17,5 +17,16 @@
   "claim_evidence_graph": "graphs/fixture-stage2.claim-evidence.json",
   "diagnostics": {"local":"go run ./cmd/atlas-lab diagnose --profile local","container":"go run ./cmd/atlas-lab diagnose --profile container"},
   "self_audit_command": "go run ./cmd/atlas-lab self-audit",
+  "definitive_gate_v2": {
+    "status": "draft",
+    "bounded_composition": "compositions/fixture-stage2-v2-bounded.preview.json",
+    "definitive_composition": "compositions/fixture-stage2-v2-definitive.preview.json",
+    "matrix": "tests/fixtures/definitive-gate-v2.matrix.json",
+    "bounded_command": "go run ./cmd/atlas-lab definitive-gate --composition compositions/fixture-stage2-v2-bounded.preview.json",
+    "definitive_command": "go run ./cmd/atlas-lab definitive-gate --composition compositions/fixture-stage2-v2-definitive.preview.json",
+    "matrix_command": "go run ./cmd/atlas-lab definitive-matrix",
+    "migration_command": "go run ./cmd/atlas-lab definitive-migrate",
+    "legacy_v1_command": "go run ./cmd/atlas-lab legacy-v1-check"
+  },
   "rejections": {"incomplete_subject":"tests/fixtures/composition-incomplete.json","coverage_gap":"atlas/exclusions/exclusions.json"}
 }

@@ -26,6 +26,11 @@ jobs:
           go run ./cmd/atlas-lab validate
           python3 scripts/validate_skill.py
           python3 evals/run.py
+          python3 evals/run_definitive_v2.py
+          go run ./cmd/atlas-lab definitive-matrix
+          go run ./cmd/atlas-lab definitive-migrate
+          go run ./cmd/atlas-lab legacy-v1-check
+          go run ./cmd/atlas-lab definitive-preview-audit
           git log --format='%H%x00%B%x00' | python3 ../reference-atlas-core/scripts/check_dco.py
       - name: Local E2E
         run: go run ./cmd/atlas-lab reproducibility --profile local

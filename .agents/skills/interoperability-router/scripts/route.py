@@ -10,6 +10,21 @@ def route(query: str) -> dict:
     normalized = query.casefold()
     if "未完成" in normalized or "incomplete" in normalized:
         return {"decision":"reject","reason":"incomplete_subject","path":index["rejections"]["incomplete_subject"]}
+    preview = index["definitive_gate_v2"]
+    if "旧v1" in normalized or "legacy v1" in normalized or "v1 bundle" in normalized:
+        return {"decision":"legacy_v1","status":"verifiable","command":preview["legacy_v1_command"]}
+    if "移行" in normalized or "migration" in normalized:
+        return {"decision":"migration_preview","status":preview["status"],"command":preview["migration_command"],"warning":"no-definitive-promotion"}
+    if any(keyword in normalized for keyword in ("definitive", "決定版", "bounded", "epoch-complete", "v2", "excluded", "infeasible", "partial", "混在", "失効", "更新")):
+        bounded = "bounded" in normalized or "epoch-complete" in normalized
+        matrix = any(keyword in normalized for keyword in ("excluded", "infeasible", "partial", "混在", "失効", "更新"))
+        return {
+            "decision":"bounded_preview" if bounded else "definitive_preview",
+            "status":preview["status"],
+            "composition":preview["bounded_composition"] if bounded else preview["definitive_composition"],
+            "command":preview["matrix_command"] if matrix else (preview["bounded_command"] if bounded else preview["definitive_command"]),
+            "warning":"core-v2-draft"
+        }
     matches = []
     for item in index["routes"]:
         if any(keyword.casefold() in normalized for keyword in item["keywords"]):

@@ -21,6 +21,8 @@ def main() -> int:
         index.get("claim_evidence_graph") == "graphs/fixture-stage2.claim-evidence.json",
         set(index.get("diagnostics", {})) == {"local", "container"},
         index.get("self_audit_command") == "go run ./cmd/atlas-lab self-audit",
+        index.get("definitive_gate_v2", {}).get("status") == "draft",
+        index.get("definitive_gate_v2", {}).get("legacy_v1_command") == "go run ./cmd/atlas-lab legacy-v1-check",
     )
     if not all(required):
         raise SystemExit("Router Skillのfrontmatter、UI metadata、Reference Indexが不正です")

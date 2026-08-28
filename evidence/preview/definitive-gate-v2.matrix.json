@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "core_v2_status": "draft",
+  "cases": [
+    {
+      "id": "definitive-all-v2",
+      "effective_state": "definitive-candidate",
+      "warnings": [
+        "core-v2-draft"
+      ],
+      "verdict": "pass"
+    },
+    {
+      "id": "bounded-excluded",
+      "effective_state": "bounded-complete",
+      "warnings": [
+        "bounded-scope-only",
+        "core-v2-draft",
+        "coverage-excluded",
+        "not-subject-definitive"
+      ],
+      "verdict": "pass"
+    },
+    {
+      "id": "definitive-excluded-downgrade",
+      "effective_state": "bounded-complete",
+      "warnings": [
+        "core-v2-draft",
+        "coverage-excluded",
+        "not-subject-definitive",
+        "state-downgraded"
+      ],
+      "verdict": "pass"
+    },
+    {
+      "id": "definitive-infeasible-downgrade",
+      "effective_state": "bounded-complete",
+      "warnings": [
+        "core-v2-draft",
+        "coverage-infeasible",
+        "not-subject-definitive",
+        "state-downgraded"
+      ],
+      "verdict": "pass"
+    },
+    {
+      "id": "definitive-partial-incomplete",
+      "effective_state": "incomplete",
+      "warnings": [
+        "core-v2-draft",
+        "coverage-partial",
+        "not-subject-definitive",
+        "state-downgraded"
+      ],
+      "verdict": "pass"
+    },
+    {
+      "id": "definitive-v1-only-downgrade",
+      "effective_state": "bounded-complete",
+      "warnings": [
+        "core-v2-draft",
+        "legacy-v1-certificate",
+        "state-downgraded"
+      ],
+      "verdict": "pass"
+    },
+    {
+      "id": "definitive-mixed-certificate-version",
+      "effective_state": "bounded-complete",
+      "warnings": [
+        "core-v2-draft",
+        "legacy-v1-certificate",
+        "mixed-certificate-versions",
+        "mixed-subject-release-versions",
+        "state-downgraded"
+      ],
+      "verdict": "pass"
+    },
+    {
+      "id": "definitive-revoked-rejected",
+      "effective_state": "incomplete",
+      "warnings": [
+        "certificate-revoked",
+        "core-v2-draft",
+        "state-downgraded"
+      ],
+      "verdict": "pass"
+    },
+    {
+      "id": "definitive-renewed-candidate",
+      "effective_state": "definitive-candidate",
+      "warnings": [
+        "certificate-renewed",
+        "core-v2-draft",
+        "mixed-subject-release-versions"
+      ],
+      "verdict": "pass"
+    },
+    {
+      "id": "bounded-partial-incomplete",
+      "effective_state": "incomplete",
+      "warnings": [
+        "bounded-scope-only",
+        "core-v2-draft",
+        "coverage-partial",
+        "not-subject-definitive"
+      ],
+      "verdict": "pass"
+    }
+  ],
+  "verdict": "pass"
+}

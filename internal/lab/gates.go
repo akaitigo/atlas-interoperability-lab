@@ -96,14 +96,15 @@ func verifyCoreLock(root string) error {
 		return err
 	}
 	core := filepath.Join(root, "..", composition.CoreContract.Repository)
-	cmd := exec.Command("git", "-C", core, "rev-parse", "main")
-	output, err := cmd.Output()
-	if err != nil {
-		return fmt.Errorf("Core mainを検証できません: %w", err)
+	if err := verifyPinnedCoreCommit(root, composition.CoreContract.Repository, composition.CoreContract.Commit); err != nil {
+		return err
 	}
-	actual := strings.TrimSpace(string(output))
-	if actual != composition.CoreContract.Commit {
-		return fmt.Errorf("Core Lock不一致: expected=%s actual=%s", composition.CoreContract.Commit, actual)
+	output, err := exec.Command("git", "-C", core, "show", composition.CoreContract.Commit+":VERSION").Output()
+	if err != nil {
+		return fmt.Errorf("固定Core VERSIONを検証できません: %w", err)
+	}
+	if strings.TrimSpace(string(output)) != composition.CoreContract.PolicyVersion {
+		return fmt.Errorf("固定Core Policy Version不一致: expected=%s actual=%s", composition.CoreContract.PolicyVersion, strings.TrimSpace(string(output)))
 	}
 	return nil
 }
@@ -216,10 +217,7 @@ func GenerateCertificate(root string) error {
 		return fmt.Errorf("Certificate生成前にSource Commitが必要です: %w", err)
 	}
 	commit := strings.TrimSpace(string(commitOutput))
-	core := filepath.Join(root, "..", "reference-atlas-core")
-	cmd := exec.Command("go", "-C", core, "run", "./cmd/atlas", "certificate", "generate", root, "--issued-at", time.Now().UTC().Format(time.RFC3339), "--commit", commit)
-	cmd.Env = append(os.Environ(), "GOCACHE="+filepath.Join(root, ".cache", "go-build"))
-	output, err := cmd.CombinedOutput()
+	output, err := runPinnedV1Core(root, "certificate", "generate", root, "--issued-at", time.Now().UTC().Format(time.RFC3339), "--commit", commit)
 	if err != nil {
 		return fmt.Errorf("Core Certificate生成失敗: %w: %s", err, output)
 	}
@@ -227,10 +225,7 @@ func GenerateCertificate(root string) error {
 }
 
 func ValidateCertificate(root string) error {
-	core := filepath.Join(root, "..", "reference-atlas-core")
-	cmd := exec.Command("go", "-C", core, "run", "./cmd/atlas", "certificate", "verify", root)
-	cmd.Env = append(os.Environ(), "GOCACHE="+filepath.Join(root, ".cache", "go-build"))
-	output, err := cmd.CombinedOutput()
+	output, err := runPinnedV1Core(root, "certificate", "verify", root)
 	if err != nil {
 		return fmt.Errorf("Core Certificate検証失敗: %w: %s", err, output)
 	}

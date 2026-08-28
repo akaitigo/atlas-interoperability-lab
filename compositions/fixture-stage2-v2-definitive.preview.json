@@ -1,0 +1,29 @@
+{
+  "schema_version": 2,
+  "id": "fixture-http-stage2-v2-definitive-preview",
+  "stage": 2,
+  "core_contract": {
+    "repository": "reference-atlas-core",
+    "base_commit": "b32f6afe888e2e07eef0e2e016f6f7d139582159",
+    "policy_version": "2.0.0-draft.1",
+    "status": "draft"
+  },
+  "completion_mode": "subject-definitive",
+  "coverage_epoch": "2026-08-28",
+  "subjects": [
+    {
+      "name": "source",
+      "subject_id": "fixture-http-source",
+      "version": "v2.0.0",
+      "certificate": "fixtures/definitive-v2/source-definitive.json",
+      "certificate_digest": "sha256:42d231ab681dbf56801f546f18a0c47fa799e8f65e4b0fc28df7bcae55991525"
+    },
+    {
+      "name": "sink",
+      "subject_id": "fixture-http-sink",
+      "version": "v2.0.0",
+      "certificate": "fixtures/definitive-v2/sink-definitive.json",
+      "certificate_digest": "sha256:089ed89f3efee66d8bcf1be0d632290ec5b1bcbdbde347bab408728c3c7076b9"
+    }
+  ]
+}

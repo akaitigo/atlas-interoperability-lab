@@ -17,3 +17,7 @@ SubjectのSourceを取り込んで補修しません。新しい完成Releaseと
 ## 未完成Subject
 
 Preflightの拒否が正しい結果です。Completion Gateを迂回したりFixture Certificateを書き換えたりせず、Subject Atlasの完成を待ちます。
+
+## Definitive Gate v2 Preview
+
+`make definitive-preview`でMatrix、Router Eval、非破壊Migration、旧v1 Bundleを検証します。`core-v2-draft`が返る間はmainへMergeせず、CertificateをDefinitive completeとして公開しません。失効Certificateは再有効化せず、新Certificateから失効Digestを`supersedes_digest`で参照します。

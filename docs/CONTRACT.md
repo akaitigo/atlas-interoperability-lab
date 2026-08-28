@@ -14,3 +14,5 @@
 PathはRepository Root相対です。Digestは`sha256:<64 lowercase hex>`、VersionはSemVerの`vMAJOR.MINOR.PATCH`です。Release Manifest自体とCompletion Certificateの両方をCompositionからDigest固定するため、内容の差替えはPreflightで拒否されます。
 
 `diagnose`と`self-audit`は`schema_version`、`verdict`、機械識別用の英語Code／Check名、日本語Detailを持つJSONを標準出力へ返します。診断出力に秘密値やRequest Payloadを含めません。
+
+v2準備契約は`composition-v2-preview.schema.json`と`subject-certificate-v2-preview.schema.json`へ分離します。`status: draft`と`2.0.0-draft.1`を必須にし、Core v2確定前の`definitive-complete`生成を構造的に禁止します。v1正本SchemaとCertificateは変更しません。

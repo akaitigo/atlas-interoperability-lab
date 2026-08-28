@@ -1,0 +1,75 @@
+{
+  "cases": [
+    {
+      "checks": {
+        "decision": true,
+        "status": true,
+        "warning": true
+      },
+      "id": "v2.definitive",
+      "result": "pass"
+    },
+    {
+      "checks": {
+        "decision": true,
+        "status": true,
+        "warning": true
+      },
+      "id": "v2.bounded",
+      "result": "pass"
+    },
+    {
+      "checks": {
+        "command": true,
+        "decision": true
+      },
+      "id": "v2.excluded",
+      "result": "pass"
+    },
+    {
+      "checks": {
+        "command": true,
+        "decision": true
+      },
+      "id": "v2.mixed",
+      "result": "pass"
+    },
+    {
+      "checks": {
+        "command": true,
+        "decision": true
+      },
+      "id": "v2.revoked",
+      "result": "pass"
+    },
+    {
+      "checks": {
+        "command": true,
+        "decision": true
+      },
+      "id": "v2.renewed",
+      "result": "pass"
+    },
+    {
+      "checks": {
+        "decision": true,
+        "warning": true
+      },
+      "id": "v2.migration",
+      "result": "pass"
+    },
+    {
+      "checks": {
+        "decision": true,
+        "status": true
+      },
+      "id": "v2.legacy",
+      "result": "pass"
+    }
+  ],
+  "core_v2_status": "draft",
+  "id": "interoperability-router-definitive-v2-preview",
+  "pass_rate": 1.0,
+  "schema_version": 1,
+  "verdict": "pass"
+}

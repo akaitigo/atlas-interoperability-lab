@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "source_composition_id": "fixture-http-stage2-v1",
+  "source_digest": "sha256:f562551e4081576ed603010e77f025d1a78b91feefde57647c48c300259293ce",
+  "target_policy": "2.0.0-draft.1",
+  "core_v2_status": "draft",
+  "migration_state": "requires-certificate-renewal",
+  "writes_performed": false,
+  "subjects": [
+    {
+      "name": "source",
+      "subject_id": "fixture-http-source",
+      "current_certificate_schema": 1,
+      "action": "issue-v2-subject-certificate"
+    },
+    {
+      "name": "sink",
+      "subject_id": "fixture-http-sink",
+      "current_certificate_schema": 1,
+      "action": "issue-v2-subject-certificate"
+    }
+  ],
+  "warnings": [
+    "legacy-bundle-remains-verifiable",
+    "core-v2-draft",
+    "no-definitive-promotion"
+  ]
+}

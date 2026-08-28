@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "audit": "definitive-gate-v2-preview",
+  "checks": [
+    {
+      "name": "feature-branch",
+      "verdict": "pass",
+      "detail": "検証済み"
+    },
+    {
+      "name": "fixture-matrix",
+      "verdict": "pass",
+      "detail": "検証済み"
+    },
+    {
+      "name": "non-destructive-migration",
+      "verdict": "pass",
+      "detail": "検証済み"
+    },
+    {
+      "name": "legacy-v1-bundle",
+      "verdict": "pass",
+      "detail": "検証済み"
+    },
+    {
+      "name": "router-eval",
+      "verdict": "pass",
+      "detail": "検証済み"
+    },
+    {
+      "name": "core-v2-draft-lock",
+      "verdict": "pass",
+      "detail": "検証済み"
+    }
+  ],
+  "verdict": "pass"
+}
