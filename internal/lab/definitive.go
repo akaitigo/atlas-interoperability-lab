@@ -13,13 +13,16 @@ import (
 )
 
 type PreviewComposition struct {
-	SchemaVersion  int                 `json:"schema_version"`
-	ID             string              `json:"id"`
-	Stage          int                 `json:"stage"`
-	CoreContract   PreviewCoreContract `json:"core_contract"`
-	CompletionMode string              `json:"completion_mode"`
-	CoverageEpoch  string              `json:"coverage_epoch"`
-	Subjects       []PreviewSubjectRef `json:"subjects"`
+	SchemaVersion      int                 `json:"schema_version"`
+	ID                 string              `json:"id"`
+	Stage              int                 `json:"stage"`
+	CoreContract       PreviewCoreContract `json:"core_contract"`
+	CompletionMode     string              `json:"completion_mode"`
+	CoverageEpoch      string              `json:"coverage_epoch"`
+	DepthReferenceLock PreviewArtifactLock `json:"depth_reference_lock"`
+	SubjectDepthParity PreviewArtifactLock `json:"subject_depth_parity"`
+	IntegrationProofs  PreviewArtifactLock `json:"integration_proofs"`
+	Subjects           []PreviewSubjectRef `json:"subjects"`
 }
 
 type PreviewCoreContract struct {
@@ -65,14 +68,17 @@ type DefinitiveWarning struct {
 }
 
 type DefinitiveGateResult struct {
-	SchemaVersion         int                 `json:"schema_version"`
-	CompositionID         string              `json:"composition_id"`
-	RequestedMode         string              `json:"requested_mode"`
-	CoreV2Status          string              `json:"core_v2_status"`
-	EffectiveState        string              `json:"effective_state"`
-	DefinitiveEligible    bool                `json:"definitive_eligible"`
-	LegacyBundlePreserved bool                `json:"legacy_bundle_preserved"`
-	Warnings              []DefinitiveWarning `json:"warnings"`
+	SchemaVersion          int                 `json:"schema_version"`
+	CompositionID          string              `json:"composition_id"`
+	RequestedMode          string              `json:"requested_mode"`
+	CoreV2Status           string              `json:"core_v2_status"`
+	EffectiveState         string              `json:"effective_state"`
+	DefinitiveEligible     bool                `json:"definitive_eligible"`
+	LegacyBundlePreserved  bool                `json:"legacy_bundle_preserved"`
+	DepthReferenceStatus   string              `json:"depth_reference_status"`
+	DepthParityEligible    bool                `json:"depth_parity_eligible"`
+	IntegrationProofsValid bool                `json:"integration_proofs_valid"`
+	Warnings               []DefinitiveWarning `json:"warnings"`
 }
 
 type CertificateOverride struct {
@@ -148,7 +154,14 @@ func evaluateDefinitiveComposition(root, compositionPath, asOf string, overrides
 		LegacyBundlePreserved: true,
 		Warnings:              []DefinitiveWarning{},
 	}
-	epochComplete := true
+	depthComplete, err := evaluateCompositionDepth(root, composition, &result)
+	if err != nil {
+		return DefinitiveGateResult{}, err
+	}
+	if !depthComplete {
+		result.DefinitiveEligible = false
+	}
+	epochComplete := depthComplete
 	schemaVersions := map[int]bool{}
 	releaseVersions := map[string]bool{}
 	seenSubjects := map[string]bool{}
@@ -394,15 +407,17 @@ func RunDefinitiveMatrix(root, matrixPath string) (DefinitiveMatrixResult, error
 }
 
 type V2MigrationReport struct {
-	SchemaVersion       int                  `json:"schema_version"`
-	SourceCompositionID string               `json:"source_composition_id"`
-	SourceDigest        string               `json:"source_digest"`
-	TargetPolicy        string               `json:"target_policy"`
-	CoreV2Status        string               `json:"core_v2_status"`
-	MigrationState      string               `json:"migration_state"`
-	WritesPerformed     bool                 `json:"writes_performed"`
-	Subjects            []V2MigrationSubject `json:"subjects"`
-	Warnings            []string             `json:"warnings"`
+	SchemaVersion        int                  `json:"schema_version"`
+	SourceCompositionID  string               `json:"source_composition_id"`
+	SourceDigest         string               `json:"source_digest"`
+	TargetPolicy         string               `json:"target_policy"`
+	CoreV2Status         string               `json:"core_v2_status"`
+	MigrationState       string               `json:"migration_state"`
+	WritesPerformed      bool                 `json:"writes_performed"`
+	DepthReferenceCommit string               `json:"depth_reference_commit"`
+	RequiredDepthAxes    int                  `json:"required_depth_axes"`
+	Subjects             []V2MigrationSubject `json:"subjects"`
+	Warnings             []string             `json:"warnings"`
 }
 
 type V2MigrationSubject struct {
@@ -416,23 +431,28 @@ func PlanV2Migration(root, compositionPath string) (V2MigrationReport, error) {
 	if _, err := NonRegressionGate(root); err != nil {
 		return V2MigrationReport{}, err
 	}
+	if err := ValidateDepthInheritance(root); err != nil {
+		return V2MigrationReport{}, err
+	}
 	validated, err := Preflight(root, compositionPath, "")
 	if err != nil {
 		return V2MigrationReport{}, err
 	}
 	report := V2MigrationReport{
-		SchemaVersion:       1,
-		SourceCompositionID: validated.Manifest.ID,
-		SourceDigest:        validated.Digest,
-		TargetPolicy:        "2.0.0-draft.1",
-		CoreV2Status:        "draft",
-		MigrationState:      "requires-certificate-renewal",
-		WritesPerformed:     false,
-		Subjects:            []V2MigrationSubject{},
-		Warnings:            []string{"legacy-bundle-remains-verifiable", "core-v2-draft", "no-definitive-promotion"},
+		SchemaVersion:        1,
+		SourceCompositionID:  validated.Manifest.ID,
+		SourceDigest:         validated.Digest,
+		TargetPolicy:         "2.0.0-draft.1",
+		CoreV2Status:         "draft",
+		MigrationState:       "requires-depth-parity-and-certificate-renewal",
+		WritesPerformed:      false,
+		DepthReferenceCommit: feDepthReferenceCommit,
+		RequiredDepthAxes:    18,
+		Subjects:             []V2MigrationSubject{},
+		Warnings:             []string{"legacy-bundle-remains-verifiable", "core-v2-draft", "no-definitive-promotion", "subject-depth-parity-required", "integration-proof-not-substitute"},
 	}
 	for _, subject := range validated.Manifest.Subjects {
-		report.Subjects = append(report.Subjects, V2MigrationSubject{Name: subject.Name, SubjectID: subject.SubjectID, CurrentSchema: 1, Action: "issue-v2-subject-certificate"})
+		report.Subjects = append(report.Subjects, V2MigrationSubject{Name: subject.Name, SubjectID: subject.SubjectID, CurrentSchema: 1, Action: "complete-18-axis-depth-parity-and-issue-v2-subject-certificate"})
 	}
 	return report, nil
 }
@@ -474,6 +494,13 @@ func AuditDefinitivePreview(root string) DefinitivePreviewAudit {
 	_, nonRegressionErr := NonRegressionGate(root)
 	report.add("interop-non-regression", nonRegressionErr)
 	report.add("neutral-language", ValidateNeutralLanguage(root))
+	report.add("subject-depth-parity-inheritance", ValidateDepthInheritance(root))
+	var depthResult DefinitiveGateResult
+	depthEvidenceErr := LoadJSON(filepath.Join(root, "evidence", "preview", "depth-parity.result.json"), &depthResult)
+	if depthEvidenceErr == nil && (depthResult.EffectiveState != "incomplete" || depthResult.DefinitiveEligible || depthResult.DepthParityEligible || !depthResult.IntegrationProofsValid || depthResult.DepthReferenceStatus != "incomplete") {
+		depthEvidenceErr = fmt.Errorf("Depth Parity Preview Evidenceが不足継承を記録していません")
+	}
+	report.add("depth-parity-evidence", depthEvidenceErr)
 	return report
 }
 

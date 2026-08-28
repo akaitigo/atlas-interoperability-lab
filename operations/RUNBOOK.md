@@ -25,3 +25,5 @@ Preflightの拒否が正しい結果です。Completion Gateを迂回したりFi
 ## Non-Regression拒否
 
 最初に`make non-regression`を実行します。拒否された変更をskip、optional化、Scope変更、mock化、Evidence削除で迂回してはいけません。正当な置換は旧ID Mapping、新Composition参照、local/container相当の2件以上の統合Proof、Migration Evidenceを同じ変更へ含めます。
+
+Depth診断では`go run ./cmd/atlas-lab depth-parity`の`depth_reference_status`、`depth_parity_eligible`、`integration_proofs_valid`を同時に確認します。統合ProofがpassでもSubject別の`subject-depth-parity-incomplete`が1件以上あれば、Certificate更新やScenario再実行だけで昇格させません。

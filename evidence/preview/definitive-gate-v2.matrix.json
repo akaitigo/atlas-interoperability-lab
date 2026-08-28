@@ -4,42 +4,51 @@
   "cases": [
     {
       "id": "definitive-all-v2",
-      "effective_state": "definitive-candidate",
+      "effective_state": "incomplete",
       "warnings": [
-        "core-v2-draft"
+        "core-v2-draft",
+        "integration-proof-cannot-promote-depth-gap",
+        "state-downgraded",
+        "subject-depth-parity-incomplete"
       ],
       "verdict": "pass"
     },
     {
       "id": "bounded-excluded",
-      "effective_state": "bounded-complete",
+      "effective_state": "incomplete",
       "warnings": [
         "bounded-scope-only",
         "core-v2-draft",
         "coverage-excluded",
-        "not-subject-definitive"
+        "integration-proof-cannot-promote-depth-gap",
+        "not-subject-definitive",
+        "subject-depth-parity-incomplete"
       ],
       "verdict": "pass"
     },
     {
       "id": "definitive-excluded-downgrade",
-      "effective_state": "bounded-complete",
+      "effective_state": "incomplete",
       "warnings": [
         "core-v2-draft",
         "coverage-excluded",
+        "integration-proof-cannot-promote-depth-gap",
         "not-subject-definitive",
-        "state-downgraded"
+        "state-downgraded",
+        "subject-depth-parity-incomplete"
       ],
       "verdict": "pass"
     },
     {
       "id": "definitive-infeasible-downgrade",
-      "effective_state": "bounded-complete",
+      "effective_state": "incomplete",
       "warnings": [
         "core-v2-draft",
         "coverage-infeasible",
+        "integration-proof-cannot-promote-depth-gap",
         "not-subject-definitive",
-        "state-downgraded"
+        "state-downgraded",
+        "subject-depth-parity-incomplete"
       ],
       "verdict": "pass"
     },
@@ -49,30 +58,36 @@
       "warnings": [
         "core-v2-draft",
         "coverage-partial",
+        "integration-proof-cannot-promote-depth-gap",
         "not-subject-definitive",
-        "state-downgraded"
+        "state-downgraded",
+        "subject-depth-parity-incomplete"
       ],
       "verdict": "pass"
     },
     {
       "id": "definitive-v1-only-downgrade",
-      "effective_state": "bounded-complete",
+      "effective_state": "incomplete",
       "warnings": [
         "core-v2-draft",
+        "integration-proof-cannot-promote-depth-gap",
         "legacy-v1-certificate",
-        "state-downgraded"
+        "state-downgraded",
+        "subject-depth-parity-incomplete"
       ],
       "verdict": "pass"
     },
     {
       "id": "definitive-mixed-certificate-version",
-      "effective_state": "bounded-complete",
+      "effective_state": "incomplete",
       "warnings": [
         "core-v2-draft",
+        "integration-proof-cannot-promote-depth-gap",
         "legacy-v1-certificate",
         "mixed-certificate-versions",
         "mixed-subject-release-versions",
-        "state-downgraded"
+        "state-downgraded",
+        "subject-depth-parity-incomplete"
       ],
       "verdict": "pass"
     },
@@ -82,17 +97,22 @@
       "warnings": [
         "certificate-revoked",
         "core-v2-draft",
-        "state-downgraded"
+        "integration-proof-cannot-promote-depth-gap",
+        "state-downgraded",
+        "subject-depth-parity-incomplete"
       ],
       "verdict": "pass"
     },
     {
       "id": "definitive-renewed-candidate",
-      "effective_state": "definitive-candidate",
+      "effective_state": "incomplete",
       "warnings": [
         "certificate-renewed",
         "core-v2-draft",
-        "mixed-subject-release-versions"
+        "integration-proof-cannot-promote-depth-gap",
+        "mixed-subject-release-versions",
+        "state-downgraded",
+        "subject-depth-parity-incomplete"
       ],
       "verdict": "pass"
     },
@@ -103,7 +123,9 @@
         "bounded-scope-only",
         "core-v2-draft",
         "coverage-partial",
-        "not-subject-definitive"
+        "integration-proof-cannot-promote-depth-gap",
+        "not-subject-definitive",
+        "subject-depth-parity-incomplete"
       ],
       "verdict": "pass"
     }

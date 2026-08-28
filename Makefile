@@ -1,10 +1,15 @@
 CORE_DIR ?= ../reference-atlas-core
 CORE_COMMIT := cf9e6e2d981305c83f970c1f21a1ddc9c1109263
+FE_DIR ?= ../frontend-behavior-atlas
+FE_DEPTH_COMMIT := 4a0b2df8e2091a963bd0e0e1bbccef9c84b49a45
 GO_CACHE_DIR := $(CURDIR)/.cache/go-build
 
-.PHONY: test lab-validate graph-check evidence-local evidence-container evidence reproducibility skill-validate skill-eval skill-eval-v2 non-regression definitive-preview legacy-v1-check diagnose provenance publication certificate core-validate core-audit dco-check self-audit cleanup-check check
+.PHONY: test depth-reference lab-validate graph-check evidence-local evidence-container evidence reproducibility skill-validate skill-eval skill-eval-v2 non-regression definitive-preview legacy-v1-check diagnose provenance publication certificate core-validate core-audit dco-check self-audit cleanup-check check
 
-test:
+depth-reference:
+	git -C "$(FE_DIR)" cat-file -e "$(FE_DEPTH_COMMIT)^{commit}"
+
+test: depth-reference
 	GOCACHE="$(GO_CACHE_DIR)" go test ./...
 
 lab-validate:
@@ -39,7 +44,8 @@ legacy-v1-check:
 non-regression:
 	GOCACHE="$(GO_CACHE_DIR)" go run ./cmd/atlas-lab non-regression-gate
 
-definitive-preview: non-regression legacy-v1-check skill-eval-v2
+definitive-preview: depth-reference non-regression legacy-v1-check skill-eval-v2
+	GOCACHE="$(GO_CACHE_DIR)" go run ./cmd/atlas-lab depth-parity
 	GOCACHE="$(GO_CACHE_DIR)" go run ./cmd/atlas-lab definitive-matrix
 	GOCACHE="$(GO_CACHE_DIR)" go run ./cmd/atlas-lab definitive-migrate
 	GOCACHE="$(GO_CACHE_DIR)" go run ./cmd/atlas-lab definitive-preview-audit

@@ -41,6 +41,16 @@
       "name": "neutral-language",
       "verdict": "pass",
       "detail": "検証済み"
+    },
+    {
+      "name": "subject-depth-parity-inheritance",
+      "verdict": "pass",
+      "detail": "検証済み"
+    },
+    {
+      "name": "depth-parity-evidence",
+      "verdict": "pass",
+      "detail": "検証済み"
     }
   ],
   "verdict": "pass"

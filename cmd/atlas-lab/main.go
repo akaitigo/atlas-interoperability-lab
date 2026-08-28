@@ -28,7 +28,7 @@ func main() {
 		if err := lab.ValidateRepository(root); err != nil {
 			fatal(err)
 		}
-		fmt.Println("VALID: Composition、Scenario、Release Lock、未完成Subject拒否契約")
+		fmt.Println("VALID: Composition、Scenario、Release Lock、未完成Subject拒否、Depth Parity不足継承")
 	case "preflight":
 		fs := flag.NewFlagSet("preflight", flag.ExitOnError)
 		composition := fs.String("composition", "compositions/fixture-stage2.json", "")
@@ -114,6 +114,15 @@ func main() {
 			fatal(err)
 		}
 		printJSON(report)
+	case "depth-parity":
+		report, err := lab.EvaluateDefinitiveComposition(root, "compositions/fixture-stage2-v2-definitive.preview.json", "2026-08-28T12:00:00Z")
+		if err != nil {
+			fatal(err)
+		}
+		if err := lab.WriteJSON(filepath.Join(root, "evidence", "preview", "depth-parity.result.json"), report); err != nil {
+			fatal(err)
+		}
+		printJSON(report)
 	case "definitive-matrix":
 		fs := flag.NewFlagSet("definitive-matrix", flag.ExitOnError)
 		matrix := fs.String("matrix", "tests/fixtures/definitive-gate-v2.matrix.json", "")
@@ -177,7 +186,7 @@ func main() {
 	}
 }
 func usage() {
-	fmt.Fprintln(os.Stderr, "usage: atlas-lab <validate|preflight|run|reproducibility|provenance|publication-gate|certificate|certificate-check|diagnose|self-audit|definitive-gate|definitive-matrix|definitive-migrate|definitive-preview-audit|legacy-v1-check|non-regression-gate>")
+	fmt.Fprintln(os.Stderr, "usage: atlas-lab <validate|preflight|run|reproducibility|provenance|publication-gate|certificate|certificate-check|diagnose|self-audit|definitive-gate|depth-parity|definitive-matrix|definitive-migrate|definitive-preview-audit|legacy-v1-check|non-regression-gate>")
 }
 func fatal(err error) { fmt.Fprintln(os.Stderr, "ERROR:", err); os.Exit(1) }
 

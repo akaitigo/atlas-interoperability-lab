@@ -10,6 +10,7 @@
     {"id":"v2.renewed","query":"失効後のCertificate更新を確認したい","decision":"definitive_preview","command":"go run ./cmd/atlas-lab definitive-matrix"},
     {"id":"v2.migration","query":"旧Compositionからv2へ非破壊移行したい","decision":"migration_preview","warning":"no-definitive-promotion"},
     {"id":"v2.legacy","query":"旧v1 Bundleを検証したい","decision":"legacy_v1","status":"verifiable"},
-    {"id":"v2.non-regression","query":"Scenario削除やCI縮小を非後退Gateで拒否したい","decision":"non_regression_gate","command":"go run ./cmd/atlas-lab non-regression-gate"}
+    {"id":"v2.non-regression","query":"Scenario削除やCI縮小を非後退Gateで拒否したい","decision":"non_regression_gate","command":"go run ./cmd/atlas-lab non-regression-gate"},
+    {"id":"v2.depth-parity","query":"構成SubjectのDepth Parity 18軸とInterop Proofを確認したい","decision":"depth_parity","command":"go run ./cmd/atlas-lab depth-parity","warning":"integration-proof-cannot-promote-depth-gap"}
   ]
 }

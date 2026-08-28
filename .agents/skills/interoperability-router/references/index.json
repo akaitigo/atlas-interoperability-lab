@@ -22,6 +22,12 @@
     "mapping": "migrations/interop-v1-non-regression.json",
     "command": "go run ./cmd/atlas-lab non-regression-gate"
   },
+  "depth_reference": {
+    "lock": "depth/fe-depth-reference.lock.json",
+    "subject_depth_parity": "depth/fixture-subjects.depth-parity.preview.json",
+    "integration_proofs": "depth/fixture-stage2.integration-proofs.preview.json",
+    "command": "go run ./cmd/atlas-lab depth-parity"
+  },
   "definitive_gate_v2": {
     "status": "draft",
     "bounded_composition": "compositions/fixture-stage2-v2-bounded.preview.json",

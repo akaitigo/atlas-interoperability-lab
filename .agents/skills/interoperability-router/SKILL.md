@@ -16,5 +16,6 @@ description: 固定済みSubject ReleaseのStage 2相互運用について、該
 7. `bounded/epoch-complete`と`subject-definitive`を同義に扱わない。Definitive Gate v2の問いには返却されたPreview Commandを使い、`core-v2-draft`中は`definitive-candidate`を`definitive-complete`と表現しない。
 8. `excluded`、`infeasible`、`partial`、v1-only、混在Certificate、失効を検出したら、返却された警告と降格状態を保持する。Migrationは旧v1 Bundleを上書きせず更新計画だけを提示する。
 9. Interopの実行・完成・移行判断より先に`non_regression_command`を通す。既存Scenario、Component、Contract、Test、Failure／Recovery Evidence、CIを削除・無効化・縮小・mock化して不足を隠す変更は拒否し、置換には旧ID Mappingと同等以上の統合ProofとMigration Evidenceを要求する。
+10. `depth_reference`と`subject_depth_parity`を読み、各構成Subjectの18軸が全て`satisfied`でない場合はInterop固有ProofやScenario成功で補完しない。`subject-depth-parity-incomplete`と`integration-proof-cannot-promote-depth-gap`を保持する。
 
 検証軸とCanonical Pathの索引が必要な場合だけ [references/index.json](references/index.json) を読みます。

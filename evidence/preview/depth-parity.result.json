@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "composition_id": "fixture-http-stage2-v2-definitive-preview",
+  "requested_mode": "subject-definitive",
+  "core_v2_status": "draft",
+  "effective_state": "incomplete",
+  "definitive_eligible": false,
+  "legacy_bundle_preserved": true,
+  "depth_reference_status": "incomplete",
+  "depth_parity_eligible": false,
+  "integration_proofs_valid": true,
+  "warnings": [
+    {
+      "code": "subject-depth-parity-incomplete",
+      "subject": "source",
+      "message": "18軸中satisfied=1、partial=17、missing=0です。"
+    },
+    {
+      "code": "subject-depth-parity-incomplete",
+      "subject": "sink",
+      "message": "18軸中satisfied=1、partial=17、missing=0です。"
+    },
+    {
+      "code": "integration-proof-cannot-promote-depth-gap",
+      "message": "Interop固有ProofがpassでもSubject Depth Parityの不足は解消されません。"
+    },
+    {
+      "code": "state-downgraded",
+      "message": "Definitive要件を満たさないため状態を昇格せず降格しました。"
+    },
+    {
+      "code": "core-v2-draft",
+      "message": "Core v2未確定のためDefinitive completeは発行できません。"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/akaitigo/atlas-interoperability-lab/schemas/fe-depth-reference-lock.schema.json",
+  "title": "FE Depth Reference Lock",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "id", "repository", "source_url", "license", "commit", "path", "digest", "expected_status", "expected_summary"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "id": {"const": "fe-depth-reference-v1"},
+    "repository": {"const": "frontend-behavior-atlas"},
+    "source_url": {"const": "https://github.com/akaitigo/frontend-behavior-atlas/blob/4a0b2df8e2091a963bd0e0e1bbccef9c84b49a45/FE_DEPTH_REFERENCE.json"},
+    "license": {"const": "Apache-2.0"},
+    "commit": {"const": "4a0b2df8e2091a963bd0e0e1bbccef9c84b49a45"},
+    "path": {"const": "FE_DEPTH_REFERENCE.json"},
+    "digest": {"const": "sha256:2452696f9807b7d4a8ffb22b3ba37f079a25a34ac2370d78423445b96064582a"},
+    "expected_status": {"const": "incomplete"},
+    "expected_summary": {"$ref": "#/$defs/summary"}
+  },
+  "$defs": {
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["satisfied", "partial", "missing"],
+      "properties": {"satisfied":{"const":1},"partial":{"const":17},"missing":{"const":0}}
+    }
+  }
+}

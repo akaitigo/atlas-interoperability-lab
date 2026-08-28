@@ -103,3 +103,22 @@ func TestNeutralLanguageAllowsTechnicalNamespaceReferences(t *testing.T) {
 		}
 	}
 }
+
+func TestScenarioSuccessCannotPromoteIncompleteSubjectDepth(t *testing.T) {
+	result, err := EvaluateDefinitiveComposition("../..", "compositions/fixture-stage2-v2-definitive.preview.json", "2026-08-28T12:00:00Z")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if result.EffectiveState != "incomplete" || result.DefinitiveEligible || result.DepthParityEligible || !result.IntegrationProofsValid || result.DepthReferenceStatus != "incomplete" {
+		t.Fatalf("Depth不足をScenario成功で昇格しました: %#v", result)
+	}
+	depthWarnings := 0
+	for _, warning := range result.Warnings {
+		if warning.Code == "subject-depth-parity-incomplete" {
+			depthWarnings++
+		}
+	}
+	if depthWarnings != 2 {
+		t.Fatalf("各構成SubjectのDepth不足が保持されていません: %#v", result.Warnings)
+	}
+}

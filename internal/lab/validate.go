@@ -157,5 +157,8 @@ func ValidateRepository(root string) error {
 	if _, err := NonRegressionGate(root); err != nil {
 		return err
 	}
+	if err := ValidateDepthInheritance(root); err != nil {
+		return err
+	}
 	return nil
 }

@@ -6,6 +6,14 @@
 
 Definitive評価とMigrationの前提としてInterop Non-Regression Gateを必ず実行します。既存統合範囲を縮小して全SubjectがDefinitiveに見えるよう加工することはできません。またComposition内の1 Subjectでも`subject-definitive`未達ならInterop全体をDefinitiveへ昇格しません。
 
+## Depth Parity
+
+`frontend-behavior-atlas@4a0b2df8e2091a963bd0e0e1bbccef9c84b49a45`の`FE_DEPTH_REFERENCE.json`をGit ObjectとSHA-256で固定します。正本は18軸中`satisfied=1`、`partial=17`、`status=incomplete`です。Labへ本文を複製せず、`depth/fe-depth-reference.lock.json`から外部Git Objectを検証します。
+
+`depth/fixture-subjects.depth-parity.preview.json`は各構成Subjectの18軸状態を分離して宣言します。`depth/fixture-stage2.integration-proofs.preview.json`はInterop固有10軸をlocal／containerの実Scenario Evidenceへ接続します。後者が全件passでも前者の不足は解消されず、`subject-depth-parity-incomplete`と`integration-proof-cannot-promote-depth-gap`により`incomplete`を保持します。
+
+Migrationは各Subjectの18軸を完了し、v2 Certificateを更新する両方のActionを返します。旧v1 Bundleは上書きせず、Interop ProofをSubject Depthの代替Evidenceとして流用しません。
+
 Core v2確定後は、確定Commit、正式Schema、正式Certificate検証器へLockを更新し、このPreview SchemaとのCompatibility差分をMigrationとして記録します。それまでは`definitive-complete`を発行しません。
 
 ## 分離するCompletion Class

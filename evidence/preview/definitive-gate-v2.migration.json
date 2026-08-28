@@ -4,25 +4,29 @@
   "source_digest": "sha256:f562551e4081576ed603010e77f025d1a78b91feefde57647c48c300259293ce",
   "target_policy": "2.0.0-draft.1",
   "core_v2_status": "draft",
-  "migration_state": "requires-certificate-renewal",
+  "migration_state": "requires-depth-parity-and-certificate-renewal",
   "writes_performed": false,
+  "depth_reference_commit": "4a0b2df8e2091a963bd0e0e1bbccef9c84b49a45",
+  "required_depth_axes": 18,
   "subjects": [
     {
       "name": "source",
       "subject_id": "fixture-http-source",
       "current_certificate_schema": 1,
-      "action": "issue-v2-subject-certificate"
+      "action": "complete-18-axis-depth-parity-and-issue-v2-subject-certificate"
     },
     {
       "name": "sink",
       "subject_id": "fixture-http-sink",
       "current_certificate_schema": 1,
-      "action": "issue-v2-subject-certificate"
+      "action": "complete-18-axis-depth-parity-and-issue-v2-subject-certificate"
     }
   ],
   "warnings": [
     "legacy-bundle-remains-verifiable",
     "core-v2-draft",
-    "no-definitive-promotion"
+    "no-definitive-promotion",
+    "subject-depth-parity-required",
+    "integration-proof-not-substitute"
   ]
 }

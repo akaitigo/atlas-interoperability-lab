@@ -18,3 +18,5 @@ PathはRepository Root相対です。Digestは`sha256:<64 lowercase hex>`、Vers
 v2準備契約は`composition-v2-preview.schema.json`と`subject-certificate-v2-preview.schema.json`へ分離します。`status: draft`と`2.0.0-draft.1`を必須にし、Core v2確定前の`definitive-complete`生成を構造的に禁止します。v1正本SchemaとCertificateは変更しません。
 
 `non-regression-baseline.schema.json`は歴史的Baseline Commit、対象Path、必須Profileを固定します。`non-regression-migration.schema.json`は置換時の旧ID Mapping、新Path、2件以上の統合Proof、1件以上のMigration Evidenceを要求します。
+
+Depth Parityは`fe-depth-reference-lock.schema.json`、`subject-depth-parity.schema.json`、`integration-depth-proofs.schema.json`へ分離します。外部Reference、各Subjectの18軸状態、Interop固有のlocal／container Proofを混同せず、統合成功からSubject完成を推論しません。

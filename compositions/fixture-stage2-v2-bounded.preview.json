@@ -10,6 +10,9 @@
   },
   "completion_mode": "bounded-complete",
   "coverage_epoch": "2026-08-28",
+  "depth_reference_lock": {"path":"depth/fe-depth-reference.lock.json","digest":"sha256:bdf988b7680429e511f342da2733a7d0a27c9ab083fd1191202a25743f1bc7f2"},
+  "subject_depth_parity": {"path":"depth/fixture-subjects.depth-parity.preview.json","digest":"sha256:bcd5a491edb6444417f4c1e85c01c57fd6ecdd266acca0af9d1d4737b3d07b13"},
+  "integration_proofs": {"path":"depth/fixture-stage2.integration-proofs.preview.json","digest":"sha256:e5e13ff980b7e124ebf59e4dc1d9b3572439942ddc9e0e68d009a08a98151e61"},
   "subjects": [
     {
       "name": "source",

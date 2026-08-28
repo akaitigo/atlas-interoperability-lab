@@ -14,6 +14,9 @@ def route(query: str) -> dict:
     non_regression = index["non_regression"]["command"]
     if any(keyword in normalized for keyword in ("非後退", "non-regression", "不足を隠", "scenario削除", "シナリオ削除", "ci縮小", "skip", "disabled", "optional化", "mock置換")):
         return {"decision":"non_regression_gate","command":non_regression,"baseline":index["non_regression"]["baseline"]}
+    if any(keyword in normalized for keyword in ("depth", "parity", "18軸", "深度")):
+        depth = index["depth_reference"]
+        return {"decision":"depth_parity","status":"incomplete","command":depth["command"],"reference":depth["lock"],"subject_depth_parity":depth["subject_depth_parity"],"integration_proofs":depth["integration_proofs"],"warning":"integration-proof-cannot-promote-depth-gap","non_regression_command":non_regression}
     if "旧v1" in normalized or "legacy v1" in normalized or "v1 bundle" in normalized:
         return {"decision":"legacy_v1","status":"verifiable","command":preview["legacy_v1_command"],"non_regression_command":non_regression}
     if "移行" in normalized or "migration" in normalized:
