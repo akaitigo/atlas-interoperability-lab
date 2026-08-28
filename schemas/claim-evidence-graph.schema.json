@@ -1,0 +1,13 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://github.com/akaitigo/atlas-interoperability-lab/schemas/claim-evidence-graph.schema.json",
+  "title":"Cross-subject Claim Evidence Graph",
+  "type":"object","additionalProperties":false,
+  "required":["schema_version","composition_id","subjects","links"],
+  "properties":{
+    "schema_version":{"const":1},"composition_id":{"$ref":"#/$defs/id"},
+    "subjects":{"type":"array","minItems":2,"items":{"type":"object","additionalProperties":false,"required":["name","subject_id","release_digest","certificate_digest"],"properties":{"name":{"$ref":"#/$defs/id"},"subject_id":{"$ref":"#/$defs/id"},"release_digest":{"$ref":"#/$defs/digest"},"certificate_digest":{"$ref":"#/$defs/digest"}}}},
+    "links":{"type":"array","minItems":10,"maxItems":10,"items":{"type":"object","additionalProperties":false,"required":["axis","claim_id","subject_names","scenario_ids","evidence_ids"],"properties":{"axis":{"enum":["communication","identity","data","messaging","deployment","observability","security-boundary","failure-propagation","recovery","compatibility"]},"claim_id":{"$ref":"#/$defs/dotted"},"subject_names":{"type":"array","minItems":2,"uniqueItems":true,"items":{"$ref":"#/$defs/id"}},"scenario_ids":{"type":"array","minItems":1,"uniqueItems":true,"items":{"$ref":"#/$defs/id"}},"evidence_ids":{"type":"array","minItems":2,"uniqueItems":true,"items":{"$ref":"#/$defs/dotted"}}}}}
+  },
+  "$defs":{"id":{"type":"string","pattern":"^[a-z0-9]+(?:-[a-z0-9]+)*$"},"dotted":{"type":"string","pattern":"^[a-z0-9]+(?:[.-][a-z0-9]+)*$"},"digest":{"type":"string","pattern":"^sha256:[a-f0-9]{64}$"}}
+}

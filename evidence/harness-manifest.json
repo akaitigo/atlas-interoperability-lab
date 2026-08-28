@@ -1,12 +1,20 @@
 {
   "files": [
     {
-      "digest": "sha256:083e79985820eafb28547c4ae36847a4b2a4885a556dc0961ae1b58823132065",
+      "digest": "sha256:4ad79579f15c258c8dde417d8b6f92cc766ea942a67af47375c281ac657e16e8",
       "path": "cmd/atlas-lab/main.go"
     },
     {
       "digest": "sha256:a33c03c8b853837411404856029265b1968574d5a1dd147eee74512ce784d79d",
       "path": "go.mod"
+    },
+    {
+      "digest": "sha256:65a56cdd4914eecaf8d48fcce06835cae9d29567c7ec529416036c7461309328",
+      "path": "internal/lab/diagnose.go"
+    },
+    {
+      "digest": "sha256:a0175c246665b46438f921d53b08e58f5e17b80a32b7e0bbab663ff7fca58e4d",
+      "path": "internal/lab/diagnose_test.go"
     },
     {
       "digest": "sha256:9ea7d44d7364111be00974cf07f08cc9b952d65533d0c2068234b8695a69c40b",
@@ -17,19 +25,27 @@
       "path": "internal/lab/files.go"
     },
     {
-      "digest": "sha256:ecbff9c113db078e5d6528d138f310297387aa12774188f03dccb94dbd1b5d7a",
+      "digest": "sha256:6565d4888721224a319ff1ee4e6e088c2d928db477fba185cad4c8201b5cbb05",
       "path": "internal/lab/gates.go"
+    },
+    {
+      "digest": "sha256:8b0b09ae98d4476804c63680bd8a76ebd7c48df4a0c9ca4d77af9b3ea6e5a196",
+      "path": "internal/lab/graph.go"
     },
     {
       "digest": "sha256:671c002add4c28913c90b6549ae59b7f697c47c9711f2be4b85e840ad972998c",
       "path": "internal/lab/runtime.go"
     },
     {
+      "digest": "sha256:d7c8033f32b34902533b71757c5f9224da08ba7b51116915ff8d80c8d968f7e4",
+      "path": "internal/lab/selfaudit.go"
+    },
+    {
       "digest": "sha256:bd1dc9a7975f53e4eeef40ee653e64609ca66af25b5fb0c98dcf56b1d6398851",
       "path": "internal/lab/types.go"
     },
     {
-      "digest": "sha256:d643ce5a6617c2be719631db4edc73b2e99724ccd4bb1e25932e5988e913e052",
+      "digest": "sha256:3df5c57d0a55c466d289e6f36afd755c18200b72c97f588fb7b6fd64bf850747",
       "path": "internal/lab/validate.go"
     },
     {

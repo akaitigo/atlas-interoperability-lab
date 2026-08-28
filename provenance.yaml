@@ -1,6 +1,16 @@
 {
   "artifacts": [
     {
+      "digest": "sha256:355531b49e5241f3dfd79850ef2140e0b387230422a9ef8805e24db81f951d93",
+      "generated_by": "atlas-lab graph contract v1",
+      "kind": "generated",
+      "license": "Apache-2.0",
+      "path": "graphs/fixture-stage2.claim-evidence.json",
+      "source_ids": [
+        "reference-atlas-core.architecture"
+      ]
+    },
+    {
       "digest": "sha256:b213de6ec5bf3b8d6cc7d947435b63ca14b75702601bf50bd0cbf316ed1aa062",
       "generated_by": "atlas-lab runner v1",
       "kind": "test-report",
@@ -21,7 +31,7 @@
       ]
     },
     {
-      "digest": "sha256:ff0754ffeec9c01f17d8972a0bea937e8ca54c94b7ac425e49dd1653c14ee833",
+      "digest": "sha256:f3e0cdcb825f4585b926acf42d4cc04496df9868778394380e209ded67399ab8",
       "generated_by": "python3 evals/run.py",
       "kind": "skill-eval",
       "license": "Apache-2.0",

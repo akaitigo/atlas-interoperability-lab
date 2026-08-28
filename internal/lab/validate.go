@@ -143,6 +143,9 @@ func ValidateRepository(root string) error {
 	if _, err := Preflight(root, "compositions/fixture-stage2.json", "local"); err != nil {
 		return err
 	}
+	if err := ValidateCrossSubjectGraph(root); err != nil {
+		return err
+	}
 	var rejected Composition
 	if err := LoadJSON(resolve(root, "tests/fixtures/composition-incomplete.json"), &rejected); err != nil {
 		return err

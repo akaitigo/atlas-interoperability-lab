@@ -33,7 +33,7 @@
       "result": "pass"
     },
     {
-      "assertion": "実行可能なEnvironmentとFailure Scenarioへ案内する。",
+      "assertion": "実行可能なEnvironment、Failure Scenario、秘密を含まない診断へ案内する。",
       "category": "execution",
       "id": "route.execution",
       "result": "pass"

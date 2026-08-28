@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
 	"os"
@@ -89,12 +90,35 @@ func main() {
 			fatal(err)
 		}
 		fmt.Println("CERTIFICATE VALID")
+	case "diagnose":
+		fs := flag.NewFlagSet("diagnose", flag.ExitOnError)
+		profile := fs.String("profile", "local", "")
+		_ = fs.Parse(os.Args[2:])
+		printJSON(lab.Diagnose(root, *profile))
+	case "self-audit":
+		fs := flag.NewFlagSet("self-audit", flag.ExitOnError)
+		allowDirty := fs.Bool("allow-dirty", false, "")
+		_ = fs.Parse(os.Args[2:])
+		report := lab.SelfAudit(root, *allowDirty)
+		printJSON(report)
+		if report.Verdict != "pass" {
+			os.Exit(1)
+		}
 	default:
 		usage()
 		os.Exit(2)
 	}
 }
 func usage() {
-	fmt.Fprintln(os.Stderr, "usage: atlas-lab <validate|preflight|run|reproducibility|provenance|publication-gate|certificate|certificate-check>")
+	fmt.Fprintln(os.Stderr, "usage: atlas-lab <validate|preflight|run|reproducibility|provenance|publication-gate|certificate|certificate-check|diagnose|self-audit>")
 }
 func fatal(err error) { fmt.Fprintln(os.Stderr, "ERROR:", err); os.Exit(1) }
+
+func printJSON(value any) {
+	encoder := json.NewEncoder(os.Stdout)
+	encoder.SetIndent("", "  ")
+	encoder.SetEscapeHTML(false)
+	if err := encoder.Encode(value); err != nil {
+		fatal(err)
+	}
+}

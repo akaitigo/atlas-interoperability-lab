@@ -17,7 +17,11 @@ def route(query: str) -> dict:
     if not matches:
         return {"decision":"coverage_gap","reason":"no_declared_axis","path":index["rejections"]["coverage_gap"]}
     scenarios = sorted({path for item in matches for path in item["scenarios"]})
-    return {"decision":"route","composition":index["composition"],"axes":[item["axis"] for item in matches],"scenarios":scenarios,"evidence":index["evidence"]}
+    result = {"decision":"route","composition":index["composition"],"axes":[item["axis"] for item in matches],"scenarios":scenarios,"evidence":index["evidence"],"claim_evidence_graph":index["claim_evidence_graph"],"self_audit_command":index["self_audit_command"]}
+    if any(keyword in normalized for keyword in ("失敗", "障害", "failure", "diagnos", "診断")):
+        profile = "container" if "docker" in normalized or "container" in normalized else "local"
+        result["diagnostic_command"] = index["diagnostics"][profile]
+    return result
 
 def main() -> None:
     parser = argparse.ArgumentParser()

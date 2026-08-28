@@ -18,6 +18,8 @@ for case in cases_doc["cases"]:
         passed = passed and actual.get("reason") == case["reason"]
     if "axes" in case:
         passed = passed and set(case["axes"]).issubset(set(actual.get("axes", [])))
+    if "diagnostic_command" in case:
+        passed = passed and actual.get("diagnostic_command") == case["diagnostic_command"]
     results.append({"id":case["id"],"category":case["category"],"result":"pass" if passed else "fail","assertion":case["assertion"]})
 pass_rate = sum(item["result"] == "pass" for item in results) / len(results)
 official = {"schema_version":1,"id":"interoperability.router-v1","atlas_id":"atlas-interoperability-lab","atlas_release":"v1.0.0","skill_id":"interoperability-router","generated_at":"2026-08-28T00:00:00+09:00","cases":results}

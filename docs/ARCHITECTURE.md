@@ -6,6 +6,8 @@ Labが所有するのはComposition、Scenario順序、Environment Adapter、外
 
 RunnerはRelease Manifestの`launch`契約だけを読み、`go-source` AdapterでFixture Artifactを起動します。Scenario EngineはHTTP Action、JSON Assertion、Value Compareだけを解釈し、Subject名や業務知識をHard-codeしません。
 
+`graphs/fixture-stage2.claim-evidence.json`は各検証軸についてClaim、Composition内の全固定Subject、Scenario、local/container Evidenceを直接接続します。これによりSubject単体のClaimを複製せず、複数Subject間で成立する結論の根拠を機械検証できます。
+
 ## Profile
 
 - `local`: loopback上の子Process。終了後にBinary、Log、Credentialを削除します。
@@ -19,3 +21,7 @@ Logical Trace ID、Message ID、Action、期待値はScenarioで固定します�
 ## Security Boundary
 
 Fixture CredentialはProcess／Container環境だけに渡します。Action ResultはStatus、Assertion数、Verdictだけを記録しHeaderやBodyをEvidenceへ写しません。Failure Injection APIは実行時Admin Credentialを要求し、Dockerでは内部NetworkのSinkへSource経由でのみ到達します。
+
+## 診断と自己監査
+
+診断器は保存済みAction ResultとCleanup Receiptだけを読み、Status、Data、到達性、境界状態、Cleanupの失敗Classと次の操作を返します。Request Body、Header、Credentialは出力しません。自己監査はRepository契約、Publication Gate、Certificate、Core Audit、DCO、Clean Worktreeを一括判定します。

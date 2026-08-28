@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "composition_id": "fixture-http-stage2-v1",
+  "subjects": [
+    {"name":"source","subject_id":"fixture-http-source","release_digest":"sha256:25449c959e2fbdb2de10b38cc6842fb1d1c7b5c329028c777b2617979e56b74d","certificate_digest":"sha256:a814802b327c98b9ca7e668414c4939c491aa70ac18b5aede5651d2e30b5a9e6"},
+    {"name":"sink","subject_id":"fixture-http-sink","release_digest":"sha256:eb8b28f493911a9e273921cf6e775f80cda57055f31ded056fff2582a7d70290","certificate_digest":"sha256:847542e6254fc6551f57f13e2b88252d413f2e1a6ffe6ca1bf21cba3f58eee21"}
+  ],
+  "links": [
+    {"axis":"communication","claim_id":"interop.communication","subject_names":["source","sink"],"scenario_ids":["normal"],"evidence_ids":["stage2.local.e2e","stage2.container.e2e"]},
+    {"axis":"identity","claim_id":"interop.identity","subject_names":["source","sink"],"scenario_ids":["normal","rejection"],"evidence_ids":["stage2.local.e2e","stage2.container.e2e"]},
+    {"axis":"data","claim_id":"interop.data","subject_names":["source","sink"],"scenario_ids":["normal","compatibility"],"evidence_ids":["stage2.local.e2e","stage2.container.e2e"]},
+    {"axis":"messaging","claim_id":"interop.messaging","subject_names":["source","sink"],"scenario_ids":["normal","rejection","recovery"],"evidence_ids":["stage2.local.e2e","stage2.container.e2e"]},
+    {"axis":"deployment","claim_id":"interop.deployment","subject_names":["source","sink"],"scenario_ids":["normal","recovery"],"evidence_ids":["stage2.local.e2e","stage2.container.e2e"]},
+    {"axis":"observability","claim_id":"interop.observability","subject_names":["source","sink"],"scenario_ids":["normal","failure","recovery"],"evidence_ids":["stage2.local.e2e","stage2.container.e2e"]},
+    {"axis":"security-boundary","claim_id":"interop.security-boundary","subject_names":["source","sink"],"scenario_ids":["rejection","failure","compatibility"],"evidence_ids":["stage2.local.e2e","stage2.container.e2e"]},
+    {"axis":"failure-propagation","claim_id":"interop.failure-propagation","subject_names":["source","sink"],"scenario_ids":["failure"],"evidence_ids":["stage2.local.e2e","stage2.container.e2e"]},
+    {"axis":"recovery","claim_id":"interop.recovery","subject_names":["source","sink"],"scenario_ids":["recovery"],"evidence_ids":["stage2.local.e2e","stage2.container.e2e"]},
+    {"axis":"compatibility","claim_id":"interop.compatibility","subject_names":["source","sink"],"scenario_ids":["compatibility"],"evidence_ids":["stage2.local.e2e","stage2.container.e2e"]}
+  ]
+}

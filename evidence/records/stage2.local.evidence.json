@@ -19,12 +19,12 @@
     "interop.compatibility"
   ],
   "command": "go run ./cmd/atlas-lab run --composition compositions/fixture-stage2.json --profile local",
-  "created_at": "2026-08-28T06:55:43Z",
+  "created_at": "2026-08-28T07:44:15Z",
   "environment": {
     "manifest_digest": "sha256:d39aedd909830acc4011ae1e009604e5dbf9fb687a7adac754fbf7663547fc6f",
     "profile": "local"
   },
-  "harness_digest": "sha256:7cbf4b62de8fdc3fa4cf84519ba48bb267d354a956fea0f5d94a495914454822",
+  "harness_digest": "sha256:f2f5de74689e25b32ab117130378e9a84109d2de68b83f385692c2e50223262a",
   "harness_path": "evidence/harness-manifest.json",
   "id": "stage2.local.e2e",
   "kind": "test-report",

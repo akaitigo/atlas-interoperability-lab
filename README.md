@@ -13,6 +13,7 @@ Composition Manifest
   -> Scenario
   -> Oracle
   -> Evidence
+  -> Cross-subject Claim/Evidence Graph
   -> Cleanup Receipt
   -> Publication Gate
   -> Completion Certificate
@@ -47,15 +48,19 @@ go run ./cmd/atlas-lab validate
 go run ./cmd/atlas-lab preflight --composition compositions/fixture-stage2.json --profile local
 go run ./cmd/atlas-lab run --composition compositions/fixture-stage2.json --profile local
 go run ./cmd/atlas-lab run --composition compositions/fixture-stage2.json --profile container
+go run ./cmd/atlas-lab diagnose --profile container
 python3 evals/run.py
 go run ./cmd/atlas-lab publication-gate
 go run ./cmd/atlas-lab certificate
+go run ./cmd/atlas-lab self-audit
 ```
 
 Cleanupは成功・失敗に関係なくRunnerが実行します。`cleanup/*.receipt.json`は残存Process、Container、Network、Image、Credentialがゼロであることを証明します。
 
 ## Publication Gate
 
-Apache-2.0、NOTICE、第三者Manifest、SPDX SBOM、Core Lock、Fixture Release Lock、local/container Evidence、Router Eval、完全Cleanup、秘密Pattern Scanが全てpassするまでCertificateを生成しません。権利不明、秘密候補、未完成Subject、Digest不一致はいずれも公開拒否です。
+Apache-2.0、NOTICE、第三者Manifest、SPDX SBOM、Core Lock、Fixture Release Lock、全Subjectを横断するClaim/Evidence Graph、local/container Evidence、Router Eval、完全Cleanup、秘密Pattern Scanが全てpassするまでCertificateを生成しません。権利不明、秘密候補、未完成Subject、Digest不一致はいずれも公開拒否です。
+
+`self-audit`はRepository契約、Publication Gate、Core Completion Certificate、Core Audit、全CommitのDCO、Clean Worktreeを機械可読JSONで一括判定します。GitHub Remoteや公開可否はこのローカル完成判定とは分離します。
 
 詳細は[Architecture](docs/ARCHITECTURE.md)、[Machine-readable Contract](docs/CONTRACT.md)、[Runbook](operations/RUNBOOK.md)を参照してください。

@@ -26,10 +26,15 @@ jobs:
           go run ./cmd/atlas-lab validate
           python3 scripts/validate_skill.py
           python3 evals/run.py
+          git log --format='%H%x00%B%x00' | python3 ../reference-atlas-core/scripts/check_dco.py
       - name: Local E2E
         run: go run ./cmd/atlas-lab reproducibility --profile local
       - name: Container E2E
         run: go run ./cmd/atlas-lab run --profile container
+      - name: Failure diagnostics
+        run: |
+          go run ./cmd/atlas-lab diagnose --profile local
+          go run ./cmd/atlas-lab diagnose --profile container
       - name: Publication inputs
         run: |
           go run ./cmd/atlas-lab provenance

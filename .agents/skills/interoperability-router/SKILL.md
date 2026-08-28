@@ -11,5 +11,7 @@ description: 固定済みSubject ReleaseのStage 2相互運用について、該
 2. 実行を求められた場合は、対象Compositionの固定ReleaseをPreflightしてから提示されたScenarioを実行する。
 3. 結論は対応するOracleとEvidenceに束縛する。Subject固有の知識は各Subject Atlasへ戻す。
 4. `coverage_gap` または未完成Subjectが返された場合、機能を推測せず拒否理由を示す。
+5. 実行失敗を扱う場合は返却された`diagnostic_command`を実行し、秘密を含まない診断Code、Scenario、Action、次の操作を提示する。
+6. 完成判定を求められた場合は`self_audit_command`を実行し、Core Audit、Publication Gate、Certificate、DCO、作業ツリーの全結果に束縛する。
 
 検証軸とCanonical Pathの索引が必要な場合だけ [references/index.json](references/index.json) を読みます。

@@ -14,5 +14,8 @@
     {"axis":"compatibility","keywords":["compatibility","互換","version"],"scenarios":["scenarios/compatibility.json"]}
   ],
   "evidence": {"local":"evidence/runs/local/summary.json","container":"evidence/runs/container/summary.json"},
+  "claim_evidence_graph": "graphs/fixture-stage2.claim-evidence.json",
+  "diagnostics": {"local":"go run ./cmd/atlas-lab diagnose --profile local","container":"go run ./cmd/atlas-lab diagnose --profile container"},
+  "self_audit_command": "go run ./cmd/atlas-lab self-audit",
   "rejections": {"incomplete_subject":"tests/fixtures/composition-incomplete.json","coverage_gap":"atlas/exclusions/exclusions.json"}
 }

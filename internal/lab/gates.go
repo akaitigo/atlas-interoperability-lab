@@ -21,7 +21,7 @@ type GateReport struct {
 
 func PublicationGate(root string) (GateReport, error) {
 	report := GateReport{SchemaVersion: 1, Gate: "publication", Verdict: "pass"}
-	required := []string{"LICENSE", "NOTICE", "SECURITY.md", "third_party/manifest.yaml", "sbom.spdx.json", "sources.lock.yaml", "provenance.yaml", "evidence/records/stage2.local.evidence.json", "evidence/records/stage2.container.evidence.json", "evals/skill/interoperability-router.skill-eval.json", "cleanup/local.receipt.json", "cleanup/container.receipt.json"}
+	required := []string{"LICENSE", "NOTICE", "SECURITY.md", "third_party/manifest.yaml", "sbom.spdx.json", "sources.lock.yaml", "provenance.yaml", "graphs/fixture-stage2.claim-evidence.json", "evidence/records/stage2.local.evidence.json", "evidence/records/stage2.container.evidence.json", "evals/skill/interoperability-router.skill-eval.json", "cleanup/local.receipt.json", "cleanup/container.receipt.json"}
 	for _, relative := range required {
 		info, err := os.Stat(filepath.Join(root, relative))
 		if err != nil || info.Size() == 0 {
@@ -37,6 +37,10 @@ func PublicationGate(root string) (GateReport, error) {
 		return failGate(report, err.Error())
 	}
 	report.Checks = append(report.Checks, "release-locks")
+	if err := ValidateCrossSubjectGraph(root); err != nil {
+		return failGate(report, err.Error())
+	}
+	report.Checks = append(report.Checks, "cross-subject-claim-evidence-graph")
 	for _, profile := range []string{"local", "container"} {
 		var summary RunSummary
 		if err := LoadJSON(filepath.Join(root, "evidence", "runs", profile, "summary.json"), &summary); err != nil {
@@ -163,6 +167,7 @@ func validateRights(root string) error {
 func GenerateProvenance(root string) error {
 	artifacts := []map[string]any{}
 	for _, item := range []struct{ Path, Kind, License, Source, GeneratedBy string }{
+		{"graphs/fixture-stage2.claim-evidence.json", "generated", "Apache-2.0", "reference-atlas-core.architecture", "atlas-lab graph contract v1"},
 		{"evidence/runs/local/summary.json", "test-report", "Apache-2.0", "fixture-subject.source", "atlas-lab runner v1"},
 		{"evidence/runs/container/summary.json", "test-report", "Apache-2.0", "fixture-subject.source", "atlas-lab runner v1"},
 		{"evals/skill/interoperability-router.skill-eval.json", "skill-eval", "Apache-2.0", "reference-atlas-core.architecture", "python3 evals/run.py"},

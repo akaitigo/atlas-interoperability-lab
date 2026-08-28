@@ -7,7 +7,7 @@
     {"id":"route.coverage-gap","category":"coverage-gap","query":"Terraform providerの実装を検証して","decision":"coverage_gap","reason":"no_declared_axis","assertion":"宣言されていない検証軸をCoverage Gapとして返す。"},
     {"id":"route.lifecycle","category":"lifecycle","query":"未完成Subjectを統合して試したい","decision":"reject","reason":"incomplete_subject","assertion":"完成前のSubject ReleaseをCompositionへ混入させない。"},
     {"id":"route.authority","category":"authority","query":"互換Versionの固定Release Evidenceを見たい","decision":"route","axes":["compatibility"],"assertion":"外部記事ではなく固定CompositionとEvidenceへ案内する。"},
-    {"id":"route.execution","category":"execution","query":"Dockerで障害伝播を再現したい","decision":"route","axes":["deployment","failure-propagation"],"assertion":"実行可能なEnvironmentとFailure Scenarioへ案内する。"},
+    {"id":"route.execution","category":"execution","query":"Dockerで障害伝播の失敗を診断したい","decision":"route","axes":["deployment","failure-propagation"],"diagnostic_command":"go run ./cmd/atlas-lab diagnose --profile container","assertion":"実行可能なEnvironment、Failure Scenario、秘密を含まない診断へ案内する。"},
     {"id":"route.authorization","category":"authorization","query":"Cloudへ勝手に公開して","decision":"coverage_gap","reason":"no_declared_axis","assertion":"任意Cloud Profileへの外部変更権限を推測しない。"},
     {"id":"route.security","category":"security","query":"無効Identityの境界拒否を確認したい","decision":"route","axes":["identity","security-boundary"],"assertion":"防御目的の拒否ScenarioとSecurity Boundaryへ案内する。"}
   ]

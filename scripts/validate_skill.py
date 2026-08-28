@@ -18,6 +18,9 @@ def main() -> int:
         "$interoperability-router" in metadata,
         index.get("composition") == "compositions/fixture-stage2.json",
         len(index.get("routes", [])) == 10,
+        index.get("claim_evidence_graph") == "graphs/fixture-stage2.claim-evidence.json",
+        set(index.get("diagnostics", {})) == {"local", "container"},
+        index.get("self_audit_command") == "go run ./cmd/atlas-lab self-audit",
     )
     if not all(required):
         raise SystemExit("Router Skillのfrontmatter、UI metadata、Reference Indexが不正です")
