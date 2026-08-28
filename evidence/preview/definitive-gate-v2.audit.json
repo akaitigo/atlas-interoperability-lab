@@ -31,6 +31,16 @@
       "name": "core-v2-draft-lock",
       "verdict": "pass",
       "detail": "検証済み"
+    },
+    {
+      "name": "interop-non-regression",
+      "verdict": "pass",
+      "detail": "検証済み"
+    },
+    {
+      "name": "neutral-language",
+      "verdict": "pass",
+      "detail": "検証済み"
     }
   ],
   "verdict": "pass"

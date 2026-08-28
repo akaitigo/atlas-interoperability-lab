@@ -112,6 +112,9 @@ type DefinitiveCaseResult struct {
 }
 
 func EvaluateDefinitiveComposition(root, compositionPath, asOf string) (DefinitiveGateResult, error) {
+	if _, err := NonRegressionGate(root); err != nil {
+		return DefinitiveGateResult{}, err
+	}
 	return evaluateDefinitiveComposition(root, compositionPath, asOf, nil)
 }
 
@@ -352,6 +355,9 @@ func addDefinitiveWarning(result *DefinitiveGateResult, code, subject, message s
 }
 
 func RunDefinitiveMatrix(root, matrixPath string) (DefinitiveMatrixResult, error) {
+	if _, err := NonRegressionGate(root); err != nil {
+		return DefinitiveMatrixResult{}, err
+	}
 	var matrix DefinitiveMatrix
 	if err := LoadJSON(resolve(root, matrixPath), &matrix); err != nil {
 		return DefinitiveMatrixResult{}, err
@@ -407,6 +413,9 @@ type V2MigrationSubject struct {
 }
 
 func PlanV2Migration(root, compositionPath string) (V2MigrationReport, error) {
+	if _, err := NonRegressionGate(root); err != nil {
+		return V2MigrationReport{}, err
+	}
 	validated, err := Preflight(root, compositionPath, "")
 	if err != nil {
 		return V2MigrationReport{}, err
@@ -462,6 +471,9 @@ func AuditDefinitivePreview(root string) DefinitivePreviewAudit {
 		lockErr = fmt.Errorf("Core v2 Preview Lockがdraftではありません")
 	}
 	report.add("core-v2-draft-lock", lockErr)
+	_, nonRegressionErr := NonRegressionGate(root)
+	report.add("interop-non-regression", nonRegressionErr)
+	report.add("neutral-language", ValidateNeutralLanguage(root))
 	return report
 }
 

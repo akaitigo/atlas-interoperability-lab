@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "gate": "interop-non-regression",
+  "baseline_commit": "1894452124e722955576a6a3744da7744c68f6f9",
+  "checks": [
+    {
+      "name": "sealed-baseline",
+      "verdict": "pass",
+      "detail": "main固定CommitとManifest Digestを検証"
+    },
+    {
+      "name": "neutral-language",
+      "verdict": "pass",
+      "detail": "Docs・Scenario・Metadataの中立表現と技術的namespace参照を検証"
+    },
+    {
+      "name": "no-skip-disable-optional",
+      "verdict": "pass",
+      "detail": "禁止Controlなし"
+    },
+    {
+      "name": "composition-components-versions",
+      "verdict": "pass",
+      "detail": "subjects=2 profiles=2"
+    },
+    {
+      "name": "scenario-action-assertion-threshold",
+      "verdict": "pass",
+      "detail": "scenarios=5"
+    },
+    {
+      "name": "contracts-tests-integration-evidence",
+      "verdict": "pass",
+      "detail": "immutable_artifacts=50"
+    },
+    {
+      "name": "ci-matrix-superset",
+      "verdict": "pass",
+      "detail": "baseline CI行を包含"
+    }
+  ],
+  "verdict": "pass"
+}

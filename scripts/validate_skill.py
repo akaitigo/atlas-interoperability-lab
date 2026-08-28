@@ -23,6 +23,7 @@ def main() -> int:
         index.get("self_audit_command") == "go run ./cmd/atlas-lab self-audit",
         index.get("definitive_gate_v2", {}).get("status") == "draft",
         index.get("definitive_gate_v2", {}).get("legacy_v1_command") == "go run ./cmd/atlas-lab legacy-v1-check",
+        index.get("non_regression", {}).get("command") == "go run ./cmd/atlas-lab non-regression-gate",
     )
     if not all(required):
         raise SystemExit("Router Skillのfrontmatter、UI metadata、Reference Indexが不正です")

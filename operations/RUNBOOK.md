@@ -21,3 +21,7 @@ Preflightの拒否が正しい結果です。Completion Gateを迂回したりFi
 ## Definitive Gate v2 Preview
 
 `make definitive-preview`でMatrix、Router Eval、非破壊Migration、旧v1 Bundleを検証します。`core-v2-draft`が返る間はmainへMergeせず、CertificateをDefinitive completeとして公開しません。失効Certificateは再有効化せず、新Certificateから失効Digestを`supersedes_digest`で参照します。
+
+## Non-Regression拒否
+
+最初に`make non-regression`を実行します。拒否された変更をskip、optional化、Scope変更、mock化、Evidence削除で迂回してはいけません。正当な置換は旧ID Mapping、新Composition参照、local/container相当の2件以上の統合Proof、Migration Evidenceを同じ変更へ含めます。

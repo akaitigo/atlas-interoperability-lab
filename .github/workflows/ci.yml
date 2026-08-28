@@ -24,6 +24,7 @@ jobs:
         run: |
           go test ./...
           go run ./cmd/atlas-lab validate
+          go run ./cmd/atlas-lab non-regression-gate
           python3 scripts/validate_skill.py
           python3 evals/run.py
           python3 evals/run_definitive_v2.py
@@ -32,11 +33,18 @@ jobs:
           go run ./cmd/atlas-lab legacy-v1-check
           go run ./cmd/atlas-lab definitive-preview-audit
           git log --format='%H%x00%B%x00' | python3 ../reference-atlas-core/scripts/check_dco.py
+      - name: Isolate E2E output from signed baseline
+        run: |
+          mkdir -p /tmp/atlas-lab-e2e
+          git archive HEAD | tar -x -C /tmp/atlas-lab-e2e
       - name: Local E2E
+        working-directory: /tmp/atlas-lab-e2e
         run: go run ./cmd/atlas-lab reproducibility --profile local
       - name: Container E2E
+        working-directory: /tmp/atlas-lab-e2e
         run: go run ./cmd/atlas-lab run --profile container
       - name: Failure diagnostics
+        working-directory: /tmp/atlas-lab-e2e
         run: |
           go run ./cmd/atlas-lab diagnose --profile local
           go run ./cmd/atlas-lab diagnose --profile container

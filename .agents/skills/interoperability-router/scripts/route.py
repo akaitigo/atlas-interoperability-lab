@@ -11,10 +11,13 @@ def route(query: str) -> dict:
     if "未完成" in normalized or "incomplete" in normalized:
         return {"decision":"reject","reason":"incomplete_subject","path":index["rejections"]["incomplete_subject"]}
     preview = index["definitive_gate_v2"]
+    non_regression = index["non_regression"]["command"]
+    if any(keyword in normalized for keyword in ("非後退", "non-regression", "不足を隠", "scenario削除", "シナリオ削除", "ci縮小", "skip", "disabled", "optional化", "mock置換")):
+        return {"decision":"non_regression_gate","command":non_regression,"baseline":index["non_regression"]["baseline"]}
     if "旧v1" in normalized or "legacy v1" in normalized or "v1 bundle" in normalized:
-        return {"decision":"legacy_v1","status":"verifiable","command":preview["legacy_v1_command"]}
+        return {"decision":"legacy_v1","status":"verifiable","command":preview["legacy_v1_command"],"non_regression_command":non_regression}
     if "移行" in normalized or "migration" in normalized:
-        return {"decision":"migration_preview","status":preview["status"],"command":preview["migration_command"],"warning":"no-definitive-promotion"}
+        return {"decision":"migration_preview","status":preview["status"],"command":preview["migration_command"],"warning":"no-definitive-promotion","non_regression_command":non_regression}
     if any(keyword in normalized for keyword in ("definitive", "決定版", "bounded", "epoch-complete", "v2", "excluded", "infeasible", "partial", "混在", "失効", "更新")):
         bounded = "bounded" in normalized or "epoch-complete" in normalized
         matrix = any(keyword in normalized for keyword in ("excluded", "infeasible", "partial", "混在", "失効", "更新"))
@@ -23,7 +26,8 @@ def route(query: str) -> dict:
             "status":preview["status"],
             "composition":preview["bounded_composition"] if bounded else preview["definitive_composition"],
             "command":preview["matrix_command"] if matrix else (preview["bounded_command"] if bounded else preview["definitive_command"]),
-            "warning":"core-v2-draft"
+            "warning":"core-v2-draft",
+            "non_regression_command":non_regression
         }
     matches = []
     for item in index["routes"]:
@@ -32,7 +36,7 @@ def route(query: str) -> dict:
     if not matches:
         return {"decision":"coverage_gap","reason":"no_declared_axis","path":index["rejections"]["coverage_gap"]}
     scenarios = sorted({path for item in matches for path in item["scenarios"]})
-    result = {"decision":"route","composition":index["composition"],"axes":[item["axis"] for item in matches],"scenarios":scenarios,"evidence":index["evidence"],"claim_evidence_graph":index["claim_evidence_graph"],"self_audit_command":index["self_audit_command"]}
+    result = {"decision":"route","composition":index["composition"],"axes":[item["axis"] for item in matches],"scenarios":scenarios,"evidence":index["evidence"],"claim_evidence_graph":index["claim_evidence_graph"],"self_audit_command":index["self_audit_command"],"non_regression_command":non_regression}
     if any(keyword in normalized for keyword in ("失敗", "障害", "failure", "diagnos", "診断")):
         profile = "container" if "docker" in normalized or "container" in normalized else "local"
         result["diagnostic_command"] = index["diagnostics"][profile]

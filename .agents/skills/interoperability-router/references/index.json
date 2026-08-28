@@ -17,6 +17,11 @@
   "claim_evidence_graph": "graphs/fixture-stage2.claim-evidence.json",
   "diagnostics": {"local":"go run ./cmd/atlas-lab diagnose --profile local","container":"go run ./cmd/atlas-lab diagnose --profile container"},
   "self_audit_command": "go run ./cmd/atlas-lab self-audit",
+  "non_regression": {
+    "baseline": "baselines/interop-v1.non-regression.json",
+    "mapping": "migrations/interop-v1-non-regression.json",
+    "command": "go run ./cmd/atlas-lab non-regression-gate"
+  },
   "definitive_gate_v2": {
     "status": "draft",
     "bounded_composition": "compositions/fixture-stage2-v2-bounded.preview.json",

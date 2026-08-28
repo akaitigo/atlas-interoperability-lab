@@ -154,5 +154,8 @@ func ValidateRepository(root string) error {
 	if err == nil || !strings.Contains(err.Error(), "未完成Release") {
 		return fmt.Errorf("未完成Subjectの拒否契約が実証されませんでした")
 	}
+	if _, err := NonRegressionGate(root); err != nil {
+		return err
+	}
 	return nil
 }

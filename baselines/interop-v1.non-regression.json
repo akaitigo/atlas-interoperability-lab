@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": "interop-v1-non-regression",
+  "source_commit": "1894452124e722955576a6a3744da7744c68f6f9",
+  "composition_path": "compositions/fixture-stage2.json",
+  "required_profiles": ["local", "container"],
+  "immutable_prefixes": [
+    "claims",
+    "cleanup",
+    "evidence",
+    "graphs",
+    "oracles",
+    "schemas"
+  ],
+  "immutable_paths": [
+    "cmd/fixture-subject/main.go",
+    "environments/local.json",
+    "environments/container.json",
+    "evals/cases.json",
+    "evals/run.py",
+    "internal/lab/diagnose_test.go",
+    "internal/lab/engine.go",
+    "internal/lab/runtime.go",
+    "internal/lab/validate_test.go"
+  ],
+  "ci_path": ".github/workflows/ci.yml",
+  "replacement_manifest": "migrations/interop-v1-non-regression.json"
+}

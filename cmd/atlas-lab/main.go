@@ -153,13 +153,31 @@ func main() {
 			fatal(err)
 		}
 		printJSON(map[string]any{"schema_version": 1, "bundle": "fixture-http-stage2-v1", "core_policy_version": "1.0.0", "verdict": "pass"})
+	case "non-regression-gate":
+		report, err := lab.NonRegressionGate(root)
+		if writeErr := lab.WriteJSON(filepath.Join(root, "evidence", "preview", "interop-v1.non-regression-gate.json"), report); writeErr != nil {
+			fatal(writeErr)
+		}
+		if err != nil {
+			printJSON(report)
+			fatal(err)
+		}
+		matrix, matrixErr := lab.RunNonRegressionMutationMatrix(root, "tests/fixtures/non-regression.matrix.json")
+		if writeErr := lab.WriteJSON(filepath.Join(root, "evidence", "preview", "interop-v1.non-regression-matrix.json"), matrix); writeErr != nil {
+			fatal(writeErr)
+		}
+		if matrixErr != nil {
+			printJSON(matrix)
+			fatal(matrixErr)
+		}
+		printJSON(map[string]any{"schema_version": 1, "gate": report, "mutation_matrix": matrix, "verdict": "pass"})
 	default:
 		usage()
 		os.Exit(2)
 	}
 }
 func usage() {
-	fmt.Fprintln(os.Stderr, "usage: atlas-lab <validate|preflight|run|reproducibility|provenance|publication-gate|certificate|certificate-check|diagnose|self-audit|definitive-gate|definitive-matrix|definitive-migrate|definitive-preview-audit|legacy-v1-check>")
+	fmt.Fprintln(os.Stderr, "usage: atlas-lab <validate|preflight|run|reproducibility|provenance|publication-gate|certificate|certificate-check|diagnose|self-audit|definitive-gate|definitive-matrix|definitive-migrate|definitive-preview-audit|legacy-v1-check|non-regression-gate>")
 }
 func fatal(err error) { fmt.Fprintln(os.Stderr, "ERROR:", err); os.Exit(1) }
 

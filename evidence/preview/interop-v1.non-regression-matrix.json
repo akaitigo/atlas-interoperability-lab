@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "id": "reject.scenario-delete",
+      "rejected": true,
+      "violation_code": "scenario-removed",
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.scenario-scope-out",
+      "rejected": true,
+      "violation_code": "scenario-removed",
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.scenario-aggregate",
+      "rejected": true,
+      "violation_code": "scenario-removed",
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.assertion-shrink",
+      "rejected": true,
+      "violation_code": "assertion-regressed",
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.threshold-weaken",
+      "rejected": true,
+      "violation_code": "assertion-regressed",
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.component-delete",
+      "rejected": true,
+      "violation_code": "component-removed",
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.version-change",
+      "rejected": true,
+      "violation_code": "component-regressed",
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.contract-change",
+      "rejected": true,
+      "violation_code": "artifact-regressed",
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.test-disable",
+      "rejected": true,
+      "violation_code": "forbidden-control",
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.scenario-disabled",
+      "rejected": true,
+      "violation_code": "forbidden-control",
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.ci-shrink",
+      "rejected": true,
+      "violation_code": "ci-regressed",
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.ci-step-skip",
+      "rejected": true,
+      "violation_code": "forbidden-control",
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.mock-replacement",
+      "rejected": true,
+      "violation_code": "artifact-regressed",
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.failure-evidence-delete",
+      "rejected": true,
+      "violation_code": "artifact-removed",
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.recovery-evidence-delete",
+      "rejected": true,
+      "violation_code": "artifact-removed",
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.optionalize-component",
+      "rejected": true,
+      "violation_code": "forbidden-control",
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.mapping-without-proof",
+      "rejected": true,
+      "violation_code": "replacement-proof-insufficient",
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.mapping-single-profile",
+      "rejected": true,
+      "violation_code": "replacement-proof-insufficient",
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.promotional-copy",
+      "rejected": true,
+      "violation_code": "promotional-language",
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.author-praise",
+      "rejected": true,
+      "violation_code": "author-praise",
+      "verdict": "pass"
+    }
+  ],
+  "verdict": "pass"
+}

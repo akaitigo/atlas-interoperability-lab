@@ -2,7 +2,7 @@ CORE_DIR ?= ../reference-atlas-core
 CORE_COMMIT := cf9e6e2d981305c83f970c1f21a1ddc9c1109263
 GO_CACHE_DIR := $(CURDIR)/.cache/go-build
 
-.PHONY: test lab-validate graph-check evidence-local evidence-container evidence reproducibility skill-validate skill-eval skill-eval-v2 definitive-preview legacy-v1-check diagnose provenance publication certificate core-validate core-audit dco-check self-audit cleanup-check check
+.PHONY: test lab-validate graph-check evidence-local evidence-container evidence reproducibility skill-validate skill-eval skill-eval-v2 non-regression definitive-preview legacy-v1-check diagnose provenance publication certificate core-validate core-audit dco-check self-audit cleanup-check check
 
 test:
 	GOCACHE="$(GO_CACHE_DIR)" go test ./...
@@ -36,7 +36,10 @@ skill-eval-v2:
 legacy-v1-check:
 	GOCACHE="$(GO_CACHE_DIR)" go run ./cmd/atlas-lab legacy-v1-check
 
-definitive-preview: legacy-v1-check skill-eval-v2
+non-regression:
+	GOCACHE="$(GO_CACHE_DIR)" go run ./cmd/atlas-lab non-regression-gate
+
+definitive-preview: non-regression legacy-v1-check skill-eval-v2
 	GOCACHE="$(GO_CACHE_DIR)" go run ./cmd/atlas-lab definitive-matrix
 	GOCACHE="$(GO_CACHE_DIR)" go run ./cmd/atlas-lab definitive-migrate
 	GOCACHE="$(GO_CACHE_DIR)" go run ./cmd/atlas-lab definitive-preview-audit
@@ -71,4 +74,4 @@ cleanup-check:
 	test '"verdict": "pass"' = "$$(rg -o '"verdict": "pass"' cleanup/local.receipt.json)"
 	test '"verdict": "pass"' = "$$(rg -o '"verdict": "pass"' cleanup/container.receipt.json)"
 
-check: test graph-check skill-validate skill-eval evidence reproducibility cleanup-check diagnose provenance publication certificate core-validate core-audit dco-check
+check: non-regression test graph-check skill-validate skill-eval evidence reproducibility cleanup-check diagnose provenance publication certificate core-validate core-audit dco-check

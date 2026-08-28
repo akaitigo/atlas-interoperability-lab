@@ -41,6 +41,11 @@ func PublicationGate(root string) (GateReport, error) {
 		return failGate(report, err.Error())
 	}
 	report.Checks = append(report.Checks, "cross-subject-claim-evidence-graph")
+	// v1 Publication Report自体は不変に保つが、判定前に上位の
+	// Non-Regression Gateを必ず通す。
+	if _, err := NonRegressionGate(root); err != nil {
+		return failGate(report, err.Error())
+	}
 	for _, profile := range []string{"local", "container"} {
 		var summary RunSummary
 		if err := LoadJSON(filepath.Join(root, "evidence", "runs", profile, "summary.json"), &summary); err != nil {

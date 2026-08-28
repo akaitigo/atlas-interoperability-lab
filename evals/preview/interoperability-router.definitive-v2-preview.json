@@ -65,6 +65,14 @@
       },
       "id": "v2.legacy",
       "result": "pass"
+    },
+    {
+      "checks": {
+        "command": true,
+        "decision": true
+      },
+      "id": "v2.non-regression",
+      "result": "pass"
     }
   ],
   "core_v2_status": "draft",
