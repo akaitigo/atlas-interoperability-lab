@@ -2,13 +2,13 @@
   "atlas_id": "atlas-interoperability-lab",
   "atlas_release": "v1.0.0",
   "authority_lock_digest": "sha256:f26faf2ac2bc3dbaaaaa578f61f142b7fc5415840fe42e943078992872107134",
-  "commit": "ca8a566c28c92c2b7c97b9daa38fe3b55387f7db",
+  "commit": "ad697c812502a12ec1b38218f8ebf449041d0987",
   "core_policy_version": "1.0.0",
   "coverage_epoch": "2026-08-28",
-  "evidence_set_digest": "sha256:0b6ae4d83a681443f9f2d9e0bac551595188444f55598e0219ad2930eb593f2e",
-  "graph_digest": "sha256:2c3f8a5796aeac6f2b9c79b8a266d2a5c8adda01082091037d03f25346a57a0e",
-  "issued_at": "2026-08-28T06:57:57Z",
-  "provenance_digest": "sha256:830e4dbf70e7899d94b20b30fa5c32dad9ae01741eec4392398cdf144a0c06d7",
+  "evidence_set_digest": "sha256:863e156e26411d562bf8ff65143a1289fee3297f8e5980dc2b100a663fb63e3f",
+  "graph_digest": "sha256:930580404e4e23d63f2f6dda1fa1ba25367c89ae84190e0a2d27b0ae3bb16090",
+  "issued_at": "2026-08-28T07:45:16Z",
+  "provenance_digest": "sha256:f0b5ad393dde387b50625fc3ae7b2960fe80c40a857b7f41043f781c695b8801",
   "required_profiles": [
     {
       "evidence_ids": [
@@ -28,11 +28,11 @@
   "sbom_digest": "sha256:e2a9b5778806678fa9f466814e1c136acb258915853ad92f63fb8f09b000546e",
   "schema_version": 1,
   "signature": {
-    "digest": "sha256:bbf4261bde3be3ca4a190d8956c9ea773af2c16f3ef33081a1ce5899edfa8017",
+    "digest": "sha256:e0d6d351b2d06afd310d6c0425fcec7702a5a935375436bab144937325695b10",
     "type": "payload-sha256"
   },
   "skill_eval": {
-    "digest": "sha256:ff0754ffeec9c01f17d8972a0bea937e8ca54c94b7ac425e49dd1653c14ee833",
+    "digest": "sha256:f3e0cdcb825f4585b926acf42d4cc04496df9868778394380e209ded67399ab8",
     "pass_rate": 1
   },
   "skill_package_digest": "sha256:43366aaacb48a2c98e33efb1a04316d6ccb97c5697f325565550e4ad9a08bdec"
