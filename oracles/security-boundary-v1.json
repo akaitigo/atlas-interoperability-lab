@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "id": "security-boundary-v1",
+  "observables": ["http_status", "message_count"],
+  "rules": ["無効Identityは境界で拒否する", "拒否された入力は下流Subjectの状態を変更しない"]
+}

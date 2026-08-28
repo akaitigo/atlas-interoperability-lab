@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "profile": "container",
+  "required": ["go>=1.26", "docker-engine"],
+  "isolation": ["Run単位Network", "Sourceのみloopbackへpublish", "scratch image", "実在第三者環境への通信なし"],
+  "cleanup": ["全Container削除", "Run Network削除", "Fixture Image削除", "資格情報非永続化"],
+  "cloud_dependency": "none"
+}

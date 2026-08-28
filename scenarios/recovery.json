@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "id": "recovery",
+  "title": "障害解除後のEnd-to-End回復",
+  "axes": ["recovery", "deployment", "observability", "messaging"],
+  "oracle": "oracles/failure-recovery-v1.json",
+  "phases": {
+    "setup": [
+      {"id":"clear-fault","type":"http","service":"source","method":"POST","path":"/admin/fault","headers":{"Authorization":"Bearer ${token.admin}","X-Trace-ID":"trace-recovery-v1"},"body":{"enabled":false},"expect":{"status":200,"json":[{"path":"fault","op":"eq","value":false}]}}
+    ],
+    "execute": [
+      {"id":"invoke-after-recovery","type":"http","service":"source","method":"POST","path":"/invoke","headers":{"Authorization":"Bearer ${token.valid}","X-Trace-ID":"trace-recovery-v1"},"body":{"schema_version":1,"message_id":"recovery-001","payload":{"value":"recovered"}},"expect":{"status":200,"json":[{"path":"status","op":"eq","value":"accepted"}]}}
+    ],
+    "verify": [
+      {"id":"recovery-visible","type":"http","service":"source","method":"GET","path":"/telemetry?trace_id=trace-recovery-v1","expect":{"status":200,"json":[{"path":"event_count","op":"gte","value":2}]}}
+    ],
+    "cleanup": []
+  }
+}

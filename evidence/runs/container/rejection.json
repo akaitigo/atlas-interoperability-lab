@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "scenario_id": "rejection",
+  "profile": "container",
+  "composition_digest": "sha256:f562551e4081576ed603010e77f025d1a78b91feefde57647c48c300259293ce",
+  "scenario_digest": "sha256:73ef63040df70a34a0d17df3078ae7d2f8255ff17dea9afdf4375721ba70c701",
+  "axes": [
+    "identity",
+    "security-boundary",
+    "messaging"
+  ],
+  "actions": [
+    {
+      "id": "count-before",
+      "type": "http",
+      "status": 200,
+      "assertions": 1,
+      "verdict": "pass"
+    },
+    {
+      "id": "reject-invalid-token",
+      "type": "http",
+      "status": 401,
+      "assertions": 2,
+      "verdict": "pass"
+    },
+    {
+      "id": "count-after",
+      "type": "http",
+      "status": 200,
+      "assertions": 1,
+      "verdict": "pass"
+    },
+    {
+      "id": "boundary-held",
+      "type": "compare",
+      "assertions": 1,
+      "verdict": "pass"
+    }
+  ],
+  "verdict": "pass"
+}

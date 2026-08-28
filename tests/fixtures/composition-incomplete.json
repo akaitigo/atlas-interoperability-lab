@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "id": "incomplete-subject-must-be-rejected",
+  "stage": 2,
+  "core_contract": {
+    "repository": "reference-atlas-core",
+    "commit": "cf9e6e2d981305c83f970c1f21a1ddc9c1109263",
+    "policy_version": "1.0.0"
+  },
+  "axes": [
+    "communication", "identity", "data", "messaging", "deployment",
+    "observability", "security-boundary", "failure-propagation", "recovery", "compatibility"
+  ],
+  "subjects": [
+    {
+      "name": "source",
+      "subject_id": "fixture-http-source",
+      "version": "v1.0.0",
+      "release_manifest": "fixtures/subjects/fixture-http-source/release.json",
+      "release_digest": "sha256:25449c959e2fbdb2de10b38cc6842fb1d1c7b5c329028c777b2617979e56b74d",
+      "certificate_digest": "sha256:a814802b327c98b9ca7e668414c4939c491aa70ac18b5aede5651d2e30b5a9e6"
+    },
+    {
+      "name": "sink",
+      "subject_id": "incomplete-subject",
+      "version": "v0.1.0",
+      "release_manifest": "fixtures/subjects/incomplete-subject/release.json",
+      "release_digest": "sha256:6f6f8aedd133f5544cf20260e1788097f8db3d753a335917b4840b420d4d5854",
+      "certificate_digest": "sha256:e71915555d91609b311d00128e66afbb4ebecb3b0f5073951cf5e603c6c84784"
+    }
+  ],
+  "profiles": ["local"],
+  "scenarios": ["scenarios/normal.json"]
+}

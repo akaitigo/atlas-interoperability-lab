@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "subject_id": "fixture-http-source",
+  "version": "v1.0.0",
+  "status": "complete",
+  "artifact_digest": "sha256:38b9e0e5a03b973da837856ccc25f939b6ed1e76d87ebc2a226d7edb8b5d6294",
+  "issued_at": "2026-08-28T00:00:00Z"
+}

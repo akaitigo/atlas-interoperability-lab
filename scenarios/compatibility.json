@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "id": "compatibility",
+  "title": "未対応Schema Versionの明示拒否",
+  "axes": ["compatibility", "data", "security-boundary"],
+  "oracle": "oracles/http-json-v1.json",
+  "phases": {
+    "setup": [],
+    "execute": [
+      {"id":"reject-v2","type":"http","service":"source","method":"POST","path":"/invoke","headers":{"Authorization":"Bearer ${token.valid}","X-Trace-ID":"trace-compat-v1"},"body":{"schema_version":2,"message_id":"compat-001","payload":{"value":"future"}},"expect":{"status":422,"json":[{"path":"error","op":"eq","value":"unsupported_schema"},{"path":"supported.0","op":"eq","value":1}]}}
+    ],
+    "verify": [
+      {"id":"compatibility-visible","type":"http","service":"source","method":"GET","path":"/telemetry?trace_id=trace-compat-v1","expect":{"status":200,"json":[{"path":"event_count","op":"gte","value":1}]}}
+    ],
+    "cleanup": []
+  }
+}

@@ -1,0 +1,5 @@
+# Security Policy
+
+このLabは防御、検証、教育専用です。Failure InjectionはFixture SubjectとRun単位のloopback／Docker Networkに限定し、実在する第三者環境を対象にしません。
+
+脆弱性報告では秘密や個人情報をIssueへ貼らず、GitHub Security Advisoryの非公開報告を使用してください。Fixture Credentialは毎Run生成しProcessまたはContainer環境にのみ渡し、Evidenceへ記録しません。

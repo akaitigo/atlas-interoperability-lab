@@ -1,0 +1,5 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","title":"Lab Environment Profile","type":"object","additionalProperties":false,
+  "required":["schema_version","profile","required","isolation","cleanup","cloud_dependency"],
+  "properties":{"schema_version":{"const":1},"profile":{"enum":["local","container","cloud-live"]},"required":{"type":"array","items":{"type":"string"}},"isolation":{"type":"array","minItems":1,"items":{"type":"string"}},"cleanup":{"type":"array","minItems":1,"items":{"type":"string"}},"cloud_dependency":{"type":"string","minLength":3}}
+}

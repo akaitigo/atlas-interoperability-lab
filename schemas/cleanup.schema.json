@@ -1,0 +1,5 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","title":"Complete Cleanup Receipt","type":"object","additionalProperties":false,
+  "required":["schema_version","profile","composition_id","remaining_processes","remaining_containers","remaining_networks","remaining_images","credentials_persisted","verdict"],
+  "properties":{"schema_version":{"const":1},"profile":{"enum":["local","container"]},"composition_id":{"type":"string"},"remaining_processes":{"type":"integer","minimum":0},"remaining_containers":{"type":"integer","minimum":0},"remaining_networks":{"type":"integer","minimum":0},"remaining_images":{"type":"integer","minimum":0},"credentials_persisted":{"const":false},"verdict":{"enum":["pass","fail"]}}
+}

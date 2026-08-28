@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "composition": "compositions/fixture-stage2.json",
+  "routes": [
+    {"axis":"communication","keywords":["通信","http","communication"],"scenarios":["scenarios/normal.json"]},
+    {"axis":"identity","keywords":["identity","認証","token"],"scenarios":["scenarios/normal.json","scenarios/rejection.json"]},
+    {"axis":"data","keywords":["data","データ","schema"],"scenarios":["scenarios/normal.json","scenarios/compatibility.json"]},
+    {"axis":"messaging","keywords":["message","messaging","メッセージ"],"scenarios":["scenarios/normal.json","scenarios/rejection.json"]},
+    {"axis":"deployment","keywords":["deployment","docker","local","デプロイ"],"scenarios":["scenarios/normal.json","scenarios/recovery.json"]},
+    {"axis":"observability","keywords":["observability","trace","telemetry","可観測"],"scenarios":["scenarios/normal.json","scenarios/failure.json","scenarios/recovery.json"]},
+    {"axis":"security-boundary","keywords":["security","boundary","拒否","境界"],"scenarios":["scenarios/rejection.json"]},
+    {"axis":"failure-propagation","keywords":["failure","障害","伝播"],"scenarios":["scenarios/failure.json"]},
+    {"axis":"recovery","keywords":["recovery","回復","復旧"],"scenarios":["scenarios/recovery.json"]},
+    {"axis":"compatibility","keywords":["compatibility","互換","version"],"scenarios":["scenarios/compatibility.json"]}
+  ],
+  "evidence": {"local":"evidence/runs/local/summary.json","container":"evidence/runs/container/summary.json"},
+  "rejections": {"incomplete_subject":"tests/fixtures/composition-incomplete.json","coverage_gap":"atlas/exclusions/exclusions.json"}
+}

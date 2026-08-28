@@ -1,0 +1,23 @@
+schema_version: 1
+atlas_id: atlas-interoperability-lab
+epoch: "2026-08-28"
+authority_lock_digest: sha256:f26faf2ac2bc3dbaaaaa578f61f142b7fc5415840fe42e943078992872107134
+target_sets:
+  - id: stage2-interoperability
+    title: Stage 2相互運用Closure
+    sequence: 1
+    completion_required: true
+    exit_criteria:
+      - 10検証軸がlocalとcontainerの同じScenarioとOracleでpassする。
+      - 未完成Subjectを拒否し全ResourceとCredentialを完全Cleanupする。
+targets:
+  - {id: interop.communication, title: 通信, target_set: stage2-interoperability, kind: compatibility, requirement: required, state: covered, rationale: HTTP通信を固定接続契約でEnd-to-End検証します。, claim_ids: [interop.communication], evidence_ids: [stage2.local.e2e, stage2.container.e2e], exclusion: null}
+  - {id: interop.identity, title: Identity, target_set: stage2-interoperability, kind: security, requirement: required, state: covered, rationale: 有効と無効のIdentityを境界で判別します。, claim_ids: [interop.identity], evidence_ids: [stage2.local.e2e, stage2.container.e2e], exclusion: null}
+  - {id: interop.data, title: Data, target_set: stage2-interoperability, kind: capability, requirement: required, state: covered, rationale: Version化JSON Dataの保存結果を観測します。, claim_ids: [interop.data], evidence_ids: [stage2.local.e2e, stage2.container.e2e], exclusion: null}
+  - {id: interop.messaging, title: Messaging, target_set: stage2-interoperability, kind: capability, requirement: required, state: covered, rationale: Subject間Messageの受理と拒否を観測します。, claim_ids: [interop.messaging], evidence_ids: [stage2.local.e2e, stage2.container.e2e], exclusion: null}
+  - {id: interop.deployment, title: Deployment, target_set: stage2-interoperability, kind: operation, requirement: required, state: covered, rationale: local ProcessとDocker Containerの起動を検証します。, claim_ids: [interop.deployment], evidence_ids: [stage2.local.e2e, stage2.container.e2e], exclusion: null}
+  - {id: interop.observability, title: Observability, target_set: stage2-interoperability, kind: operation, requirement: required, state: covered, rationale: Trace IDをSubject境界越しに相関します。, claim_ids: [interop.observability], evidence_ids: [stage2.local.e2e, stage2.container.e2e], exclusion: null}
+  - {id: interop.security-boundary, title: Security Boundary, target_set: stage2-interoperability, kind: security, requirement: required, state: covered, rationale: 無効入力が下流状態を変えないことを検証します。, claim_ids: [interop.security-boundary], evidence_ids: [stage2.local.e2e, stage2.container.e2e], exclusion: null}
+  - {id: interop.failure-propagation, title: Failure Propagation, target_set: stage2-interoperability, kind: failure, requirement: required, state: covered, rationale: 隔離障害を明示Statusとして上流へ伝播します。, claim_ids: [interop.failure-propagation], evidence_ids: [stage2.local.e2e, stage2.container.e2e], exclusion: null}
+  - {id: interop.recovery, title: Recovery, target_set: stage2-interoperability, kind: failure, requirement: required, state: covered, rationale: 障害解除後に同じ構成で正常状態へ戻します。, claim_ids: [interop.recovery], evidence_ids: [stage2.local.e2e, stage2.container.e2e], exclusion: null}
+  - {id: interop.compatibility, title: Compatibility, target_set: stage2-interoperability, kind: compatibility, requirement: required, state: covered, rationale: 未対応Versionを明示拒否し対応Versionを保持します。, claim_ids: [interop.compatibility], evidence_ids: [stage2.local.e2e, stage2.container.e2e], exclusion: null}

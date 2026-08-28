@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "id": "failure-recovery-v1",
+  "observables": ["http_status", "trace_events", "health"],
+  "rules": ["隔離障害を上流へ明示的に伝播する", "解除後は同じ固定Release構成で正常応答へ回復する"]
+}

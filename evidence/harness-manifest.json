@@ -1,0 +1,42 @@
+{
+  "files": [
+    {
+      "digest": "sha256:083e79985820eafb28547c4ae36847a4b2a4885a556dc0961ae1b58823132065",
+      "path": "cmd/atlas-lab/main.go"
+    },
+    {
+      "digest": "sha256:a33c03c8b853837411404856029265b1968574d5a1dd147eee74512ce784d79d",
+      "path": "go.mod"
+    },
+    {
+      "digest": "sha256:9ea7d44d7364111be00974cf07f08cc9b952d65533d0c2068234b8695a69c40b",
+      "path": "internal/lab/engine.go"
+    },
+    {
+      "digest": "sha256:933a41d5906a01bc72df4c051c1a1d7e91df2b588496cdd7d3d90d46bfae5648",
+      "path": "internal/lab/files.go"
+    },
+    {
+      "digest": "sha256:ecbff9c113db078e5d6528d138f310297387aa12774188f03dccb94dbd1b5d7a",
+      "path": "internal/lab/gates.go"
+    },
+    {
+      "digest": "sha256:671c002add4c28913c90b6549ae59b7f697c47c9711f2be4b85e840ad972998c",
+      "path": "internal/lab/runtime.go"
+    },
+    {
+      "digest": "sha256:bd1dc9a7975f53e4eeef40ee653e64609ca66af25b5fb0c98dcf56b1d6398851",
+      "path": "internal/lab/types.go"
+    },
+    {
+      "digest": "sha256:d643ce5a6617c2be719631db4edc73b2e99724ccd4bb1e25932e5988e913e052",
+      "path": "internal/lab/validate.go"
+    },
+    {
+      "digest": "sha256:6c2ad994a392da2fef448aa49f4f3684107f2d5efac96590906acf45bfbbc73c",
+      "path": "internal/lab/validate_test.go"
+    }
+  ],
+  "harness": "atlas-lab-runner-v1",
+  "schema_version": 1
+}

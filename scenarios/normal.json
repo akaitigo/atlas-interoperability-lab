@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": "normal",
+  "title": "認証済みMessageの正常なEnd-to-End伝送",
+  "axes": ["communication", "identity", "data", "messaging", "deployment", "observability"],
+  "oracle": "oracles/http-json-v1.json",
+  "phases": {
+    "setup": [
+      {"id":"source-ready","type":"http","service":"source","method":"GET","path":"/health","expect":{"status":200,"json":[{"path":"status","op":"eq","value":"ready"}]}}
+    ],
+    "execute": [
+      {"id":"invoke","type":"http","service":"source","method":"POST","path":"/invoke","headers":{"Authorization":"Bearer ${token.valid}","X-Trace-ID":"trace-normal-v1"},"body":{"schema_version":1,"message_id":"normal-001","payload":{"value":"fixture"}},"expect":{"status":200,"json":[{"path":"status","op":"eq","value":"accepted"},{"path":"schema_version","op":"eq","value":1}]},"capture":{"normal.trace":"trace_id"}}
+    ],
+    "verify": [
+      {"id":"data-persisted","type":"http","service":"source","method":"GET","path":"/downstream-state","expect":{"status":200,"json":[{"path":"message_count","op":"gte","value":1}]}},
+      {"id":"trace-propagated","type":"http","service":"source","method":"GET","path":"/telemetry?trace_id=${normal.trace}","expect":{"status":200,"json":[{"path":"trace_id","op":"eq","value":"trace-normal-v1"},{"path":"event_count","op":"gte","value":2}]}}
+    ],
+    "cleanup": []
+  }
+}

@@ -1,0 +1,17 @@
+schema_version: 1
+atlas_id: atlas-interoperability-lab
+atlas_release: v1.0.0
+router:
+  id: interoperability-router
+  path: .agents/skills/interoperability-router/SKILL.md
+  description: 固定CompositionのScenario、Oracle、Environment、Evidenceへ案内し、未完成またはCoverage外の要求を拒否するRouterです。
+generated_from:
+  - compositions/fixture-stage2.json
+  - scenarios
+  - evidence
+adapters:
+  - codex
+  - generic-agent-skills
+evals:
+  path: evals/skill
+  minimum_pass_rate: 1.0

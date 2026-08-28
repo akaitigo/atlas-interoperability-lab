@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "scenario_id": "compatibility",
+  "profile": "local",
+  "composition_digest": "sha256:f562551e4081576ed603010e77f025d1a78b91feefde57647c48c300259293ce",
+  "scenario_digest": "sha256:b02da045eee487551241e609fa447d3345babca51d758a7356b6c5a675a4e8f5",
+  "axes": [
+    "compatibility",
+    "data",
+    "security-boundary"
+  ],
+  "actions": [
+    {
+      "id": "reject-v2",
+      "type": "http",
+      "status": 422,
+      "assertions": 3,
+      "verdict": "pass"
+    },
+    {
+      "id": "compatibility-visible",
+      "type": "http",
+      "status": 200,
+      "assertions": 2,
+      "verdict": "pass"
+    }
+  ],
+  "verdict": "pass"
+}

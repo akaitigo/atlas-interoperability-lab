@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": "rejection",
+  "title": "無効IdentityをSecurity Boundaryで拒否",
+  "axes": ["identity", "security-boundary", "messaging"],
+  "oracle": "oracles/security-boundary-v1.json",
+  "phases": {
+    "setup": [
+      {"id":"count-before","type":"http","service":"source","method":"GET","path":"/downstream-state","expect":{"status":200},"capture":{"reject.before":"message_count"}}
+    ],
+    "execute": [
+      {"id":"reject-invalid-token","type":"http","service":"source","method":"POST","path":"/invoke","headers":{"Authorization":"Bearer ${token.invalid}","X-Trace-ID":"trace-reject-v1"},"body":{"schema_version":1,"message_id":"reject-001","payload":{"value":"must-not-cross"}},"expect":{"status":401,"json":[{"path":"error","op":"eq","value":"unauthorized"}]}}
+    ],
+    "verify": [
+      {"id":"count-after","type":"http","service":"source","method":"GET","path":"/downstream-state","expect":{"status":200},"capture":{"reject.after":"message_count"}},
+      {"id":"boundary-held","type":"compare","left":"${reject.before}","right":"${reject.after}","op":"eq"}
+    ],
+    "cleanup": []
+  }
+}

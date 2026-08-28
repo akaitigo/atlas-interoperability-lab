@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "profile": "cloud-live",
+  "required": [],
+  "isolation": ["明示Opt-in", "専用AccountとBudget上限が別途必要"],
+  "cleanup": ["Provider Inventoryが空であることを確認"],
+  "cloud_dependency": "optional-not-implemented"
+}

@@ -1,0 +1,47 @@
+{
+  "artifacts": [
+    {
+      "digest": "sha256:b213de6ec5bf3b8d6cc7d947435b63ca14b75702601bf50bd0cbf316ed1aa062",
+      "generated_by": "atlas-lab runner v1",
+      "kind": "test-report",
+      "license": "Apache-2.0",
+      "path": "evidence/runs/local/summary.json",
+      "source_ids": [
+        "fixture-subject.source"
+      ]
+    },
+    {
+      "digest": "sha256:c6e899aea81a567ea2083db282011b093e611f9f23177bfaf89bde42dcbde9ee",
+      "generated_by": "atlas-lab runner v1",
+      "kind": "test-report",
+      "license": "Apache-2.0",
+      "path": "evidence/runs/container/summary.json",
+      "source_ids": [
+        "fixture-subject.source"
+      ]
+    },
+    {
+      "digest": "sha256:ff0754ffeec9c01f17d8972a0bea937e8ca54c94b7ac425e49dd1653c14ee833",
+      "generated_by": "python3 evals/run.py",
+      "kind": "skill-eval",
+      "license": "Apache-2.0",
+      "path": "evals/skill/interoperability-router.skill-eval.json",
+      "source_ids": [
+        "reference-atlas-core.architecture"
+      ]
+    },
+    {
+      "digest": "sha256:e2a9b5778806678fa9f466814e1c136acb258915853ad92f63fb8f09b000546e",
+      "generated_by": "atlas-lab publication v1",
+      "kind": "sbom",
+      "license": "CC0-1.0",
+      "path": "sbom.spdx.json",
+      "source_ids": [
+        "reference-atlas-core.architecture"
+      ]
+    }
+  ],
+  "atlas_id": "atlas-interoperability-lab",
+  "generated_at": "2026-08-28T00:00:00+09:00",
+  "schema_version": 1
+}

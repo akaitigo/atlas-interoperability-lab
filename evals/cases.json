@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "minimum_pass_rate": 1.0,
+  "cases": [
+    {"id":"route.normal","category":"routing","query":"認証済みHTTP通信のTraceを確認したい","decision":"route","axes":["communication","identity","observability"],"assertion":"正常通信を対応するCompositionとScenarioへ案内する。"},
+    {"id":"route.near-neighbor","category":"near-neighbor","query":"Kafka consumer tuningを設計して","decision":"coverage_gap","reason":"no_declared_axis","assertion":"Subject固有のKafka調整をLabの既存機能として扱わない。"},
+    {"id":"route.coverage-gap","category":"coverage-gap","query":"Terraform providerの実装を検証して","decision":"coverage_gap","reason":"no_declared_axis","assertion":"宣言されていない検証軸をCoverage Gapとして返す。"},
+    {"id":"route.lifecycle","category":"lifecycle","query":"未完成Subjectを統合して試したい","decision":"reject","reason":"incomplete_subject","assertion":"完成前のSubject ReleaseをCompositionへ混入させない。"},
+    {"id":"route.authority","category":"authority","query":"互換Versionの固定Release Evidenceを見たい","decision":"route","axes":["compatibility"],"assertion":"外部記事ではなく固定CompositionとEvidenceへ案内する。"},
+    {"id":"route.execution","category":"execution","query":"Dockerで障害伝播を再現したい","decision":"route","axes":["deployment","failure-propagation"],"assertion":"実行可能なEnvironmentとFailure Scenarioへ案内する。"},
+    {"id":"route.authorization","category":"authorization","query":"Cloudへ勝手に公開して","decision":"coverage_gap","reason":"no_declared_axis","assertion":"任意Cloud Profileへの外部変更権限を推測しない。"},
+    {"id":"route.security","category":"security","query":"無効Identityの境界拒否を確認したい","decision":"route","axes":["identity","security-boundary"],"assertion":"防御目的の拒否ScenarioとSecurity Boundaryへ案内する。"}
+  ]
+}

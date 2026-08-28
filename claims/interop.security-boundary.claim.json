@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": "interop.security-boundary",
+  "atlas_id": "atlas-interoperability-lab",
+  "capability_id": "interop.security-boundary",
+  "statement": "Security Boundaryは無効Identityと未対応Dataを拒否し下流Subjectの状態を保護する。",
+  "status": "accepted",
+  "source_ids": [
+    "fixture-subject.source"
+  ],
+  "proof_obligations": [
+    {
+      "id": "interop.security-boundary.deny",
+      "statement": "無効Identity拒否の前後で下流Subjectの保存状態を比較する。",
+      "acceptance_criteria": [
+        "無効TokenのRequest前後でmessage_countが一致すること"
+      ]
+    }
+  ]
+}

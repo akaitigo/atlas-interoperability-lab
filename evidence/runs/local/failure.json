@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "scenario_id": "failure",
+  "profile": "local",
+  "composition_digest": "sha256:f562551e4081576ed603010e77f025d1a78b91feefde57647c48c300259293ce",
+  "scenario_digest": "sha256:c50845807335db45642f29f858338ee711e08faf4c960db7d6b877238d70dd38",
+  "axes": [
+    "failure-propagation",
+    "observability",
+    "security-boundary"
+  ],
+  "actions": [
+    {
+      "id": "inject-fault",
+      "type": "http",
+      "status": 200,
+      "assertions": 2,
+      "verdict": "pass"
+    },
+    {
+      "id": "invoke-during-fault",
+      "type": "http",
+      "status": 502,
+      "assertions": 2,
+      "verdict": "pass"
+    },
+    {
+      "id": "failure-visible",
+      "type": "http",
+      "status": 200,
+      "assertions": 2,
+      "verdict": "pass"
+    }
+  ],
+  "verdict": "pass"
+}

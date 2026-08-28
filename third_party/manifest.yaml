@@ -1,0 +1,6 @@
+schema_version: 1
+artifacts:
+  - {id: go-toolchain, name: Go toolchain, kind: source, version: "1.26", source: https://go.dev/LICENSE, license: BSD-3-Clause, redistribution: allowed}
+  - {id: docker-engine, name: Docker Engine, kind: source, version: "29.1.2", source: https://docs.docker.com/engine/, license: Apache-2.0, redistribution: allowed}
+  - {id: actions-checkout, name: actions/checkout, kind: github-action, version: v4, source: https://github.com/actions/checkout, license: MIT, redistribution: link-only}
+  - {id: actions-setup-go, name: actions/setup-go, kind: github-action, version: v5, source: https://github.com/actions/setup-go, license: MIT, redistribution: link-only}

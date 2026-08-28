@@ -1,0 +1,53 @@
+schema_version: 1
+id: atlas-interoperability-lab
+title: Atlas Interoperability Lab
+owner:
+  github: akaitigo
+repository:
+  url: https://github.com/akaitigo/atlas-interoperability-lab
+  visibility: public
+  default_branch: main
+archetypes:
+  - control-plane
+stage: 2
+status: complete
+language:
+  primary: ja
+  identifiers: en
+coverage:
+  epoch: "2026-08-28"
+  manifest: coverage.yaml
+authority:
+  lockfile: sources.lock.yaml
+  policy: primary-first
+mastery:
+  manifest: mastery.yaml
+  contract_version: 1.0.0
+scope:
+  statement: 完成済みSubject Releaseだけを固定VersionとDigestで組み合わせ、分野知識を複製せず中立PrimitiveによるStage 2相互運用を検証する。
+  exclusions:
+    - 個別Subjectの実装責任、Authority解釈、単体完成判定は所有しない。
+    - 未完成またはFloating Branch参照のSubjectを組み合わせない。
+    - cloud-liveは主要Claimに不要な任意Profileとし自動実行しない。
+integrates_with:
+  - reference-atlas-core
+skills:
+  router:
+    id: interoperability-router
+    path: .agents/skills/interoperability-router/SKILL.md
+  package_manifest: skill.package.yaml
+  evals: evals/cases.json
+completion:
+  policy_version: 1.0.0
+  required_profiles:
+    - local
+    - container
+  certificate: evidence/completion-certificate.json
+license:
+  default: Apache-2.0
+  notice: NOTICE
+  third_party_manifest: third_party/manifest.yaml
+  sbom: sbom.spdx.json
+security:
+  disclosure: SECURITY.md
+  defensive_only: true

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "interop.deployment",
+  "atlas_id": "atlas-interoperability-lab",
+  "capability_id": "interop.deployment",
+  "statement": "同じ固定Artifactはloopback Processと隔離Docker Containerの両Profileで起動できる。",
+  "status": "accepted",
+  "source_ids": [
+    "reference-atlas-core.architecture",
+    "fixture-subject.source"
+  ],
+  "proof_obligations": [
+    {
+      "id": "interop.deployment.profiles",
+      "statement": "localとcontainerの両Environment Adapterで起動後Healthを確認する。",
+      "acceptance_criteria": [
+        "localとcontainerのRequired Profile Evidenceがpassすること"
+      ]
+    }
+  ]
+}

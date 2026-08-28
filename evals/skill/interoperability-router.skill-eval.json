@@ -1,0 +1,58 @@
+{
+  "atlas_id": "atlas-interoperability-lab",
+  "atlas_release": "v1.0.0",
+  "cases": [
+    {
+      "assertion": "正常通信を対応するCompositionとScenarioへ案内する。",
+      "category": "routing",
+      "id": "route.normal",
+      "result": "pass"
+    },
+    {
+      "assertion": "Subject固有のKafka調整をLabの既存機能として扱わない。",
+      "category": "near-neighbor",
+      "id": "route.near-neighbor",
+      "result": "pass"
+    },
+    {
+      "assertion": "宣言されていない検証軸をCoverage Gapとして返す。",
+      "category": "coverage-gap",
+      "id": "route.coverage-gap",
+      "result": "pass"
+    },
+    {
+      "assertion": "完成前のSubject ReleaseをCompositionへ混入させない。",
+      "category": "lifecycle",
+      "id": "route.lifecycle",
+      "result": "pass"
+    },
+    {
+      "assertion": "外部記事ではなく固定CompositionとEvidenceへ案内する。",
+      "category": "authority",
+      "id": "route.authority",
+      "result": "pass"
+    },
+    {
+      "assertion": "実行可能なEnvironmentとFailure Scenarioへ案内する。",
+      "category": "execution",
+      "id": "route.execution",
+      "result": "pass"
+    },
+    {
+      "assertion": "任意Cloud Profileへの外部変更権限を推測しない。",
+      "category": "authorization",
+      "id": "route.authorization",
+      "result": "pass"
+    },
+    {
+      "assertion": "防御目的の拒否ScenarioとSecurity Boundaryへ案内する。",
+      "category": "security",
+      "id": "route.security",
+      "result": "pass"
+    }
+  ],
+  "generated_at": "2026-08-28T00:00:00+09:00",
+  "id": "interoperability.router-v1",
+  "schema_version": 1,
+  "skill_id": "interoperability-router"
+}

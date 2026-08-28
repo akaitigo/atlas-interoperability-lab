@@ -1,0 +1,23 @@
+schema_version: 1
+atlas_id: atlas-interoperability-lab
+epoch: "2026-08-28"
+generated_at: "2026-08-28T15:04:19+09:00"
+sources:
+  - id: reference-atlas-core.architecture
+    kind: official-documentation
+    title: Reference Atlas Core Architecture
+    url: https://github.com/akaitigo/reference-atlas-core/blob/cf9e6e2d981305c83f970c1f21a1ddc9c1109263/docs/ARCHITECTURE.md
+    version: cf9e6e2d981305c83f970c1f21a1ddc9c1109263
+    retrieved_at: "2026-08-28"
+    digest: sha256:0377d6ba61f3e0ef382cbba5ab7a19b653340e01167b977dd7ef0f0f590ecb0c
+    license: Apache-2.0
+    redistribution: metadata-only
+  - id: fixture-subject.source
+    kind: source
+    title: Neutral HTTP Fixture Subject Source
+    url: https://github.com/akaitigo/atlas-interoperability-lab/blob/main/cmd/fixture-subject/main.go
+    version: v1.0.0
+    retrieved_at: "2026-08-28"
+    digest: sha256:38b9e0e5a03b973da837856ccc25f939b6ed1e76d87ebc2a226d7edb8b5d6294
+    license: Apache-2.0
+    redistribution: allowed

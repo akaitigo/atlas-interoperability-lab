@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "exclusions": [
+    {"id":"subject-domain-knowledge","reason":"個別Subject AtlasのAuthority、機能責任、単体完成条件はLabへ複製しない","reviewed_at":"2026-08-28"},
+    {"id":"cloud-live-required","reason":"現在の主要Claimはlocalとcontainerで立証できるためCloud依存を必須化しない","reviewed_at":"2026-08-28"}
+  ]
+}

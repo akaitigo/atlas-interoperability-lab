@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "id": "fixture-http-stage2-v1",
+  "stage": 2,
+  "core_contract": {
+    "repository": "reference-atlas-core",
+    "commit": "cf9e6e2d981305c83f970c1f21a1ddc9c1109263",
+    "policy_version": "1.0.0"
+  },
+  "axes": [
+    "communication", "identity", "data", "messaging", "deployment",
+    "observability", "security-boundary", "failure-propagation", "recovery", "compatibility"
+  ],
+  "subjects": [
+    {
+      "name": "source",
+      "subject_id": "fixture-http-source",
+      "version": "v1.0.0",
+      "release_manifest": "fixtures/subjects/fixture-http-source/release.json",
+      "release_digest": "sha256:25449c959e2fbdb2de10b38cc6842fb1d1c7b5c329028c777b2617979e56b74d",
+      "certificate_digest": "sha256:a814802b327c98b9ca7e668414c4939c491aa70ac18b5aede5651d2e30b5a9e6"
+    },
+    {
+      "name": "sink",
+      "subject_id": "fixture-http-sink",
+      "version": "v1.0.0",
+      "release_manifest": "fixtures/subjects/fixture-http-sink/release.json",
+      "release_digest": "sha256:eb8b28f493911a9e273921cf6e775f80cda57055f31ded056fff2582a7d70290",
+      "certificate_digest": "sha256:847542e6254fc6551f57f13e2b88252d413f2e1a6ffe6ca1bf21cba3f58eee21"
+    }
+  ],
+  "profiles": ["local", "container"],
+  "scenarios": [
+    "scenarios/normal.json",
+    "scenarios/rejection.json",
+    "scenarios/failure.json",
+    "scenarios/recovery.json",
+    "scenarios/compatibility.json"
+  ]
+}

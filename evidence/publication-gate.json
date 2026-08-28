@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "gate": "publication",
+  "checks": [
+    "cleanup:container",
+    "cleanup:local",
+    "core-lock",
+    "e2e:container",
+    "e2e:local",
+    "present:LICENSE",
+    "present:NOTICE",
+    "present:SECURITY.md",
+    "present:cleanup/container.receipt.json",
+    "present:cleanup/local.receipt.json",
+    "present:evals/skill/interoperability-router.skill-eval.json",
+    "present:evidence/records/stage2.container.evidence.json",
+    "present:evidence/records/stage2.local.evidence.json",
+    "present:provenance.yaml",
+    "present:sbom.spdx.json",
+    "present:sources.lock.yaml",
+    "present:third_party/manifest.yaml",
+    "provenance",
+    "release-locks",
+    "rights",
+    "sbom",
+    "secret-scan",
+    "skill-eval"
+  ],
+  "verdict": "pass"
+}

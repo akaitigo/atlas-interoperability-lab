@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": "interop.failure-propagation",
+  "atlas_id": "atlas-interoperability-lab",
+  "capability_id": "interop.failure-propagation",
+  "statement": "隔離したSink障害は曖昧な成功へ変換されず上流へ明示的な失敗として伝播する。",
+  "status": "accepted",
+  "source_ids": [
+    "fixture-subject.source"
+  ],
+  "proof_obligations": [
+    {
+      "id": "interop.failure-propagation.explicit",
+      "statement": "隔離したSynthetic Fault中のSinkとSourceの応答Statusを観測する。",
+      "acceptance_criteria": [
+        "Sink 503がSource 502 downstream_unavailableとして現れること"
+      ]
+    }
+  ]
+}

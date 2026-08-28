@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": "interop.recovery",
+  "atlas_id": "atlas-interoperability-lab",
+  "capability_id": "interop.recovery",
+  "statement": "隔離障害の解除後はReleaseやCompositionを変更せず正常なEnd-to-End状態へ回復する。",
+  "status": "accepted",
+  "source_ids": [
+    "fixture-subject.source"
+  ],
+  "proof_obligations": [
+    {
+      "id": "interop.recovery.same-composition",
+      "statement": "同じ固定ReleaseとProcess群を保ったまま障害解除後に再実行する。",
+      "acceptance_criteria": [
+        "recovery ScenarioがHTTP 200 acceptedとTrace Eventを返すこと"
+      ]
+    }
+  ]
+}

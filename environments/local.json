@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "profile": "local",
+  "required": ["go>=1.26", "loopback-tcp"],
+  "isolation": ["127.0.0.1のみlisten", "実在第三者環境への通信なし", "資格情報はProcess環境のみ"],
+  "cleanup": ["全子Process終了", "一時BinaryとLog削除", "資格情報非永続化"],
+  "cloud_dependency": "none"
+}

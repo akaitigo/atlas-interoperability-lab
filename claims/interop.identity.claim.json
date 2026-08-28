@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": "interop.identity",
+  "atlas_id": "atlas-interoperability-lab",
+  "capability_id": "interop.identity",
+  "statement": "有効なIdentityだけがSubject境界を通過し無効なIdentityは下流到達前に拒否される。",
+  "status": "accepted",
+  "source_ids": [
+    "fixture-subject.source"
+  ],
+  "proof_obligations": [
+    {
+      "id": "interop.identity.boundary",
+      "statement": "有効Tokenと無効Tokenによる境界通過結果を同じ構成で比較する。",
+      "acceptance_criteria": [
+        "有効Tokenは200、無効Tokenは401で下流件数が不変であること"
+      ]
+    }
+  ]
+}

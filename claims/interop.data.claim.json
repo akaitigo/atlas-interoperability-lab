@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": "interop.data",
+  "atlas_id": "atlas-interoperability-lab",
+  "capability_id": "interop.data",
+  "statement": "Version化JSON Dataは対応Versionだけが保存され未対応Versionは状態変更なしに拒否される。",
+  "status": "accepted",
+  "source_ids": [
+    "fixture-subject.source"
+  ],
+  "proof_obligations": [
+    {
+      "id": "interop.data.versioned",
+      "statement": "schema_version別のData受理と保存結果を境界越しに観測する。",
+      "acceptance_criteria": [
+        "v1は保存されv2は422で拒否されること"
+      ]
+    }
+  ]
+}

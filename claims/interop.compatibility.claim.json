@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": "interop.compatibility",
+  "atlas_id": "atlas-interoperability-lab",
+  "capability_id": "interop.compatibility",
+  "statement": "Compatibility Boundaryは対応Versionを明示し未対応Schema Versionを暗黙変換せず拒否する。",
+  "status": "accepted",
+  "source_ids": [
+    "fixture-subject.source"
+  ],
+  "proof_obligations": [
+    {
+      "id": "interop.compatibility.reject",
+      "statement": "対応schema v1と未対応schema v2の応答と保存結果を比較する。",
+      "acceptance_criteria": [
+        "v1は200、v2は422とsupported version 1を返すこと"
+      ]
+    }
+  ]
+}

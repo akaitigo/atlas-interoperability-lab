@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "obligations": [
+    {"id":"proof.release-lock","claim_id":"interop.fixed-release-only","command":"go run ./cmd/atlas-lab preflight --profile local"},
+    {"id":"proof.e2e","claim_id":"interop.e2e-four-states","command":"make evidence"},
+    {"id":"proof.cleanup","claim_id":"interop.complete-cleanup","command":"make cleanup-check"}
+  ]
+}

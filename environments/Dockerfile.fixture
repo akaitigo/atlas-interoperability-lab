@@ -1,0 +1,3 @@
+FROM scratch
+COPY fixture-subject /fixture-subject
+ENTRYPOINT ["/fixture-subject"]

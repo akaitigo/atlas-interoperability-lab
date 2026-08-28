@@ -1,0 +1,36 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.26.x"
+      - name: Lock Core contract
+        run: |
+          git clone --no-checkout https://github.com/akaitigo/reference-atlas-core.git ../reference-atlas-core
+          git -C ../reference-atlas-core checkout -B main cf9e6e2d981305c83f970c1f21a1ddc9c1109263
+      - name: Unit and contract tests
+        run: |
+          go test ./...
+          go run ./cmd/atlas-lab validate
+          python3 scripts/validate_skill.py
+          python3 evals/run.py
+      - name: Local E2E
+        run: go run ./cmd/atlas-lab reproducibility --profile local
+      - name: Container E2E
+        run: go run ./cmd/atlas-lab run --profile container
+      - name: Publication inputs
+        run: |
+          go run ./cmd/atlas-lab provenance
+          go run ./cmd/atlas-lab publication-gate

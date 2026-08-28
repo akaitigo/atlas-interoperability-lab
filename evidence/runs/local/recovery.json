@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "scenario_id": "recovery",
+  "profile": "local",
+  "composition_digest": "sha256:f562551e4081576ed603010e77f025d1a78b91feefde57647c48c300259293ce",
+  "scenario_digest": "sha256:05f197fc3b877e1ca7f975e46a73cc71a89ee623f24c3bf7746e191e55bee393",
+  "axes": [
+    "recovery",
+    "deployment",
+    "observability",
+    "messaging"
+  ],
+  "actions": [
+    {
+      "id": "clear-fault",
+      "type": "http",
+      "status": 200,
+      "assertions": 2,
+      "verdict": "pass"
+    },
+    {
+      "id": "invoke-after-recovery",
+      "type": "http",
+      "status": 200,
+      "assertions": 2,
+      "verdict": "pass"
+    },
+    {
+      "id": "recovery-visible",
+      "type": "http",
+      "status": 200,
+      "assertions": 2,
+      "verdict": "pass"
+    }
+  ],
+  "verdict": "pass"
+}

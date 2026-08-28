@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "subject_id": "fixture-http-source",
+  "version": "v1.0.0",
+  "status": "complete",
+  "artifact": {
+    "path": "../../../cmd/fixture-subject/main.go",
+    "digest": "sha256:38b9e0e5a03b973da837856ccc25f939b6ed1e76d87ebc2a226d7edb8b5d6294",
+    "media_type": "text/x-go"
+  },
+  "launch": { "driver": "go-source", "args": ["-role", "source"], "port": 8080 },
+  "interfaces": ["http-json-v1", "bearer-token-v1", "trace-context-v1"],
+  "certificate": "completion-certificate.json"
+}

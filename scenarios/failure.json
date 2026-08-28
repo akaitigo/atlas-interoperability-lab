@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "id": "failure",
+  "title": "隔離したSink障害の伝播",
+  "axes": ["failure-propagation", "observability", "security-boundary"],
+  "oracle": "oracles/failure-recovery-v1.json",
+  "phases": {
+    "setup": [
+      {"id":"inject-fault","type":"http","service":"source","method":"POST","path":"/admin/fault","headers":{"Authorization":"Bearer ${token.admin}","X-Trace-ID":"trace-failure-v1"},"body":{"enabled":true},"expect":{"status":200,"json":[{"path":"fault","op":"eq","value":true}]}}
+    ],
+    "execute": [
+      {"id":"invoke-during-fault","type":"http","service":"source","method":"POST","path":"/invoke","headers":{"Authorization":"Bearer ${token.valid}","X-Trace-ID":"trace-failure-v1"},"body":{"schema_version":1,"message_id":"failure-001","payload":{"value":"fault"}},"expect":{"status":502,"json":[{"path":"error","op":"eq","value":"downstream_unavailable"}]}}
+    ],
+    "verify": [
+      {"id":"failure-visible","type":"http","service":"source","method":"GET","path":"/telemetry?trace_id=trace-failure-v1","expect":{"status":200,"json":[{"path":"event_count","op":"gte","value":2}]}}
+    ],
+    "cleanup": []
+  }
+}

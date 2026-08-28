@@ -1,0 +1,4 @@
+interface:
+  display_name: "Interoperability Router"
+  short_description: "Stage 2構成・Scenario・Evidenceへ案内"
+  default_prompt: "Use $interoperability-router to find the fixed Stage 2 composition and evidence for this interoperability question."

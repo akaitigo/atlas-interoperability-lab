@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "claims": [
+    {"id":"interop.fixed-release-only","acceptance":"全SubjectのVersion、Release Digest、Certificate Digestが一致しstatus=completeである"},
+    {"id":"interop.e2e-four-states","acceptance":"正常、拒否、障害、回復Scenarioがlocalとcontainerでpassする"},
+    {"id":"interop.complete-cleanup","acceptance":"Process、Container、Network、Image、Credential残存数がゼロである"}
+  ]
+}

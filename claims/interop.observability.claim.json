@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": "interop.observability",
+  "atlas_id": "atlas-interoperability-lab",
+  "capability_id": "interop.observability",
+  "statement": "Trace IDはSubject境界を越えて伝播し正常、障害、回復のEventを相関可能にする。",
+  "status": "accepted",
+  "source_ids": [
+    "fixture-subject.source"
+  ],
+  "proof_obligations": [
+    {
+      "id": "interop.observability.trace",
+      "statement": "Trace ID別のSourceとSink Telemetry Eventを境界越しに照合する。",
+      "acceptance_criteria": [
+        "SourceとSinkのEventが同じTrace IDで二件以上取得できること"
+      ]
+    }
+  ]
+}

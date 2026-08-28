@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "id": "http-json-v1",
+  "observables": ["http_status", "json_body", "trace_id", "message_count"],
+  "rules": ["HTTP statusとJSON値をScenarioの期待値へ完全一致させる", "未対応schema_versionは暗黙変換せず拒否する"]
+}
