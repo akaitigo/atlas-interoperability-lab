@@ -1,0 +1,39 @@
+{
+  "atlas_id": "atlas-interoperability-lab",
+  "atlas_release": "v1.0.0",
+  "authority_lock_digest": "sha256:f26faf2ac2bc3dbaaaaa578f61f142b7fc5415840fe42e943078992872107134",
+  "commit": "ca8a566c28c92c2b7c97b9daa38fe3b55387f7db",
+  "core_policy_version": "1.0.0",
+  "coverage_epoch": "2026-08-28",
+  "evidence_set_digest": "sha256:0b6ae4d83a681443f9f2d9e0bac551595188444f55598e0219ad2930eb593f2e",
+  "graph_digest": "sha256:2c3f8a5796aeac6f2b9c79b8a266d2a5c8adda01082091037d03f25346a57a0e",
+  "issued_at": "2026-08-28T06:57:57Z",
+  "provenance_digest": "sha256:830e4dbf70e7899d94b20b30fa5c32dad9ae01741eec4392398cdf144a0c06d7",
+  "required_profiles": [
+    {
+      "evidence_ids": [
+        "stage2.local.e2e"
+      ],
+      "profile": "local",
+      "result": "pass"
+    },
+    {
+      "evidence_ids": [
+        "stage2.container.e2e"
+      ],
+      "profile": "container",
+      "result": "pass"
+    }
+  ],
+  "sbom_digest": "sha256:e2a9b5778806678fa9f466814e1c136acb258915853ad92f63fb8f09b000546e",
+  "schema_version": 1,
+  "signature": {
+    "digest": "sha256:bbf4261bde3be3ca4a190d8956c9ea773af2c16f3ef33081a1ce5899edfa8017",
+    "type": "payload-sha256"
+  },
+  "skill_eval": {
+    "digest": "sha256:ff0754ffeec9c01f17d8972a0bea937e8ca54c94b7ac425e49dd1653c14ee833",
+    "pass_rate": 1
+  },
+  "skill_package_digest": "sha256:43366aaacb48a2c98e33efb1a04316d6ccb97c5697f325565550e4ad9a08bdec"
+}
