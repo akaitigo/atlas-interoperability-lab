@@ -2,7 +2,7 @@
   "schema_version": 1,
   "atlas_id": "atlas-interoperability-lab",
   "core_commit": "072d7ca77981f51754e824d70c6d4ecd55ea67e5",
-  "generated_at": "2026-08-30T15:53:46Z",
+  "generated_at": "2026-08-30T17:14:29Z",
   "status": "current",
   "policy": {
     "transitive_staleness": true,
@@ -21,7 +21,7 @@
       ],
       "baseline_digest": "sha256:434b9851cca41f10bff2b7739f04704d299db4b725f826bd5e13f6d923165e70",
       "current_digest": "sha256:434b9851cca41f10bff2b7739f04704d299db4b725f826bd5e13f6d923165e70",
-      "observed_at": "2026-08-30T15:52:22Z"
+      "observed_at": "2026-08-30T17:12:05Z"
     },
     {
       "id": "composition-source",
@@ -30,15 +30,20 @@
         "compatibility/evidence-dependency-core.lock.json",
         "compositions/fixture-stage2.json",
         "compositions/fixture-stage2-v2-definitive.preview.json",
+        "migrations/runtime-binding-executable-attestation.json",
+        "attestations/fe-upstream.local-report.json",
+        "attestations/fe-upstream.attestation.json",
+        "attestations/fe-upstream.attestation.json.sig",
+        "attestations/fe-upstream.allowed-signers",
         "fixtures/subjects/fixture-http-source/release.json",
         "fixtures/subjects/fixture-http-source/completion-certificate.json",
         "fixtures/subjects/fixture-http-sink/release.json",
         "fixtures/subjects/fixture-http-sink/completion-certificate.json",
         "cmd/fixture-subject/main.go"
       ],
-      "baseline_digest": "sha256:2908dc133581a7c0eaa13ed0051729c5c5890ae8aed3e18e5288f890c1d031d9",
-      "current_digest": "sha256:2908dc133581a7c0eaa13ed0051729c5c5890ae8aed3e18e5288f890c1d031d9",
-      "observed_at": "2026-08-30T15:52:22Z"
+      "baseline_digest": "sha256:7ad99c087c1cf32aa0227afb288870e571421e9b30f03d7b8390357ad86a16a0",
+      "current_digest": "sha256:7ad99c087c1cf32aa0227afb288870e571421e9b30f03d7b8390357ad86a16a0",
+      "observed_at": "2026-08-30T17:12:05Z"
     },
     {
       "id": "interop-harness",
@@ -64,9 +69,12 @@
         "internal/lab/nonregression.go",
         "internal/lab/nonregression_matrix.go",
         "internal/lab/pinned_core.go",
+        "internal/lab/public_ci.go",
         "internal/lab/repository_contract.go",
         "internal/lab/runtime.go",
+        "internal/lab/runtime_attested_run.go",
         "internal/lab/runtime_binding.go",
+        "internal/lab/runtime_binding_migration.go",
         "internal/lab/scenario_contract.go",
         "internal/lab/selfaudit.go",
         "internal/lab/types.go",
@@ -82,9 +90,9 @@
         "tests/fixtures/composition-compatibility.matrix.json",
         "tests/fixtures/composition-evidence-dependency.matrix.json"
       ],
-      "baseline_digest": "sha256:847015f4d9e64a527d8362110444871d27676a4b275359eca483ce6aca17305b",
-      "current_digest": "sha256:847015f4d9e64a527d8362110444871d27676a4b275359eca483ce6aca17305b",
-      "observed_at": "2026-08-30T15:52:22Z"
+      "baseline_digest": "sha256:a62d683479beaf5f262a0469214edf49d0be1dadb8b01a109d3693ea25f75a23",
+      "current_digest": "sha256:a62d683479beaf5f262a0469214edf49d0be1dadb8b01a109d3693ea25f75a23",
+      "observed_at": "2026-08-30T17:12:05Z"
     },
     {
       "id": "go-runtime",
@@ -94,7 +102,7 @@
       ],
       "baseline_digest": "sha256:3d7647ca4d4f397a9dbf167e30dacb28d1c90fbd907a3a36f1d2ce045f591aeb",
       "current_digest": "sha256:3d7647ca4d4f397a9dbf167e30dacb28d1c90fbd907a3a36f1d2ce045f591aeb",
-      "observed_at": "2026-08-30T15:52:22Z"
+      "observed_at": "2026-08-30T17:12:05Z"
     },
     {
       "id": "local-profile",
@@ -104,7 +112,7 @@
       ],
       "baseline_digest": "sha256:3781e09d4802de869b1f578ceb4bc82eba9a75342723954315644cdb95bcb6e6",
       "current_digest": "sha256:3781e09d4802de869b1f578ceb4bc82eba9a75342723954315644cdb95bcb6e6",
-      "observed_at": "2026-08-30T15:52:22Z"
+      "observed_at": "2026-08-30T17:12:05Z"
     },
     {
       "id": "container-profile",
@@ -115,7 +123,7 @@
       ],
       "baseline_digest": "sha256:9d88fae91884a0afcd18a3ec27aa8ceaa071c4d4f173b2144ca29a35056010b2",
       "current_digest": "sha256:9d88fae91884a0afcd18a3ec27aa8ceaa071c4d4f173b2144ca29a35056010b2",
-      "observed_at": "2026-08-30T15:52:22Z"
+      "observed_at": "2026-08-30T17:12:05Z"
     }
   ],
   "outputs": [
@@ -123,7 +131,7 @@
       "id": "local-binding",
       "kind": "runtime-evidence",
       "path": "evidence/preview/runtime-binding/local.binding.json",
-      "digest": "sha256:1f8a9d24b39881714079863f3b480e151322802c3f2b6d4a721b830bd584683f",
+      "digest": "sha256:28e193f3c62266ce8d22616f3c14643918161bf4a23974cb4aed78f146083dc7",
       "depends_on": [
         "repository-contract",
         "composition-source",
@@ -138,7 +146,7 @@
       "id": "local-summary",
       "kind": "runtime-evidence",
       "path": "evidence/preview/runtime-binding/local/summary.json",
-      "digest": "sha256:ed69b057014aa137c9f19556b8aa127f91ef3e5ac507cab23735981f76662351",
+      "digest": "sha256:63666fd2ab9c540e1ddf31cff93b3a70f7f4787909e34d941d3a955523839083",
       "depends_on": [
         "repository-contract",
         "composition-source",
@@ -243,7 +251,7 @@
       "id": "container-binding",
       "kind": "runtime-evidence",
       "path": "evidence/preview/runtime-binding/container.binding.json",
-      "digest": "sha256:ae4e520ae8e8ad8d926acf5b82d859eda3b6c717178f843476adca56637d2fc9",
+      "digest": "sha256:374738477b40d69186016b10184132820688c0240a824dd1404ad1c5ece8a538",
       "depends_on": [
         "repository-contract",
         "composition-source",
@@ -258,7 +266,7 @@
       "id": "container-summary",
       "kind": "runtime-evidence",
       "path": "evidence/preview/runtime-binding/container/summary.json",
-      "digest": "sha256:96f68d702f08ed1a68f8f9fad78901c102b6f3965b307d26a210cb9e6bcea2f9",
+      "digest": "sha256:8051a6a3fe8a48f594101a99908302bebf50afa5dcfb40cab63648c4d95754d8",
       "depends_on": [
         "repository-contract",
         "composition-source",
@@ -377,7 +385,7 @@
       "id": "runtime-proof-index",
       "kind": "scenario-proof",
       "path": "evidence/preview/runtime-binding/proof-index.json",
-      "digest": "sha256:01a5854a06a19a04e1c692b1e3f5add3291816f413ccb2cd5f255a17aa879498",
+      "digest": "sha256:7d45831088565aa3b4a4216dde4e24fede0bac711e787ece59ef674d8f052d22",
       "depends_on": [
         "local-binding",
         "container-binding",
@@ -404,8 +412,8 @@
       "id": "run-local-runtime-binding",
       "execution_kind": "runtime",
       "command": "go run ./cmd/atlas-lab runtime-binding --profile local",
-      "started_at": "2026-08-30T15:51:57Z",
-      "completed_at": "2026-08-30T15:52:04Z",
+      "started_at": "2026-08-30T17:11:25Z",
+      "completed_at": "2026-08-30T17:11:39Z",
       "result": "passed",
       "attempts": 1,
       "runtime_identity": {
@@ -422,11 +430,11 @@
         },
         {
           "input_id": "composition-source",
-          "digest": "sha256:2908dc133581a7c0eaa13ed0051729c5c5890ae8aed3e18e5288f890c1d031d9"
+          "digest": "sha256:7ad99c087c1cf32aa0227afb288870e571421e9b30f03d7b8390357ad86a16a0"
         },
         {
           "input_id": "interop-harness",
-          "digest": "sha256:847015f4d9e64a527d8362110444871d27676a4b275359eca483ce6aca17305b"
+          "digest": "sha256:a62d683479beaf5f262a0469214edf49d0be1dadb8b01a109d3693ea25f75a23"
         },
         {
           "input_id": "go-runtime",
@@ -452,8 +460,8 @@
       "id": "run-container-runtime-binding",
       "execution_kind": "runtime",
       "command": "go run ./cmd/atlas-lab runtime-binding --profile container",
-      "started_at": "2026-08-30T15:52:12Z",
-      "completed_at": "2026-08-30T15:52:21Z",
+      "started_at": "2026-08-30T17:11:53Z",
+      "completed_at": "2026-08-30T17:12:04Z",
       "result": "passed",
       "attempts": 1,
       "runtime_identity": {
@@ -471,11 +479,11 @@
         },
         {
           "input_id": "composition-source",
-          "digest": "sha256:2908dc133581a7c0eaa13ed0051729c5c5890ae8aed3e18e5288f890c1d031d9"
+          "digest": "sha256:7ad99c087c1cf32aa0227afb288870e571421e9b30f03d7b8390357ad86a16a0"
         },
         {
           "input_id": "interop-harness",
-          "digest": "sha256:847015f4d9e64a527d8362110444871d27676a4b275359eca483ce6aca17305b"
+          "digest": "sha256:a62d683479beaf5f262a0469214edf49d0be1dadb8b01a109d3693ea25f75a23"
         },
         {
           "input_id": "go-runtime",
@@ -501,8 +509,8 @@
       "id": "run-composition-closure",
       "execution_kind": "derived",
       "command": "go run ./cmd/atlas-lab composition-evidence-closure",
-      "started_at": "2026-08-30T15:52:22Z",
-      "completed_at": "2026-08-30T15:53:46Z",
+      "started_at": "2026-08-30T17:12:05Z",
+      "completed_at": "2026-08-30T17:14:29Z",
       "result": "passed",
       "attempts": 1,
       "input_bindings": [
@@ -512,11 +520,11 @@
         },
         {
           "input_id": "composition-source",
-          "digest": "sha256:2908dc133581a7c0eaa13ed0051729c5c5890ae8aed3e18e5288f890c1d031d9"
+          "digest": "sha256:7ad99c087c1cf32aa0227afb288870e571421e9b30f03d7b8390357ad86a16a0"
         },
         {
           "input_id": "interop-harness",
-          "digest": "sha256:847015f4d9e64a527d8362110444871d27676a4b275359eca483ce6aca17305b"
+          "digest": "sha256:a62d683479beaf5f262a0469214edf49d0be1dadb8b01a109d3693ea25f75a23"
         },
         {
           "input_id": "go-runtime",
@@ -564,7 +572,7 @@
       "id": "runtime-proof-structure",
       "kind": "scenario-proof-index",
       "path": "evidence/preview/runtime-binding/proof-index.json",
-      "baseline_digest": "sha256:01a5854a06a19a04e1c692b1e3f5add3291816f413ccb2cd5f255a17aa879498"
+      "baseline_digest": "sha256:7d45831088565aa3b4a4216dde4e24fede0bac711e787ece59ef674d8f052d22"
     },
     {
       "id": "closure-plan-structure",
@@ -575,7 +583,6 @@
   ],
   "completion_state": "incomplete",
   "gaps": [
-    "process-executable-attestation-unavailable",
     "subject-depth-parity-incomplete",
     "subject-v2-certificate-atomic-binding-unavailable",
     "surface-pattern-proof-gaps"

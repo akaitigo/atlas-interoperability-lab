@@ -18,7 +18,7 @@ func TestSavedRuntimeBindingEvidence(t *testing.T) {
 			if err := ValidateRuntimeBindingEvidence(root, evidence); err != nil {
 				t.Fatal(err)
 			}
-			if evidence.DefinitiveEligible || len(evidence.Subjects) != 2 || evidence.RuntimeEvidence.ScenarioCount != 5 || !sameSet(evidence.Gaps, []string{"process-executable-attestation-unavailable", "subject-v2-certificate-atomic-binding-unavailable"}) {
+			if evidence.DefinitiveEligible || len(evidence.Subjects) != 2 || len(evidence.Executable.Attestations) != 2 || evidence.RuntimeEvidence.ScenarioCount != 5 || !sameSet(evidence.Gaps, []string{"subject-v2-certificate-atomic-binding-unavailable"}) {
 				t.Fatalf("Runtime Bindingが不足を正直に保持していません: %#v", evidence)
 			}
 		})
@@ -36,7 +36,11 @@ func TestRuntimeBindingEvidenceRejectsPromotionAndClosureShrink(t *testing.T) {
 		mutate func(*RuntimeBindingEvidence)
 	}{
 		{name: "definitive-promotion", mutate: func(value *RuntimeBindingEvidence) { value.DefinitiveEligible = true }},
-		{name: "gap-withdrawal", mutate: func(value *RuntimeBindingEvidence) { value.Gaps = value.Gaps[:1] }},
+		{name: "certificate-gap-withdrawal", mutate: func(value *RuntimeBindingEvidence) { value.Gaps = nil }},
+		{name: "executable-attestation-withdrawal", mutate: func(value *RuntimeBindingEvidence) { value.Executable.Attestations = value.Executable.Attestations[:1] }},
+		{name: "executable-attestation-digest-drift", mutate: func(value *RuntimeBindingEvidence) {
+			value.Executable.Attestations[0].ObservedDigest = "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+		}},
 		{name: "scenario-withdrawal", mutate: func(value *RuntimeBindingEvidence) {
 			value.RuntimeEvidence.Scenarios = value.RuntimeEvidence.Scenarios[:4]
 		}},
@@ -60,6 +64,7 @@ func cloneRuntimeBindingEvidence(source RuntimeBindingEvidence) RuntimeBindingEv
 	clone := source
 	clone.Gaps = append([]string{}, source.Gaps...)
 	clone.Subjects = append([]RuntimeSubjectBinding{}, source.Subjects...)
+	clone.Executable.Attestations = append([]RuntimeExecutableAttestation{}, source.Executable.Attestations...)
 	clone.RuntimeEvidence.Scenarios = append([]PreviewArtifactLock{}, source.RuntimeEvidence.Scenarios...)
 	return clone
 }

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "runtime-binding-executable-attestation-v1",
+  "from_binding_state": "runtime-recipe-observed-with-explicit-gaps",
+  "to_binding_state": "runtime-executable-attested-with-certificate-gap",
+  "closed_gap": "process-executable-attestation-unavailable",
+  "preserved_gap": "subject-v2-certificate-atomic-binding-unavailable",
+  "old_ids": [
+    "local-runtime-binding",
+    "container-runtime-binding"
+  ],
+  "replacement_proofs": [
+    "evidence/preview/runtime-binding/local.binding.json",
+    "evidence/preview/runtime-binding/container.binding.json"
+  ],
+  "required_negative_assertions": [
+    "executable-attestation-withdrawal",
+    "executable-attestation-digest-drift"
+  ],
+  "status": "applied"
+}

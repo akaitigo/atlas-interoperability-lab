@@ -41,10 +41,18 @@ type RuntimeBindingPlatform struct {
 }
 
 type RuntimeExecutableBinding struct {
-	SourceArtifactDigest string `json:"source_artifact_digest"`
-	RuntimeBinaryDigest  string `json:"runtime_binary_digest"`
-	BuildRecipe          string `json:"build_recipe"`
-	BindingMethod        string `json:"binding_method"`
+	SourceArtifactDigest string                         `json:"source_artifact_digest"`
+	RuntimeBinaryDigest  string                         `json:"runtime_binary_digest"`
+	BuildRecipe          string                         `json:"build_recipe"`
+	BindingMethod        string                         `json:"binding_method"`
+	Attestations         []RuntimeExecutableAttestation `json:"attestations"`
+}
+
+type RuntimeExecutableAttestation struct {
+	SubjectName    string `json:"subject_name"`
+	CaptureMethod  string `json:"capture_method"`
+	ObservedDigest string `json:"observed_digest"`
+	ObservedAt     string `json:"observed_at"`
 }
 
 type RuntimeSubjectBinding struct {
@@ -101,7 +109,7 @@ func generateRuntimeBindingEvidence(root, profile string, requireNonRegression b
 		return RuntimeBindingEvidence{}, err
 	}
 	executionStartedAt := time.Now().UTC()
-	summary, runErr := Run(temporaryRoot, "compositions/fixture-stage2.json", profile)
+	summary, attestations, runErr := runWithRuntimeAttestation(temporaryRoot, "compositions/fixture-stage2.json", profile)
 	executionCompletedAt := time.Now().UTC()
 	if runErr != nil {
 		return RuntimeBindingEvidence{}, fmt.Errorf("隔離%s Runtime実行失敗: %w", profile, runErr)
@@ -147,9 +155,9 @@ func generateRuntimeBindingEvidence(root, profile string, requireNonRegression b
 	evidence := RuntimeBindingEvidence{
 		SchemaVersion: 1, ID: "fixture-stage2-" + profile + "-runtime-binding", CoreCommit: evidenceDependencyCoreCommit,
 		CompositionID: validated.Manifest.ID, CompositionDigest: validated.Digest, Profile: profile, ObservedAt: executionCompletedAt.Format(time.RFC3339), ExecutionStartedAt: executionStartedAt.Format(time.RFC3339), ExecutionCompletedAt: executionCompletedAt.Format(time.RFC3339),
-		Platform: platform, Executable: RuntimeExecutableBinding{SourceArtifactDigest: artifactDigest, RuntimeBinaryDigest: binaryDigest, BuildRecipe: recipe, BindingMethod: "sealed-runner-reproducible-build-recipe"}, Subjects: subjects,
+		Platform: platform, Executable: RuntimeExecutableBinding{SourceArtifactDigest: artifactDigest, RuntimeBinaryDigest: binaryDigest, BuildRecipe: recipe, BindingMethod: "sealed-runner-live-executable-attestation", Attestations: attestations}, Subjects: subjects,
 		RuntimeEvidence: RuntimeEvidenceBinding{Summary: summaryLock, Scenarios: scenarioLocks, Cleanup: cleanupLock, ScenarioCount: len(scenarioLocks), ExecutionState: "pass", CleanupState: "pass"},
-		BindingState:    "runtime-recipe-observed-with-explicit-gaps", Gaps: []string{"process-executable-attestation-unavailable", "subject-v2-certificate-atomic-binding-unavailable"}, DefinitiveEligible: false, Verdict: "pass",
+		BindingState:    "runtime-executable-attested-with-certificate-gap", Gaps: []string{"subject-v2-certificate-atomic-binding-unavailable"}, DefinitiveEligible: false, Verdict: "pass",
 	}
 	if err := ValidateRuntimeBindingEvidence(root, evidence); err != nil {
 		return RuntimeBindingEvidence{}, err
@@ -162,7 +170,7 @@ func ValidateRuntimeBindingEvidence(root string, evidence RuntimeBindingEvidence
 	if err != nil {
 		return err
 	}
-	if evidence.SchemaVersion != 1 || evidence.ID != "fixture-stage2-"+evidence.Profile+"-runtime-binding" || evidence.CoreCommit != evidenceDependencyCoreCommit || evidence.CompositionID != validated.Manifest.ID || evidence.CompositionDigest != validated.Digest || evidence.Verdict != "pass" || evidence.DefinitiveEligible || evidence.BindingState != "runtime-recipe-observed-with-explicit-gaps" || !sameSet(evidence.Gaps, []string{"process-executable-attestation-unavailable", "subject-v2-certificate-atomic-binding-unavailable"}) {
+	if evidence.SchemaVersion != 1 || evidence.ID != "fixture-stage2-"+evidence.Profile+"-runtime-binding" || evidence.CoreCommit != evidenceDependencyCoreCommit || evidence.CompositionID != validated.Manifest.ID || evidence.CompositionDigest != validated.Digest || evidence.Verdict != "pass" || evidence.DefinitiveEligible || evidence.BindingState != "runtime-executable-attested-with-certificate-gap" || !sameSet(evidence.Gaps, []string{"subject-v2-certificate-atomic-binding-unavailable"}) {
 		return fmt.Errorf("Runtime Binding Evidenceの状態契約が不正です")
 	}
 	observedAt, err := time.Parse(time.RFC3339, evidence.ObservedAt)
@@ -174,8 +182,23 @@ func ValidateRuntimeBindingEvidence(root string, evidence RuntimeBindingEvidence
 	if startErr != nil || completeErr != nil || completedAt.Before(startedAt) || !observedAt.Equal(completedAt) {
 		return fmt.Errorf("Runtime Binding Evidenceの実行時刻契約が不正です")
 	}
-	if evidence.Executable.BindingMethod != "sealed-runner-reproducible-build-recipe" || evidence.Executable.BuildRecipe == "" || !validSHA256Digest(evidence.Executable.RuntimeBinaryDigest) || !validSHA256Digest(evidence.Executable.SourceArtifactDigest) {
+	if evidence.Executable.BindingMethod != "sealed-runner-live-executable-attestation" || evidence.Executable.BuildRecipe == "" || !validSHA256Digest(evidence.Executable.RuntimeBinaryDigest) || !validSHA256Digest(evidence.Executable.SourceArtifactDigest) {
 		return fmt.Errorf("Runtime executableのrecipe／digest契約が不正です")
+	}
+	attestedSubjects := map[string]bool{}
+	for _, attestation := range evidence.Executable.Attestations {
+		observedAt, err := time.Parse(time.RFC3339, attestation.ObservedAt)
+		if err != nil || observedAt.Before(startedAt) || observedAt.After(completedAt) || attestation.ObservedDigest != evidence.Executable.RuntimeBinaryDigest || attestedSubjects[attestation.SubjectName] {
+			return fmt.Errorf("Runtime executable attestationが不正です: %s", attestation.SubjectName)
+		}
+		expectedMethod := "docker-cp-live-container"
+		if evidence.Profile == "local" {
+			expectedMethod = map[string]string{"darwin": "darwin-ps-live-process", "linux": "procfs-live-process"}[evidence.Platform.OS]
+		}
+		if expectedMethod == "" || attestation.CaptureMethod != expectedMethod {
+			return fmt.Errorf("Runtime executable capture methodが不正です: %s", attestation.SubjectName)
+		}
+		attestedSubjects[attestation.SubjectName] = true
 	}
 	if evidence.Profile == "local" {
 		if evidence.Platform.Kind != "local-process" || evidence.Platform.OS == "" || evidence.Platform.Architecture == "" || evidence.Platform.GoVersion == "" || evidence.Platform.ContainerRuntime != "" {
@@ -246,6 +269,9 @@ func ValidateRuntimeBindingEvidence(root string, evidence RuntimeBindingEvidence
 		}
 		if evidence.Executable.SourceArtifactDigest != actual.ArtifactDigest {
 			return fmt.Errorf("Runtime executableのsource artifactがSubject Releaseと一致しません: %s", ref.Name)
+		}
+		if !attestedSubjects[ref.Name] {
+			return fmt.Errorf("Runtime executable attestationがありません: %s", ref.Name)
 		}
 	}
 	return nil

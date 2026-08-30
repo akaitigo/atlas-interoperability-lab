@@ -1,6 +1,11 @@
 {
   "schema_version": 1,
   "cases": [
+    {"id":"reject.public-ci-validator-tamper","operation":"tamper-public-ci-validator","expected_code":"ci-regressed"},
+    {"id":"reject.public-ci-command-routing-bypass","operation":"bypass-public-ci-command-routing","expected_code":"ci-regressed"},
+    {"id":"reject.public-ci-trust-root-addition","operation":"add-public-ci-trust-root","expected_code":"ci-regressed"},
+    {"id":"reject.dco-range-verifier-weaken","operation":"weaken-dco-range-verifier","expected_code":"ci-regressed"},
+    {"id":"reject.runtime-binding-attestation-migration-delete","operation":"delete-runtime-binding-attestation-migration","expected_code":"runtime-binding-migration-removed"},
     {"id":"reject.repository-contract-delete","operation":"delete-repository-contract","expected_code":"repository-contract-removed"},
     {"id":"reject.repository-boundary-loosen","operation":"loosen-repository-boundary","expected_code":"repository-contract-regressed"},
     {"id":"reject.scenario-delete","operation":"delete-scenario","expected_code":"scenario-removed"},

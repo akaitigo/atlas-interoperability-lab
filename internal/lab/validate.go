@@ -143,6 +143,15 @@ func ValidateRepository(root string) error {
 	if err := ValidateRepositoryContract(root); err != nil {
 		return err
 	}
+	if err := ValidateRuntimeBindingMigration(root); err != nil {
+		return err
+	}
+	if report, err := ValidatePublicCIGate(root); err != nil || report.Verdict != "pass" {
+		if err != nil {
+			return err
+		}
+		return fmt.Errorf("public CI upstream separationがpassではありません")
+	}
 	if _, err := Preflight(root, "compositions/fixture-stage2.json", "local"); err != nil {
 		return err
 	}

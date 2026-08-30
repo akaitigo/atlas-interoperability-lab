@@ -28,7 +28,7 @@ func AuditCompositionEvidenceDependency(root, relative string) (CompositionEvide
 	if !graph.Policy.TransitiveStaleness || !graph.Policy.DigestOnlyClosureForbidden || !graph.Policy.ActualRerunRequired || !graph.Policy.MissingRerunTargetsFail || !graph.Policy.ProofStructureInvariant || !graph.Policy.ClosurePlanStructureInvariant {
 		return fail("Core Evidence Dependency portable predicateが縮小されています")
 	}
-	requiredGaps := []string{"process-executable-attestation-unavailable", "subject-depth-parity-incomplete", "subject-v2-certificate-atomic-binding-unavailable", "surface-pattern-proof-gaps"}
+	requiredGaps := []string{"subject-depth-parity-incomplete", "subject-v2-certificate-atomic-binding-unavailable", "surface-pattern-proof-gaps"}
 	if graph.CompletionState != "incomplete" || graph.DefinitiveEligible || !sameSet(graph.Gaps, requiredGaps) {
 		return fail("Compositionの未完GapがEvidence Dependency Graphで隠されています")
 	}

@@ -5,9 +5,9 @@
   "composition_id": "fixture-http-stage2-v1",
   "composition_digest": "sha256:f562551e4081576ed603010e77f025d1a78b91feefde57647c48c300259293ce",
   "profile": "local",
-  "observed_at": "2026-08-30T15:52:04Z",
-  "execution_started_at": "2026-08-30T15:51:57Z",
-  "execution_completed_at": "2026-08-30T15:52:04Z",
+  "observed_at": "2026-08-30T17:11:39Z",
+  "execution_started_at": "2026-08-30T17:11:25Z",
+  "execution_completed_at": "2026-08-30T17:11:39Z",
   "platform": {
     "kind": "local-process",
     "os": "darwin",
@@ -18,7 +18,21 @@
     "source_artifact_digest": "sha256:38b9e0e5a03b973da837856ccc25f939b6ed1e76d87ebc2a226d7edb8b5d6294",
     "runtime_binary_digest": "sha256:0418becff63a07e7c5ae3f8b92abe90c2c3eb6ba58d298be7bcf653900449733",
     "build_recipe": "go build -trimpath",
-    "binding_method": "sealed-runner-reproducible-build-recipe"
+    "binding_method": "sealed-runner-live-executable-attestation",
+    "attestations": [
+      {
+        "subject_name": "sink",
+        "capture_method": "darwin-ps-live-process",
+        "observed_digest": "sha256:0418becff63a07e7c5ae3f8b92abe90c2c3eb6ba58d298be7bcf653900449733",
+        "observed_at": "2026-08-30T17:11:39Z"
+      },
+      {
+        "subject_name": "source",
+        "capture_method": "darwin-ps-live-process",
+        "observed_digest": "sha256:0418becff63a07e7c5ae3f8b92abe90c2c3eb6ba58d298be7bcf653900449733",
+        "observed_at": "2026-08-30T17:11:39Z"
+      }
+    ]
   },
   "subjects": [
     {
@@ -43,7 +57,7 @@
   "runtime_evidence": {
     "summary": {
       "path": "evidence/preview/runtime-binding/local/summary.json",
-      "digest": "sha256:ed69b057014aa137c9f19556b8aa127f91ef3e5ac507cab23735981f76662351"
+      "digest": "sha256:63666fd2ab9c540e1ddf31cff93b3a70f7f4787909e34d941d3a955523839083"
     },
     "scenarios": [
       {
@@ -75,9 +89,8 @@
     "execution_state": "pass",
     "cleanup_state": "pass"
   },
-  "binding_state": "runtime-recipe-observed-with-explicit-gaps",
+  "binding_state": "runtime-executable-attested-with-certificate-gap",
   "gaps": [
-    "process-executable-attestation-unavailable",
     "subject-v2-certificate-atomic-binding-unavailable"
   ],
   "definitive_eligible": false,

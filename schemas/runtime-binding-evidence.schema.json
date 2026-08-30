@@ -30,12 +30,13 @@
     "executable": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["source_artifact_digest", "runtime_binary_digest", "build_recipe", "binding_method"],
+      "required": ["source_artifact_digest", "runtime_binary_digest", "build_recipe", "binding_method", "attestations"],
       "properties": {
         "source_artifact_digest": {"$ref": "#/$defs/digest"},
         "runtime_binary_digest": {"$ref": "#/$defs/digest"},
         "build_recipe": {"type": "string", "minLength": 3},
-        "binding_method": {"const": "sealed-runner-reproducible-build-recipe"}
+        "binding_method": {"const": "sealed-runner-live-executable-attestation"},
+        "attestations": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"$ref": "#/$defs/executable_attestation"}}
       }
     },
     "subjects": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"$ref": "#/$defs/subject"}},
@@ -52,15 +53,14 @@
         "cleanup_state": {"const": "pass"}
       }
     },
-    "binding_state": {"const": "runtime-recipe-observed-with-explicit-gaps"},
+    "binding_state": {"const": "runtime-executable-attested-with-certificate-gap"},
     "gaps": {
       "type": "array",
-      "minItems": 2,
-      "maxItems": 2,
+      "minItems": 1,
+      "maxItems": 1,
       "uniqueItems": true,
-      "items": {"enum": ["process-executable-attestation-unavailable", "subject-v2-certificate-atomic-binding-unavailable"]},
+      "items": {"const": "subject-v2-certificate-atomic-binding-unavailable"},
       "allOf": [
-        {"contains": {"const": "process-executable-attestation-unavailable"}},
         {"contains": {"const": "subject-v2-certificate-atomic-binding-unavailable"}}
       ]
     },
@@ -76,6 +76,17 @@
       "properties": {
         "path": {"type": "string", "pattern": "^evidence/preview/runtime-binding/(local|container)/"},
         "digest": {"$ref": "#/$defs/digest"}
+      }
+    },
+    "executable_attestation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["subject_name", "capture_method", "observed_digest", "observed_at"],
+      "properties": {
+        "subject_name": {"enum": ["source", "sink"]},
+        "capture_method": {"enum": ["procfs-live-process", "darwin-ps-live-process", "docker-cp-live-container"]},
+        "observed_digest": {"$ref": "#/$defs/digest"},
+        "observed_at": {"type": "string", "format": "date-time"}
       }
     },
     "subject": {

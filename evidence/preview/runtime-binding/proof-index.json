@@ -5,7 +5,6 @@
     {
       "binding": "evidence/preview/runtime-binding/local.binding.json",
       "gaps": [
-        "process-executable-attestation-unavailable",
         "subject-v2-certificate-atomic-binding-unavailable"
       ],
       "id": "local-runtime-binding",
@@ -21,7 +20,6 @@
     {
       "binding": "evidence/preview/runtime-binding/container.binding.json",
       "gaps": [
-        "process-executable-attestation-unavailable",
         "subject-v2-certificate-atomic-binding-unavailable"
       ],
       "id": "container-runtime-binding",

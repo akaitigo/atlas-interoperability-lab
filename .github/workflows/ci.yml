@@ -11,21 +11,24 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
+    env:
+      ATLAS_LAB_PUBLIC_CI_ATTESTATION: "1"
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5
         with:
           go-version: "1.26.x"
       - name: Lock Core contract
         run: |
           git clone --no-checkout https://github.com/akaitigo/reference-atlas-core.git ../reference-atlas-core
-          git -C ../reference-atlas-core checkout -B main cf9e6e2d981305c83f970c1f21a1ddc9c1109263
-          git -C ../reference-atlas-core checkout -B main 072d7ca77981f51754e824d70c6d4ecd55ea67e5
+          git -C ../reference-atlas-core checkout --detach 072d7ca77981f51754e824d70c6d4ecd55ea67e5
+          test "$(git -C ../reference-atlas-core rev-parse HEAD)" = "072d7ca77981f51754e824d70c6d4ecd55ea67e5"
           git -C ../reference-atlas-core cat-file -e cf9e6e2d981305c83f970c1f21a1ddc9c1109263^{commit}
       - name: Lock FE Depth Reference
         run: |
-          git clone --no-checkout https://github.com/akaitigo/frontend-behavior-atlas.git ../frontend-behavior-atlas
-          git -C ../frontend-behavior-atlas checkout --detach deadad18b6588d2c907170a451c3b5cea5ea4192
+          go run ./cmd/atlas-lab public-ci-gate
       - name: Unit and contract tests
         run: |
           go test ./...
@@ -43,7 +46,12 @@ jobs:
           go run ./cmd/atlas-lab legacy-v1-check
           go run ./cmd/atlas-lab definitive-preview-audit
           go run ./cmd/atlas-lab preview-publication-gate
-          git log --format='%H%x00%B%x00' | python3 ../reference-atlas-core/scripts/check_dco.py
+          go run ./cmd/atlas-lab public-ci-gate
+          python3 scripts/check_dco_range.py --self-test
+          python3 scripts/check_dco_range.py --base "$BASE_SHA" --head "$HEAD_SHA" --core-script ../reference-atlas-core/scripts/check_dco.py
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
       - name: Isolate E2E output from signed baseline
         run: |
           mkdir -p /tmp/atlas-lab-e2e

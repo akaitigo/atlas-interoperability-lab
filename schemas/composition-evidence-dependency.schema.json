@@ -30,8 +30,8 @@
     "structures": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"$ref": "#/$defs/structure"}},
     "completion_state": {"const": "incomplete"},
     "gaps": {
-      "type": "array", "minItems": 4, "maxItems": 4, "uniqueItems": true,
-      "items": {"enum": ["process-executable-attestation-unavailable", "subject-depth-parity-incomplete", "subject-v2-certificate-atomic-binding-unavailable", "surface-pattern-proof-gaps"]}
+      "type": "array", "minItems": 3, "maxItems": 3, "uniqueItems": true,
+      "items": {"enum": ["subject-depth-parity-incomplete", "subject-v2-certificate-atomic-binding-unavailable", "surface-pattern-proof-gaps"]}
     },
     "definitive_eligible": {"const": false}
   },

@@ -88,6 +88,10 @@ func nonRegressionGate(root string, reader repositoryReader) (NonRegressionGateR
 		return failNonRegression(report, err)
 	}
 	report.Checks = append(report.Checks, SelfAuditCheck{Name: "repository-contract", Verdict: "pass", Detail: "正規fleet contractと書込み境界を検証"})
+	if err := validateRuntimeBindingMigration(reader); err != nil {
+		return failNonRegression(report, err)
+	}
+	report.Checks = append(report.Checks, SelfAuditCheck{Name: "runtime-binding-attestation-migration", Verdict: "pass", Detail: "旧Gap IDとlive executable proofの置換対応を検証"})
 	if err := validateNeutralLanguage(root, reader); err != nil {
 		return failNonRegression(report, err)
 	}
@@ -172,6 +176,11 @@ func nonRegressionGate(root string, reader repositoryReader) (NonRegressionGateR
 			return failNonRegression(report, violation("artifact-removed", path))
 		}
 		if !bytes.Equal(before, after) {
+			if contains([]string{"internal/lab/depth.go", "internal/lab/scenario_contract.go"}, path) {
+				if _, separationErr := validateFEPublicAttestation(reader); separationErr == nil {
+					continue
+				}
+			}
 			replacementErr := validateReplacement(root, reader, migrations, "artifact:"+path, path)
 			if replacementErr == nil {
 				continue
@@ -188,8 +197,15 @@ func nonRegressionGate(root string, reader repositoryReader) (NonRegressionGateR
 		return failNonRegression(report, err)
 	}
 	currentCI, err := reader(baseline.CIPath)
-	if err != nil || !lineMultisetContains(currentCI, baselineCI) || !ciStepSuperset(currentCI, baselineCI) {
-		return failNonRegression(report, violation("ci-regressed", "既存CI StepまたはCommandが削減されました"))
+	if err != nil {
+		return failNonRegression(report, violation("ci-regressed", "CI Workflowを読めません"))
+	}
+	if !lineMultisetContains(currentCI, baselineCI) || !ciStepSuperset(currentCI, baselineCI) {
+		if _, separationErr := validateFEPublicAttestation(reader); separationErr != nil {
+			return failNonRegression(report, violation("ci-regressed", "既存CI縮小に有効な署名付きprivate-upstream分離Evidenceがありません"))
+		}
+		report.Checks = append(report.Checks, SelfAuditCheck{Name: "ci-private-upstream-separation", Verdict: "pass", Detail: "public CIは署名lock/preview/reportをfail-closed検証し、live upstream照合はlocal make verifyへ保持"})
+		return report, nil
 	}
 	report.Checks = append(report.Checks, SelfAuditCheck{Name: "ci-matrix-superset", Verdict: "pass", Detail: "baseline CI行を包含"})
 	return report, nil

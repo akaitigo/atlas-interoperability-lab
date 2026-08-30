@@ -30,4 +30,4 @@ Interopや組合せが構成要素の不足を隠して全体を完了扱いす�
 go run ./cmd/atlas-lab non-regression-gate
 ```
 
-拒否Fixture Matrixは22件あり、Repository Contract削除・境界緩和、証拠なしMapping、単一ProfileだけのProof、宣伝的な記述、作者評価も拒否します。別の正例Testでは、旧ID Mapping、新Scenario参照、local／containerの統合Proof、Migration Evidenceが揃った同等置換だけを受理します。
+拒否Fixture Matrixは27件あり、public CI validator改変、command routing迂回、trust root追加、DCO range verifier緩和、Runtime Binding Attestation Migration削除、Repository Contract削除・境界緩和、証拠なしMapping、単一ProfileだけのProof、宣伝的な記述、作者評価も拒否します。別の正例Testでは、旧ID Mapping、新Scenario参照、local／containerの統合Proof、Migration Evidenceが揃った同等置換だけを受理します。

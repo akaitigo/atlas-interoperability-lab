@@ -2,6 +2,36 @@
   "schema_version": 1,
   "cases": [
     {
+      "id": "reject.public-ci-validator-tamper",
+      "rejected": true,
+      "violation_code": "ci-regressed",
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.public-ci-command-routing-bypass",
+      "rejected": true,
+      "violation_code": "ci-regressed",
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.public-ci-trust-root-addition",
+      "rejected": true,
+      "violation_code": "ci-regressed",
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.dco-range-verifier-weaken",
+      "rejected": true,
+      "violation_code": "ci-regressed",
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.runtime-binding-attestation-migration-delete",
+      "rejected": true,
+      "violation_code": "runtime-binding-migration-removed",
+      "verdict": "pass"
+    },
+    {
       "id": "reject.repository-contract-delete",
       "rejected": true,
       "violation_code": "repository-contract-removed",

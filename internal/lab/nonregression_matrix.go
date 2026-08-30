@@ -82,6 +82,32 @@ func RunNonRegressionMutationMatrix(root, matrixPath string) (NonRegressionMutat
 
 func applyNonRegressionMutation(repository *overlayRepository, operation string) error {
 	switch operation {
+	case "tamper-public-ci-validator":
+		data, err := repository.read("internal/lab/public_ci.go")
+		if err != nil {
+			return err
+		}
+		repository.overrides["internal/lab/public_ci.go"] = append(data, '\n')
+	case "bypass-public-ci-command-routing":
+		data, err := repository.read("cmd/atlas-lab/main.go")
+		if err != nil {
+			return err
+		}
+		repository.overrides["cmd/atlas-lab/main.go"] = append(data, '\n')
+	case "add-public-ci-trust-root":
+		data, err := repository.read(feAllowedSignersPath)
+		if err != nil {
+			return err
+		}
+		repository.overrides[feAllowedSignersPath] = append(data, []byte("additional-principal ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n")...)
+	case "weaken-dco-range-verifier":
+		data, err := repository.read("scripts/check_dco_range.py")
+		if err != nil {
+			return err
+		}
+		repository.overrides["scripts/check_dco_range.py"] = append(data, '\n')
+	case "delete-runtime-binding-attestation-migration":
+		repository.missing[runtimeBindingMigrationPath] = true
 	case "delete-repository-contract":
 		repository.missing["repo.yaml"] = true
 	case "loosen-repository-boundary":
@@ -145,7 +171,7 @@ func applyNonRegressionMutation(repository *overlayRepository, operation string)
 		if err != nil {
 			return err
 		}
-		repository.overrides[".github/workflows/ci.yml"] = []byte(stringsReplaceOnce(string(data), "          go test ./...\n", ""))
+		repository.overrides[".github/workflows/ci.yml"] = []byte(stringsReplaceOnce(string(data), "          go run ./cmd/atlas-lab public-ci-gate\n", ""))
 	case "skip-ci-step":
 		data, err := repository.read(".github/workflows/ci.yml")
 		if err != nil {

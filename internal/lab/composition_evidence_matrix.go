@@ -81,7 +81,7 @@ func ValidateCompositionEvidenceClosure(root string) error {
 	if err != nil {
 		return err
 	}
-	if audit.Verdict != "pass" || audit.CompletionState != "incomplete" || audit.DefinitiveEligible || !containsAll(audit.Gaps, []string{"process-executable-attestation-unavailable", "subject-depth-parity-incomplete", "subject-v2-certificate-atomic-binding-unavailable", "surface-pattern-proof-gaps"}) {
+	if audit.Verdict != "pass" || audit.CompletionState != "incomplete" || audit.DefinitiveEligible || !containsAll(audit.Gaps, []string{"subject-depth-parity-incomplete", "subject-v2-certificate-atomic-binding-unavailable", "surface-pattern-proof-gaps"}) {
 		return fmt.Errorf("Composition Evidence closureが未完Gapを保持していません")
 	}
 	matrix, err := RunCompositionEvidenceDependencyMatrix(root, "tests/fixtures/composition-evidence-dependency.matrix.json")

@@ -5,9 +5,9 @@
   "composition_id": "fixture-http-stage2-v1",
   "composition_digest": "sha256:f562551e4081576ed603010e77f025d1a78b91feefde57647c48c300259293ce",
   "profile": "container",
-  "observed_at": "2026-08-30T15:52:21Z",
-  "execution_started_at": "2026-08-30T15:52:12Z",
-  "execution_completed_at": "2026-08-30T15:52:21Z",
+  "observed_at": "2026-08-30T17:12:04Z",
+  "execution_started_at": "2026-08-30T17:11:53Z",
+  "execution_completed_at": "2026-08-30T17:12:04Z",
   "platform": {
     "kind": "docker-container",
     "os": "linux",
@@ -19,7 +19,21 @@
     "source_artifact_digest": "sha256:38b9e0e5a03b973da837856ccc25f939b6ed1e76d87ebc2a226d7edb8b5d6294",
     "runtime_binary_digest": "sha256:32c6ecc606d834eea770b5995586199c9b28f3a6bbe7bfb9ecc8faa4358d3799",
     "build_recipe": "CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -trimpath",
-    "binding_method": "sealed-runner-reproducible-build-recipe"
+    "binding_method": "sealed-runner-live-executable-attestation",
+    "attestations": [
+      {
+        "subject_name": "sink",
+        "capture_method": "docker-cp-live-container",
+        "observed_digest": "sha256:32c6ecc606d834eea770b5995586199c9b28f3a6bbe7bfb9ecc8faa4358d3799",
+        "observed_at": "2026-08-30T17:12:03Z"
+      },
+      {
+        "subject_name": "source",
+        "capture_method": "docker-cp-live-container",
+        "observed_digest": "sha256:32c6ecc606d834eea770b5995586199c9b28f3a6bbe7bfb9ecc8faa4358d3799",
+        "observed_at": "2026-08-30T17:12:03Z"
+      }
+    ]
   },
   "subjects": [
     {
@@ -44,7 +58,7 @@
   "runtime_evidence": {
     "summary": {
       "path": "evidence/preview/runtime-binding/container/summary.json",
-      "digest": "sha256:96f68d702f08ed1a68f8f9fad78901c102b6f3965b307d26a210cb9e6bcea2f9"
+      "digest": "sha256:8051a6a3fe8a48f594101a99908302bebf50afa5dcfb40cab63648c4d95754d8"
     },
     "scenarios": [
       {
@@ -76,9 +90,8 @@
     "execution_state": "pass",
     "cleanup_state": "pass"
   },
-  "binding_state": "runtime-recipe-observed-with-explicit-gaps",
+  "binding_state": "runtime-executable-attested-with-certificate-gap",
   "gaps": [
-    "process-executable-attestation-unavailable",
     "subject-v2-certificate-atomic-binding-unavailable"
   ],
   "definitive_eligible": false,

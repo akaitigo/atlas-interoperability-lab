@@ -181,8 +181,8 @@ func writeCompositionEvidenceStructures(root string) error {
 	proof := map[string]any{
 		"schema_version": 1, "id": "fixture-stage2-runtime-proof-index", "authority_denominator": "interop-runtime-binding-only",
 		"rows": []map[string]any{
-			{"id": "local-runtime-binding", "profile": "local", "scenarios": []string{"normal", "rejection", "failure", "recovery", "compatibility"}, "binding": "evidence/preview/runtime-binding/local.binding.json", "gaps": []string{"process-executable-attestation-unavailable", "subject-v2-certificate-atomic-binding-unavailable"}},
-			{"id": "container-runtime-binding", "profile": "container", "scenarios": []string{"normal", "rejection", "failure", "recovery", "compatibility"}, "binding": "evidence/preview/runtime-binding/container.binding.json", "gaps": []string{"process-executable-attestation-unavailable", "subject-v2-certificate-atomic-binding-unavailable"}},
+			{"id": "local-runtime-binding", "profile": "local", "scenarios": []string{"normal", "rejection", "failure", "recovery", "compatibility"}, "binding": "evidence/preview/runtime-binding/local.binding.json", "gaps": []string{"subject-v2-certificate-atomic-binding-unavailable"}},
+			{"id": "container-runtime-binding", "profile": "container", "scenarios": []string{"normal", "rejection", "failure", "recovery", "compatibility"}, "binding": "evidence/preview/runtime-binding/container.binding.json", "gaps": []string{"subject-v2-certificate-atomic-binding-unavailable"}},
 		},
 	}
 	plan := map[string]any{
@@ -270,7 +270,7 @@ func buildCompositionEvidenceGraph(root string, local, container RuntimeBindingE
 		SchemaVersion: 1, AtlasID: "atlas-interoperability-lab", CoreCommit: evidenceDependencyCoreCommit, GeneratedAt: derivedCompleted.UTC().Format(time.RFC3339), Status: "current",
 		Policy: CompositionEvidenceDependencyPolicy{true, true, true, true, true, true}, Inputs: inputSpecs, Outputs: outputs, Runs: runs, RequiredOutputs: allPaths,
 		Structures:      []CompositionEvidenceStructure{{ID: "runtime-proof-structure", Kind: "scenario-proof-index", Path: "evidence/preview/runtime-binding/proof-index.json", BaselineDigest: proofDigest}, {ID: "closure-plan-structure", Kind: "scenario-closure-plan", Path: "evidence/preview/runtime-binding/closure-plan.json", BaselineDigest: planDigest}},
-		CompletionState: "incomplete", Gaps: []string{"process-executable-attestation-unavailable", "subject-depth-parity-incomplete", "subject-v2-certificate-atomic-binding-unavailable", "surface-pattern-proof-gaps"}, DefinitiveEligible: false,
+		CompletionState: "incomplete", Gaps: []string{"subject-depth-parity-incomplete", "subject-v2-certificate-atomic-binding-unavailable", "surface-pattern-proof-gaps"}, DefinitiveEligible: false,
 	}, nil
 }
 
@@ -293,7 +293,7 @@ func compositionEvidenceInputMembers(root string) (map[string][]string, error) {
 	sort.Strings(harness)
 	return map[string][]string{
 		"repository-contract": {"repo.yaml"},
-		"composition-source":  {"compatibility/evidence-dependency-core.lock.json", "compositions/fixture-stage2.json", "compositions/fixture-stage2-v2-definitive.preview.json", "fixtures/subjects/fixture-http-source/release.json", "fixtures/subjects/fixture-http-source/completion-certificate.json", "fixtures/subjects/fixture-http-sink/release.json", "fixtures/subjects/fixture-http-sink/completion-certificate.json", "cmd/fixture-subject/main.go"},
+		"composition-source":  {"compatibility/evidence-dependency-core.lock.json", "compositions/fixture-stage2.json", "compositions/fixture-stage2-v2-definitive.preview.json", "migrations/runtime-binding-executable-attestation.json", "attestations/fe-upstream.local-report.json", "attestations/fe-upstream.attestation.json", "attestations/fe-upstream.attestation.json.sig", "attestations/fe-upstream.allowed-signers", "fixtures/subjects/fixture-http-source/release.json", "fixtures/subjects/fixture-http-source/completion-certificate.json", "fixtures/subjects/fixture-http-sink/release.json", "fixtures/subjects/fixture-http-sink/completion-certificate.json", "cmd/fixture-subject/main.go"},
 		"interop-harness":     harness,
 		"go-runtime":          {"go.mod"},
 		"local-profile":       {"environments/local.json"},

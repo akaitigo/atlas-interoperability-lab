@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"os"
 	"os/exec"
 	"path/filepath"
 	"strings"
@@ -136,6 +137,12 @@ func validateFEScenarioContract(root, referenceRepositoryRoot string, artifact P
 	expected := FEScenarioContractStats{Patterns: 85, Scenarios: 10, Rows: 850, DedicatedArtifacts: 850, PatternSpecificRows: 429, PatternSpecificRuntimeRows: 170, PatternSpecificCaptureRows: 259, PatternSpecificGaps: 421, IntegratedTraceRows: 850, AuthorityAtomicRows: 0, CompletionEligibleRows: 0, IntegrationPassed: 10}
 	if lock.SchemaVersion != 1 || lock.ID != "fe-scenario-contract-v1" || lock.Repository != "frontend-behavior-atlas" || lock.Commit != feScenarioContractCommit || lock.License != "Apache-2.0" || lock.ScenarioIndex.Path != "evidence/scenarios/index.json" || lock.ScenarioIndex.Digest != feScenarioIndexDigest || lock.IntegrationResults.Path != "artifacts/reference-system/results.json" || lock.IntegrationResults.Digest != feIntegrationResultsDigest || lock.Expected != expected {
 		return FEScenarioContractStats{}, fmt.Errorf("FE Scenario Contract Lockが確定値と一致しません")
+	}
+	if os.Getenv("ATLAS_LAB_PUBLIC_CI_ATTESTATION") == "1" {
+		if report, err := ValidatePublicCIGate(root); err != nil || report.Verdict != "pass" {
+			return FEScenarioContractStats{}, fmt.Errorf("public CI署名attestationを検証できません: %w", err)
+		}
+		return lock.Expected, nil
 	}
 	feScenarioValidation.Do(func() {
 		feScenarioValidation.stats, feScenarioValidation.err = validateFEScenarioGitObject(referenceRepositoryRoot, lock)

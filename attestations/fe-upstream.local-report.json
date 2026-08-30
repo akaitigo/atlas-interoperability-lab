@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "id": "fe-upstream-local-verification-v1",
+  "repository": "frontend-behavior-atlas",
+  "commit": "deadad18b6588d2c907170a451c3b5cea5ea4192",
+  "verification": "live-git-object-byte-digest",
+  "source_objects": [
+    {
+      "path": "FE_DEPTH_REFERENCE.json",
+      "digest": "sha256:4f88b8bfd22a9b8262e4a1e8184e50cded0372dd82458fbbcc308b3647876d0d"
+    },
+    {
+      "path": "evidence/scenarios/index.json",
+      "digest": "sha256:c70eeb43b85c4b4f8e57abacd4459fe8b01fa407ce355311f335dd5654c0f669"
+    },
+    {
+      "path": "artifacts/reference-system/results.json",
+      "digest": "sha256:f16ea6113c829379e10b8def5baf4cf82ba6596ffa4146792315ed688da6985a"
+    }
+  ],
+  "tracked_inputs": [
+    {
+      "path": ".github/workflows/ci.yml",
+      "digest": "sha256:898cd5995ab9d13d21292dccd54bd3434d26165773168a023a7dae84df191861"
+    },
+    {
+      "path": "internal/lab/depth.go",
+      "digest": "sha256:e0653955ddf77ebc0aaa808bbc35946be3152a869b291ed7cf77c07131f61159"
+    },
+    {
+      "path": "internal/lab/scenario_contract.go",
+      "digest": "sha256:12c2857962a47e2239a39d40390eda6540fca9f0316eef44866b516c8f79434a"
+    },
+    {
+      "path": "internal/lab/public_ci.go",
+      "digest": "sha256:0dd8dcd63722a0b280c40ee57395a93f2ec591a9c331fef6637eb8cfacfa8463"
+    },
+    {
+      "path": "cmd/atlas-lab/main.go",
+      "digest": "sha256:d12a3b66e80021a55a211f123a56637c52da4478d08aa8f973bea7b94cbacf2a"
+    },
+    {
+      "path": "attestations/fe-upstream.allowed-signers",
+      "digest": "sha256:00906eb44c813da0805912d8ef89080f434ec063c7e95c509155a6fbbb22d291"
+    },
+    {
+      "path": "scripts/check_dco_range.py",
+      "digest": "sha256:0808d08e941a3ec6e0cd0a889bd230d5d72da8b6b3cc85b2fb6c949b82be7a78"
+    },
+    {
+      "path": "depth/fe-depth-reference.lock.json",
+      "digest": "sha256:eb044309d511b9178816c8ef7df5a47417bc9fe1067652d2d07dbc1bd9a89441"
+    },
+    {
+      "path": "depth/fe-scenario-contract.lock.json",
+      "digest": "sha256:9e021519ea1e1666d3919af3963fcf5b45862daa870958042a9d661298ccafc6"
+    },
+    {
+      "path": "depth/fixture-subjects.depth-parity.preview.json",
+      "digest": "sha256:7567ccf52a101474e7f1c3c744265fa078991180ddeeb22589f79a1efee57afe"
+    },
+    {
+      "path": "depth/fixture-stage2.integration-proofs.preview.json",
+      "digest": "sha256:e5e13ff980b7e124ebf59e4dc1d9b3572439942ddc9e0e68d009a08a98151e61"
+    },
+    {
+      "path": "evidence/preview/depth-parity.result.json",
+      "digest": "sha256:74bffdab763e7b93f9d91c2cec08111ea9c6fcd329f3a2d7fc10b452a4df2771"
+    },
+    {
+      "path": "compositions/fixture-stage2-v2-bounded.preview.json",
+      "digest": "sha256:3b0b1d626629da477ba7484cd3d110b7ceb2a76d62190ca53744e1c8c4fa8f26"
+    },
+    {
+      "path": "compositions/fixture-stage2-v2-definitive.preview.json",
+      "digest": "sha256:0d51ef449ec4c7d13eab11c82e8b084ac13e99cf2aa76b0bd38b36936370fc22"
+    }
+  ],
+  "verdict": "pass"
+}

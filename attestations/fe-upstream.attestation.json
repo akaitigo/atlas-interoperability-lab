@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": "fe-upstream-public-ci-boundary-v1",
+  "source_commit": "deadad18b6588d2c907170a451c3b5cea5ea4192",
+  "report": {
+    "path": "attestations/fe-upstream.local-report.json",
+    "digest": "sha256:b29bec3b9ca3b3dbd791566226c3705f2878c498cefba29527acf897aa0fdb1c"
+  },
+  "repository_contract": {
+    "path": "repo.yaml",
+    "digest": "sha256:b766eb0230e4d6c5ce8a7f8b53e6840d1d4905b87e990b2277fe2b1b19d54a10"
+  },
+  "boundary": {
+    "upstream_live_verification": "unavailable",
+    "local_gate_required": true,
+    "completion_effect": "none",
+    "distribution_gap_effect": "none",
+    "authorization_effect": "none"
+  }
+}

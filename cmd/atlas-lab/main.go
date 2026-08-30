@@ -91,6 +91,16 @@ func main() {
 			fatal(err)
 		}
 		printJSON(report)
+	case "fe-upstream-local-report":
+		if err := lab.GenerateFEPublicReport(root); err != nil {
+			fatal(err)
+		}
+	case "public-ci-gate":
+		report, err := lab.ValidatePublicCIGate(root)
+		if err != nil {
+			fatal(err)
+		}
+		printJSON(report)
 	case "publication-gate":
 		report, err := lab.PublicationGate(root)
 		if err != nil {

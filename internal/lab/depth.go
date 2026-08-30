@@ -3,6 +3,7 @@ package lab
 import (
 	"encoding/json"
 	"fmt"
+	"os"
 	"os/exec"
 	"path/filepath"
 )
@@ -172,6 +173,25 @@ func loadFEDepthReference(root, referenceRepositoryRoot string, artifact Preview
 	}
 	if lock.SchemaVersion != 1 || lock.ID != "fe-depth-reference-v1" || lock.Repository != "frontend-behavior-atlas" || lock.SourceURL != "https://github.com/akaitigo/frontend-behavior-atlas/blob/"+feDepthReferenceCommit+"/FE_DEPTH_REFERENCE.json" || lock.License != "Apache-2.0" || lock.Commit != feDepthReferenceCommit || lock.Path != "FE_DEPTH_REFERENCE.json" || lock.Digest != feDepthReferenceDigest || lock.ExpectedStatus != "incomplete" || lock.ExpectedSummary != (DepthSummary{Satisfied: 1, Partial: 17, Missing: 0}) {
 		return feDepthReference{}, nil, fmt.Errorf("FE Depth Reference Lockが確定値と一致しません")
+	}
+	if os.Getenv("ATLAS_LAB_PUBLIC_CI_ATTESTATION") == "1" {
+		if report, err := ValidatePublicCIGate(root); err != nil || report.Verdict != "pass" {
+			return feDepthReference{}, nil, fmt.Errorf("public CI署名attestationを検証できません: %w", err)
+		}
+		var manifest SubjectDepthManifest
+		if err := LoadJSON(resolve(root, "depth/fixture-subjects.depth-parity.preview.json"), &manifest); err != nil || len(manifest.Subjects) == 0 {
+			return feDepthReference{}, nil, fmt.Errorf("tracked Depth previewから18軸を復元できません")
+		}
+		states := map[string]string{}
+		axes := make([]feDepthAxis, 0, len(manifest.Subjects[0].Axes))
+		for _, axis := range manifest.Subjects[0].Axes {
+			states[axis.ID] = "partial"
+			axes = append(axes, feDepthAxis{ID: axis.ID, Status: "partial"})
+		}
+		if len(states) != 18 {
+			return feDepthReference{}, nil, fmt.Errorf("tracked Depth previewの18軸分母が不正です")
+		}
+		return feDepthReference{SchemaVersion: 1, ID: lock.ID, Status: lock.ExpectedStatus, Summary: lock.ExpectedSummary, Axes: axes}, states, nil
 	}
 	repository := filepath.Join(referenceRepositoryRoot, "..", lock.Repository)
 	data, err := exec.Command("git", "-C", repository, "show", lock.Commit+":"+lock.Path).Output()
