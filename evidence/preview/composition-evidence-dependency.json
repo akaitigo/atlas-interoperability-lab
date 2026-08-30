@@ -2,7 +2,7 @@
   "schema_version": 1,
   "atlas_id": "atlas-interoperability-lab",
   "core_commit": "072d7ca77981f51754e824d70c6d4ecd55ea67e5",
-  "generated_at": "2026-08-30T14:46:43Z",
+  "generated_at": "2026-08-30T15:53:46Z",
   "status": "current",
   "policy": {
     "transitive_staleness": true,
@@ -13,6 +13,16 @@
     "closure_plan_structure_invariant": true
   },
   "inputs": [
+    {
+      "id": "repository-contract",
+      "kind": "contract",
+      "members": [
+        "repo.yaml"
+      ],
+      "baseline_digest": "sha256:434b9851cca41f10bff2b7739f04704d299db4b725f826bd5e13f6d923165e70",
+      "current_digest": "sha256:434b9851cca41f10bff2b7739f04704d299db4b725f826bd5e13f6d923165e70",
+      "observed_at": "2026-08-30T15:52:22Z"
+    },
     {
       "id": "composition-source",
       "kind": "source",
@@ -26,9 +36,9 @@
         "fixtures/subjects/fixture-http-sink/completion-certificate.json",
         "cmd/fixture-subject/main.go"
       ],
-      "baseline_digest": "sha256:c428641f8a03ad9254a9282506d05c7eb9d35553a442dd60d0879d3f066bcdf1",
-      "current_digest": "sha256:c428641f8a03ad9254a9282506d05c7eb9d35553a442dd60d0879d3f066bcdf1",
-      "observed_at": "2026-08-30T14:45:17Z"
+      "baseline_digest": "sha256:2908dc133581a7c0eaa13ed0051729c5c5890ae8aed3e18e5288f890c1d031d9",
+      "current_digest": "sha256:2908dc133581a7c0eaa13ed0051729c5c5890ae8aed3e18e5288f890c1d031d9",
+      "observed_at": "2026-08-30T15:52:22Z"
     },
     {
       "id": "interop-harness",
@@ -36,6 +46,8 @@
       "members": [
         "cmd/atlas-lab/main.go",
         "graphs/fixture-stage2.claim-evidence.json",
+        "internal/lab/checkpoint_publication.go",
+        "internal/lab/checkpoint_runtime.go",
         "internal/lab/composition_compatibility.go",
         "internal/lab/composition_evidence_audit.go",
         "internal/lab/composition_evidence_dependency.go",
@@ -52,6 +64,7 @@
         "internal/lab/nonregression.go",
         "internal/lab/nonregression_matrix.go",
         "internal/lab/pinned_core.go",
+        "internal/lab/repository_contract.go",
         "internal/lab/runtime.go",
         "internal/lab/runtime_binding.go",
         "internal/lab/scenario_contract.go",
@@ -69,9 +82,9 @@
         "tests/fixtures/composition-compatibility.matrix.json",
         "tests/fixtures/composition-evidence-dependency.matrix.json"
       ],
-      "baseline_digest": "sha256:11b55c48cd4382674752f953ab08df1bde0c6ddcc5a0239569d0a1ba15e3c4b4",
-      "current_digest": "sha256:11b55c48cd4382674752f953ab08df1bde0c6ddcc5a0239569d0a1ba15e3c4b4",
-      "observed_at": "2026-08-30T14:45:17Z"
+      "baseline_digest": "sha256:847015f4d9e64a527d8362110444871d27676a4b275359eca483ce6aca17305b",
+      "current_digest": "sha256:847015f4d9e64a527d8362110444871d27676a4b275359eca483ce6aca17305b",
+      "observed_at": "2026-08-30T15:52:22Z"
     },
     {
       "id": "go-runtime",
@@ -81,7 +94,7 @@
       ],
       "baseline_digest": "sha256:3d7647ca4d4f397a9dbf167e30dacb28d1c90fbd907a3a36f1d2ce045f591aeb",
       "current_digest": "sha256:3d7647ca4d4f397a9dbf167e30dacb28d1c90fbd907a3a36f1d2ce045f591aeb",
-      "observed_at": "2026-08-30T14:45:17Z"
+      "observed_at": "2026-08-30T15:52:22Z"
     },
     {
       "id": "local-profile",
@@ -91,7 +104,7 @@
       ],
       "baseline_digest": "sha256:3781e09d4802de869b1f578ceb4bc82eba9a75342723954315644cdb95bcb6e6",
       "current_digest": "sha256:3781e09d4802de869b1f578ceb4bc82eba9a75342723954315644cdb95bcb6e6",
-      "observed_at": "2026-08-30T14:45:17Z"
+      "observed_at": "2026-08-30T15:52:22Z"
     },
     {
       "id": "container-profile",
@@ -102,7 +115,7 @@
       ],
       "baseline_digest": "sha256:9d88fae91884a0afcd18a3ec27aa8ceaa071c4d4f173b2144ca29a35056010b2",
       "current_digest": "sha256:9d88fae91884a0afcd18a3ec27aa8ceaa071c4d4f173b2144ca29a35056010b2",
-      "observed_at": "2026-08-30T14:45:17Z"
+      "observed_at": "2026-08-30T15:52:22Z"
     }
   ],
   "outputs": [
@@ -110,8 +123,9 @@
       "id": "local-binding",
       "kind": "runtime-evidence",
       "path": "evidence/preview/runtime-binding/local.binding.json",
-      "digest": "sha256:cd8f389c62db6e1165d408711a11af2a83075d00fa85dd83eb7228167b57e649",
+      "digest": "sha256:1f8a9d24b39881714079863f3b480e151322802c3f2b6d4a721b830bd584683f",
       "depends_on": [
+        "repository-contract",
         "composition-source",
         "interop-harness",
         "go-runtime",
@@ -124,8 +138,9 @@
       "id": "local-summary",
       "kind": "runtime-evidence",
       "path": "evidence/preview/runtime-binding/local/summary.json",
-      "digest": "sha256:cdf306d5b37ddabd9c5148e67d3195e2fcb15bee747c9d3fe86853b2e9e46988",
+      "digest": "sha256:ed69b057014aa137c9f19556b8aa127f91ef3e5ac507cab23735981f76662351",
       "depends_on": [
+        "repository-contract",
         "composition-source",
         "interop-harness",
         "go-runtime",
@@ -140,6 +155,7 @@
       "path": "evidence/preview/runtime-binding/local/normal.json",
       "digest": "sha256:85b6adfd9d756123a309ae789057e4344067c598bbe660468c9840d2ef0afead",
       "depends_on": [
+        "repository-contract",
         "composition-source",
         "interop-harness",
         "go-runtime",
@@ -154,6 +170,7 @@
       "path": "evidence/preview/runtime-binding/local/rejection.json",
       "digest": "sha256:1759c0dd1184ac2925b63c192de5e5e4f78b21443e78ef2c333aa9f6177d4eb1",
       "depends_on": [
+        "repository-contract",
         "composition-source",
         "interop-harness",
         "go-runtime",
@@ -168,6 +185,7 @@
       "path": "evidence/preview/runtime-binding/local/failure.json",
       "digest": "sha256:b0e2d2390e084005332ea5b84bb31b80f132328677266bf68784609da3429488",
       "depends_on": [
+        "repository-contract",
         "composition-source",
         "interop-harness",
         "go-runtime",
@@ -182,6 +200,7 @@
       "path": "evidence/preview/runtime-binding/local/recovery.json",
       "digest": "sha256:dc17a5ca1aa1a06c3dd49abcfd02c56c21be1a575e40785a13737d11b87f61e5",
       "depends_on": [
+        "repository-contract",
         "composition-source",
         "interop-harness",
         "go-runtime",
@@ -196,6 +215,7 @@
       "path": "evidence/preview/runtime-binding/local/compatibility.json",
       "digest": "sha256:059754e00bdf32405d1ba8ceaf25be0bd43634e9726a82ea853d7504263b6f4e",
       "depends_on": [
+        "repository-contract",
         "composition-source",
         "interop-harness",
         "go-runtime",
@@ -210,6 +230,7 @@
       "path": "evidence/preview/runtime-binding/local/cleanup.receipt.json",
       "digest": "sha256:316eff76611497dc1bcffdc95643c7315fe3945493b841fe23fa007f40a2e177",
       "depends_on": [
+        "repository-contract",
         "composition-source",
         "interop-harness",
         "go-runtime",
@@ -222,8 +243,9 @@
       "id": "container-binding",
       "kind": "runtime-evidence",
       "path": "evidence/preview/runtime-binding/container.binding.json",
-      "digest": "sha256:d4dec3dd62dc730d2da22fcc129d28c7303d8637d2263b3bdffd9b4ce3d5a8ac",
+      "digest": "sha256:ae4e520ae8e8ad8d926acf5b82d859eda3b6c717178f843476adca56637d2fc9",
       "depends_on": [
+        "repository-contract",
         "composition-source",
         "interop-harness",
         "go-runtime",
@@ -236,8 +258,9 @@
       "id": "container-summary",
       "kind": "runtime-evidence",
       "path": "evidence/preview/runtime-binding/container/summary.json",
-      "digest": "sha256:99b02b50401dc8e53d2ca5a1525a4882e88948b7c9172a7bd4b8f69e189a96cc",
+      "digest": "sha256:96f68d702f08ed1a68f8f9fad78901c102b6f3965b307d26a210cb9e6bcea2f9",
       "depends_on": [
+        "repository-contract",
         "composition-source",
         "interop-harness",
         "go-runtime",
@@ -252,6 +275,7 @@
       "path": "evidence/preview/runtime-binding/container/normal.json",
       "digest": "sha256:bc04ca3801687856c798842056e8ed741109c234aba0735b492c14481f557b48",
       "depends_on": [
+        "repository-contract",
         "composition-source",
         "interop-harness",
         "go-runtime",
@@ -266,6 +290,7 @@
       "path": "evidence/preview/runtime-binding/container/rejection.json",
       "digest": "sha256:dbab0b4afa42cb71b977d665e69d5888ddd418c0a7fea6b323b50f265e7663dd",
       "depends_on": [
+        "repository-contract",
         "composition-source",
         "interop-harness",
         "go-runtime",
@@ -280,6 +305,7 @@
       "path": "evidence/preview/runtime-binding/container/failure.json",
       "digest": "sha256:4c71c0fb799c137d76c7f996b3b9336ed07a659269fb207489fb5e4064d5f447",
       "depends_on": [
+        "repository-contract",
         "composition-source",
         "interop-harness",
         "go-runtime",
@@ -294,6 +320,7 @@
       "path": "evidence/preview/runtime-binding/container/recovery.json",
       "digest": "sha256:d05fd7417193a4c21a1bbcd08efed346beb5d99e026a9e7ea3747fd4a083db68",
       "depends_on": [
+        "repository-contract",
         "composition-source",
         "interop-harness",
         "go-runtime",
@@ -308,6 +335,7 @@
       "path": "evidence/preview/runtime-binding/container/compatibility.json",
       "digest": "sha256:aa4799286e4ae5c7bfc622588646da1f58c2fc44c133004fd6fbd7eb4bfbe0b3",
       "depends_on": [
+        "repository-contract",
         "composition-source",
         "interop-harness",
         "go-runtime",
@@ -322,6 +350,7 @@
       "path": "evidence/preview/runtime-binding/container/cleanup.receipt.json",
       "digest": "sha256:3123a587342e556d83030b5d9ad04a34d6a838d55f4d528e47fc5df17c79a775",
       "depends_on": [
+        "repository-contract",
         "composition-source",
         "interop-harness",
         "go-runtime",
@@ -375,8 +404,8 @@
       "id": "run-local-runtime-binding",
       "execution_kind": "runtime",
       "command": "go run ./cmd/atlas-lab runtime-binding --profile local",
-      "started_at": "2026-08-30T14:44:51Z",
-      "completed_at": "2026-08-30T14:44:57Z",
+      "started_at": "2026-08-30T15:51:57Z",
+      "completed_at": "2026-08-30T15:52:04Z",
       "result": "passed",
       "attempts": 1,
       "runtime_identity": {
@@ -388,12 +417,16 @@
       },
       "input_bindings": [
         {
+          "input_id": "repository-contract",
+          "digest": "sha256:434b9851cca41f10bff2b7739f04704d299db4b725f826bd5e13f6d923165e70"
+        },
+        {
           "input_id": "composition-source",
-          "digest": "sha256:c428641f8a03ad9254a9282506d05c7eb9d35553a442dd60d0879d3f066bcdf1"
+          "digest": "sha256:2908dc133581a7c0eaa13ed0051729c5c5890ae8aed3e18e5288f890c1d031d9"
         },
         {
           "input_id": "interop-harness",
-          "digest": "sha256:11b55c48cd4382674752f953ab08df1bde0c6ddcc5a0239569d0a1ba15e3c4b4"
+          "digest": "sha256:847015f4d9e64a527d8362110444871d27676a4b275359eca483ce6aca17305b"
         },
         {
           "input_id": "go-runtime",
@@ -419,8 +452,8 @@
       "id": "run-container-runtime-binding",
       "execution_kind": "runtime",
       "command": "go run ./cmd/atlas-lab runtime-binding --profile container",
-      "started_at": "2026-08-30T14:45:04Z",
-      "completed_at": "2026-08-30T14:45:16Z",
+      "started_at": "2026-08-30T15:52:12Z",
+      "completed_at": "2026-08-30T15:52:21Z",
       "result": "passed",
       "attempts": 1,
       "runtime_identity": {
@@ -433,12 +466,16 @@
       },
       "input_bindings": [
         {
+          "input_id": "repository-contract",
+          "digest": "sha256:434b9851cca41f10bff2b7739f04704d299db4b725f826bd5e13f6d923165e70"
+        },
+        {
           "input_id": "composition-source",
-          "digest": "sha256:c428641f8a03ad9254a9282506d05c7eb9d35553a442dd60d0879d3f066bcdf1"
+          "digest": "sha256:2908dc133581a7c0eaa13ed0051729c5c5890ae8aed3e18e5288f890c1d031d9"
         },
         {
           "input_id": "interop-harness",
-          "digest": "sha256:11b55c48cd4382674752f953ab08df1bde0c6ddcc5a0239569d0a1ba15e3c4b4"
+          "digest": "sha256:847015f4d9e64a527d8362110444871d27676a4b275359eca483ce6aca17305b"
         },
         {
           "input_id": "go-runtime",
@@ -464,18 +501,22 @@
       "id": "run-composition-closure",
       "execution_kind": "derived",
       "command": "go run ./cmd/atlas-lab composition-evidence-closure",
-      "started_at": "2026-08-30T14:45:17Z",
-      "completed_at": "2026-08-30T14:46:43Z",
+      "started_at": "2026-08-30T15:52:22Z",
+      "completed_at": "2026-08-30T15:53:46Z",
       "result": "passed",
       "attempts": 1,
       "input_bindings": [
         {
+          "input_id": "repository-contract",
+          "digest": "sha256:434b9851cca41f10bff2b7739f04704d299db4b725f826bd5e13f6d923165e70"
+        },
+        {
           "input_id": "composition-source",
-          "digest": "sha256:c428641f8a03ad9254a9282506d05c7eb9d35553a442dd60d0879d3f066bcdf1"
+          "digest": "sha256:2908dc133581a7c0eaa13ed0051729c5c5890ae8aed3e18e5288f890c1d031d9"
         },
         {
           "input_id": "interop-harness",
-          "digest": "sha256:11b55c48cd4382674752f953ab08df1bde0c6ddcc5a0239569d0a1ba15e3c4b4"
+          "digest": "sha256:847015f4d9e64a527d8362110444871d27676a4b275359eca483ce6aca17305b"
         },
         {
           "input_id": "go-runtime",

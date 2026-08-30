@@ -5,6 +5,7 @@
     {"id": "accept-current-closure", "mutation": "none", "expected_state": "pass"},
     {"id": "reject-stale-status", "mutation": "stale-status", "expected_state": "reject", "expected_error": "current"},
     {"id": "reject-digest-only-closure", "mutation": "digest-only-closure", "expected_state": "reject", "expected_error": "digest書換えだけ"},
+    {"id": "reject-repository-contract-digest-only-closure", "mutation": "repository-contract-digest-only-closure", "expected_state": "reject", "expected_error": "digest書換えだけ"},
     {"id": "reject-local-rerun-target-omission", "mutation": "missing-local-rerun-target", "expected_state": "reject", "expected_error": "rerun対象からoutputが漏れています"},
     {"id": "reject-container-rerun-target-omission", "mutation": "missing-container-rerun-target", "expected_state": "reject", "expected_error": "rerun対象からoutputが漏れています"},
     {"id": "reject-output-withdrawal", "mutation": "output-withdrawal", "expected_state": "reject", "expected_error": "closure分母"},

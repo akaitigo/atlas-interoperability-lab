@@ -9,6 +9,11 @@
       "detail": "main固定CommitとManifest Digestを検証"
     },
     {
+      "name": "repository-contract",
+      "verdict": "pass",
+      "detail": "正規fleet contractと書込み境界を検証"
+    },
+    {
       "name": "neutral-language",
       "verdict": "pass",
       "detail": "Docs・Scenario・Metadataの中立表現と技術的namespace参照を検証"

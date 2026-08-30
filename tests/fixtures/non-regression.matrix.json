@@ -1,6 +1,8 @@
 {
   "schema_version": 1,
   "cases": [
+    {"id":"reject.repository-contract-delete","operation":"delete-repository-contract","expected_code":"repository-contract-removed"},
+    {"id":"reject.repository-boundary-loosen","operation":"loosen-repository-boundary","expected_code":"repository-contract-regressed"},
     {"id":"reject.scenario-delete","operation":"delete-scenario","expected_code":"scenario-removed"},
     {"id":"reject.scenario-scope-out","operation":"scope-out-scenario","expected_code":"scenario-removed"},
     {"id":"reject.scenario-aggregate","operation":"aggregate-scenarios","expected_code":"scenario-removed"},

@@ -84,6 +84,10 @@ func nonRegressionGate(root string, reader repositoryReader) (NonRegressionGateR
 		return failNonRegression(report, err)
 	}
 	report.Checks = append(report.Checks, SelfAuditCheck{Name: "sealed-baseline", Verdict: "pass", Detail: "main固定CommitとManifest Digestを検証"})
+	if err := validateRepositoryContract(reader); err != nil {
+		return failNonRegression(report, err)
+	}
+	report.Checks = append(report.Checks, SelfAuditCheck{Name: "repository-contract", Verdict: "pass", Detail: "正規fleet contractと書込み境界を検証"})
 	if err := validateNeutralLanguage(root, reader); err != nil {
 		return failNonRegression(report, err)
 	}

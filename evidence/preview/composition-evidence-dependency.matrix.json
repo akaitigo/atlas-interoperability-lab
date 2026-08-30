@@ -24,6 +24,13 @@
       "verdict": "pass"
     },
     {
+      "id": "reject-repository-contract-digest-only-closure",
+      "mutation": "repository-contract-digest-only-closure",
+      "state": "reject",
+      "classification": "repository-contract-digest-only-closure",
+      "verdict": "pass"
+    },
+    {
       "id": "reject-local-rerun-target-omission",
       "mutation": "missing-local-rerun-target",
       "state": "reject",

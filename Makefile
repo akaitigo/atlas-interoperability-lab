@@ -5,7 +5,7 @@ FE_DIR ?= ../frontend-behavior-atlas
 FE_DEPTH_COMMIT := deadad18b6588d2c907170a451c3b5cea5ea4192
 GO_CACHE_DIR := $(CURDIR)/.cache/go-build
 
-.PHONY: test depth-reference core-main-reference lab-validate graph-check evidence-local evidence-container evidence runtime-binding-local runtime-binding-container runtime-binding composition-evidence-closure composition-evidence-audit reproducibility skill-validate skill-eval skill-eval-v2 non-regression evidence-dependency-matrix composition-compatibility-matrix preview-publication definitive-preview legacy-v1-check diagnose provenance publication certificate core-validate core-audit dco-check self-audit cleanup-check check
+.PHONY: test depth-reference core-main-reference lab-validate graph-check evidence-local evidence-container evidence runtime-binding-local runtime-binding-container runtime-binding composition-evidence-closure composition-evidence-audit reproducibility checkpoint-runtime checkpoint-publication skill-validate skill-eval skill-eval-v2 non-regression evidence-dependency-matrix composition-compatibility-matrix preview-publication definitive-preview legacy-v1-check diagnose provenance publication certificate core-validate core-audit dco-check self-audit cleanup-check check
 
 depth-reference:
 	git -C "$(FE_DIR)" cat-file -e "$(FE_DEPTH_COMMIT)^{commit}"
@@ -46,6 +46,12 @@ composition-evidence-audit:
 
 reproducibility:
 	GOCACHE="$(GO_CACHE_DIR)" go run ./cmd/atlas-lab reproducibility --composition compositions/fixture-stage2.json --profile local
+
+checkpoint-runtime:
+	GOCACHE="$(GO_CACHE_DIR)" go run ./cmd/atlas-lab checkpoint-runtime
+
+checkpoint-publication:
+	GOCACHE="$(GO_CACHE_DIR)" go run ./cmd/atlas-lab checkpoint-publication
 
 skill-validate:
 	python3 scripts/validate_skill.py
@@ -108,4 +114,4 @@ cleanup-check:
 	test '"verdict": "pass"' = "$$(rg -o '"verdict": "pass"' cleanup/local.receipt.json)"
 	test '"verdict": "pass"' = "$$(rg -o '"verdict": "pass"' cleanup/container.receipt.json)"
 
-check: non-regression test graph-check skill-validate skill-eval evidence reproducibility cleanup-check diagnose provenance publication certificate core-validate core-audit dco-check
+check: non-regression test graph-check skill-validate skill-eval checkpoint-runtime cleanup-check checkpoint-publication dco-check

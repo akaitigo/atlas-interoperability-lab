@@ -5,9 +5,9 @@
   "composition_id": "fixture-http-stage2-v1",
   "composition_digest": "sha256:f562551e4081576ed603010e77f025d1a78b91feefde57647c48c300259293ce",
   "profile": "container",
-  "observed_at": "2026-08-30T14:45:16Z",
-  "execution_started_at": "2026-08-30T14:45:04Z",
-  "execution_completed_at": "2026-08-30T14:45:16Z",
+  "observed_at": "2026-08-30T15:52:21Z",
+  "execution_started_at": "2026-08-30T15:52:12Z",
+  "execution_completed_at": "2026-08-30T15:52:21Z",
   "platform": {
     "kind": "docker-container",
     "os": "linux",
@@ -44,7 +44,7 @@
   "runtime_evidence": {
     "summary": {
       "path": "evidence/preview/runtime-binding/container/summary.json",
-      "digest": "sha256:99b02b50401dc8e53d2ca5a1525a4882e88948b7c9172a7bd4b8f69e189a96cc"
+      "digest": "sha256:96f68d702f08ed1a68f8f9fad78901c102b6f3965b307d26a210cb9e6bcea2f9"
     },
     "scenarios": [
       {

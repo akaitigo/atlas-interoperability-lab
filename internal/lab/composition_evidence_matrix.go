@@ -40,7 +40,7 @@ func RunCompositionEvidenceDependencyMatrix(root, matrixPath string) (Compositio
 	if err := LoadJSON(filepath.Join(root, filepath.FromSlash(matrixPath)), &matrix); err != nil {
 		return CompositionEvidenceMatrixResult{}, err
 	}
-	if matrix.SchemaVersion != 1 || matrix.Graph != compositionEvidenceGraphPath || len(matrix.Cases) != 10 {
+	if matrix.SchemaVersion != 1 || matrix.Graph != compositionEvidenceGraphPath || len(matrix.Cases) != 11 {
 		return CompositionEvidenceMatrixResult{}, fmt.Errorf("Composition Evidence Dependency Matrix契約が不正です")
 	}
 	report := CompositionEvidenceMatrixResult{SchemaVersion: 1, CoreCommit: evidenceDependencyCoreCommit, Results: []CompositionEvidenceMatrixCaseResult{}, Verdict: "pass"}
@@ -88,7 +88,7 @@ func ValidateCompositionEvidenceClosure(root string) error {
 	if err != nil {
 		return err
 	}
-	if matrix.Verdict != "pass" || len(matrix.Results) != 10 {
+	if matrix.Verdict != "pass" || len(matrix.Results) != 11 {
 		return fmt.Errorf("Composition Evidence Dependency negative fixtureが不足しています")
 	}
 	return nil
@@ -139,8 +139,15 @@ func applyCompositionEvidenceMutation(root, graphPath, mutation string) error {
 	switch mutation {
 	case "stale-status":
 		graph.Status = "stale"
-	case "digest-only-closure":
-		input := &graph.Inputs[1]
+	case "digest-only-closure", "repository-contract-digest-only-closure":
+		inputID := "interop-harness"
+		if mutation == "repository-contract-digest-only-closure" {
+			inputID = "repository-contract"
+		}
+		input := compositionEvidenceInputByID(&graph, inputID)
+		if input == nil {
+			return fmt.Errorf("Composition Evidence inputがありません: %s", inputID)
+		}
 		member := filepath.Join(root, filepath.FromSlash(input.Members[0]))
 		file, err := os.OpenFile(member, os.O_APPEND|os.O_WRONLY, 0o644)
 		if err != nil {
@@ -188,6 +195,15 @@ func applyCompositionEvidenceMutation(root, graphPath, mutation string) error {
 		return fmt.Errorf("未知のComposition Evidence mutationです: %s", mutation)
 	}
 	return WriteJSON(path, graph)
+}
+
+func compositionEvidenceInputByID(graph *CompositionEvidenceDependencyGraph, id string) *CompositionEvidenceInput {
+	for index := range graph.Inputs {
+		if graph.Inputs[index].ID == id {
+			return &graph.Inputs[index]
+		}
+	}
+	return nil
 }
 
 func removeRunOutput(graph *CompositionEvidenceDependencyGraph, runID, outputID string) {

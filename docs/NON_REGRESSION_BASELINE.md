@@ -13,6 +13,7 @@ Interopや組合せが構成要素の不足を隠して全体を完了扱いす�
 - Go Test、Router Eval、Integration Harness、実Fixture Subject
 - 正常・拒否・障害・回復・互換性EvidenceとCleanup Receipt
 - 既存CI Step／Command
+- 正規fleet `repo.yaml`とGitHub allowed／Cloud denied／既存Repository deniedの書込み境界
 
 追加は許可します。削除、`skip`／`disabled`／`optional`化、Scope外退避、Scenario集約、Assertion・閾値・Component・Version・CI縮小、実統合からmock／staticへの置換、失敗または回復Evidence削除は拒否します。
 
@@ -29,4 +30,4 @@ Interopや組合せが構成要素の不足を隠して全体を完了扱いす�
 go run ./cmd/atlas-lab non-regression-gate
 ```
 
-拒否Fixture Matrixは20件あり、証拠なしMapping、単一ProfileだけのProof、宣伝的な記述、作者評価も拒否します。別の正例Testでは、旧ID Mapping、新Scenario参照、local／containerの統合Proof、Migration Evidenceが揃った同等置換だけを受理します。
+拒否Fixture Matrixは22件あり、Repository Contract削除・境界緩和、証拠なしMapping、単一ProfileだけのProof、宣伝的な記述、作者評価も拒否します。別の正例Testでは、旧ID Mapping、新Scenario参照、local／containerの統合Proof、Migration Evidenceが揃った同等置換だけを受理します。

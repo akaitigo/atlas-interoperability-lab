@@ -5,9 +5,9 @@
   "composition_id": "fixture-http-stage2-v1",
   "composition_digest": "sha256:f562551e4081576ed603010e77f025d1a78b91feefde57647c48c300259293ce",
   "profile": "local",
-  "observed_at": "2026-08-30T14:44:57Z",
-  "execution_started_at": "2026-08-30T14:44:51Z",
-  "execution_completed_at": "2026-08-30T14:44:57Z",
+  "observed_at": "2026-08-30T15:52:04Z",
+  "execution_started_at": "2026-08-30T15:51:57Z",
+  "execution_completed_at": "2026-08-30T15:52:04Z",
   "platform": {
     "kind": "local-process",
     "os": "darwin",
@@ -43,7 +43,7 @@
   "runtime_evidence": {
     "summary": {
       "path": "evidence/preview/runtime-binding/local/summary.json",
-      "digest": "sha256:cdf306d5b37ddabd9c5148e67d3195e2fcb15bee747c9d3fe86853b2e9e46988"
+      "digest": "sha256:ed69b057014aa137c9f19556b8aa127f91ef3e5ac507cab23735981f76662351"
     },
     "scenarios": [
       {

@@ -21,7 +21,7 @@ type GateReport struct {
 
 func PublicationGate(root string) (GateReport, error) {
 	report := GateReport{SchemaVersion: 1, Gate: "publication", Verdict: "pass"}
-	required := []string{"LICENSE", "NOTICE", "SECURITY.md", "third_party/manifest.yaml", "sbom.spdx.json", "sources.lock.yaml", "provenance.yaml", "graphs/fixture-stage2.claim-evidence.json", "evidence/records/stage2.local.evidence.json", "evidence/records/stage2.container.evidence.json", "evals/skill/interoperability-router.skill-eval.json", "cleanup/local.receipt.json", "cleanup/container.receipt.json"}
+	required := []string{"LICENSE", "NOTICE", "SECURITY.md", "repo.yaml", "third_party/manifest.yaml", "sbom.spdx.json", "sources.lock.yaml", "provenance.yaml", "graphs/fixture-stage2.claim-evidence.json", "evidence/records/stage2.local.evidence.json", "evidence/records/stage2.container.evidence.json", "evals/skill/interoperability-router.skill-eval.json", "cleanup/local.receipt.json", "cleanup/container.receipt.json"}
 	for _, relative := range required {
 		info, err := os.Stat(filepath.Join(root, relative))
 		if err != nil || info.Size() == 0 {
@@ -29,6 +29,10 @@ func PublicationGate(root string) (GateReport, error) {
 		}
 		report.Checks = append(report.Checks, "present:"+relative)
 	}
+	if err := ValidateRepositoryContract(root); err != nil {
+		return failGate(report, err.Error())
+	}
+	report.Checks = append(report.Checks, "repository-contract")
 	if err := verifyCoreLock(root); err != nil {
 		return failGate(report, err.Error())
 	}

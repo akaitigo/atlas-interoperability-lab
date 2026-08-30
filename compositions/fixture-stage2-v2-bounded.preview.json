@@ -12,7 +12,7 @@
   "coverage_epoch": "2026-08-28",
   "depth_reference_lock": {"path":"depth/fe-depth-reference.lock.json","digest":"sha256:eb044309d511b9178816c8ef7df5a47417bc9fe1067652d2d07dbc1bd9a89441"},
   "scenario_contract_lock": {"path":"depth/fe-scenario-contract.lock.json","digest":"sha256:9e021519ea1e1666d3919af3963fcf5b45862daa870958042a9d661298ccafc6"},
-  "subject_depth_parity": {"path":"depth/fixture-subjects.depth-parity.preview.json","digest":"sha256:db054173da03f4a7ad1573a9040405f9ae71510635d11876e0c02fe87564fdea"},
+  "subject_depth_parity": {"path":"depth/fixture-subjects.depth-parity.preview.json","digest":"sha256:c7d692c0d3eccefc4b81f38a72abda79ce6006bd3bced055d80dc60c726ab306"},
   "integration_proofs": {"path":"depth/fixture-stage2.integration-proofs.preview.json","digest":"sha256:e5e13ff980b7e124ebf59e4dc1d9b3572439942ddc9e0e68d009a08a98151e61"},
   "subjects": [
     {

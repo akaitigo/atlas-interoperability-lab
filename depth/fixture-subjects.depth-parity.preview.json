@@ -27,7 +27,7 @@
         {"id": "integrated-reference-system", "status": "partial", "proofs": []},
         {"id": "skill-eval", "status": "partial", "proofs": []},
         {"id": "rights-provenance", "status": "partial", "proofs": []},
-        {"id": "non-regression-gate", "status": "satisfied", "proofs": [{"id": "interop-non-regression", "path": "evidence/preview/interop-v1.non-regression-gate.json", "digest": "sha256:49cb2b513cd79b91f34491eb8491481f709a3082130a95094babe80dbdbe1a6f"}]}
+        {"id": "non-regression-gate", "status": "satisfied", "proofs": [{"id": "interop-non-regression", "path": "evidence/preview/interop-v1.non-regression-gate.json", "digest": "sha256:e0250e481fa2698f588ad278436d430d453f7a5786aff5a14f4c197812032a07"}]}
       ]
     },
     {
@@ -52,7 +52,7 @@
         {"id": "integrated-reference-system", "status": "partial", "proofs": []},
         {"id": "skill-eval", "status": "partial", "proofs": []},
         {"id": "rights-provenance", "status": "partial", "proofs": []},
-        {"id": "non-regression-gate", "status": "satisfied", "proofs": [{"id": "interop-non-regression", "path": "evidence/preview/interop-v1.non-regression-gate.json", "digest": "sha256:49cb2b513cd79b91f34491eb8491481f709a3082130a95094babe80dbdbe1a6f"}]}
+        {"id": "non-regression-gate", "status": "satisfied", "proofs": [{"id": "interop-non-regression", "path": "evidence/preview/interop-v1.non-regression-gate.json", "digest": "sha256:e0250e481fa2698f588ad278436d430d453f7a5786aff5a14f4c197812032a07"}]}
       ]
     }
   ]

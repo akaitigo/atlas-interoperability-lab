@@ -82,6 +82,14 @@ func RunNonRegressionMutationMatrix(root, matrixPath string) (NonRegressionMutat
 
 func applyNonRegressionMutation(repository *overlayRepository, operation string) error {
 	switch operation {
+	case "delete-repository-contract":
+		repository.missing["repo.yaml"] = true
+	case "loosen-repository-boundary":
+		data, err := repository.read("repo.yaml")
+		if err != nil {
+			return err
+		}
+		repository.overrides["repo.yaml"] = []byte(stringsReplaceOnce(string(data), "  cloud: denied\n", "  cloud: allowed\n"))
 	case "delete-scenario":
 		repository.missing["scenarios/failure.json"] = true
 	case "scope-out-scenario", "aggregate-scenarios":

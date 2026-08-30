@@ -205,6 +205,7 @@ func buildCompositionEvidenceGraph(root string, local, container RuntimeBindingE
 		return CompositionEvidenceDependencyGraph{}, err
 	}
 	inputSpecs := []CompositionEvidenceInput{
+		{ID: "repository-contract", Kind: "contract", Members: members["repository-contract"]},
 		{ID: "composition-source", Kind: "source", Members: members["composition-source"]},
 		{ID: "interop-harness", Kind: "harness", Members: members["interop-harness"]},
 		{ID: "go-runtime", Kind: "runtime", Members: members["go-runtime"]},
@@ -223,11 +224,11 @@ func buildCompositionEvidenceGraph(root string, local, container RuntimeBindingE
 	for _, input := range inputSpecs {
 		inputDigest[input.ID] = input.CurrentDigest
 	}
-	localIDs, localOutputs, err := runtimeBindingOutputs(root, "local", []string{"composition-source", "interop-harness", "go-runtime", "local-profile"}, "run-local-runtime-binding")
+	localIDs, localOutputs, err := runtimeBindingOutputs(root, "local", []string{"repository-contract", "composition-source", "interop-harness", "go-runtime", "local-profile"}, "run-local-runtime-binding")
 	if err != nil {
 		return CompositionEvidenceDependencyGraph{}, err
 	}
-	containerIDs, containerOutputs, err := runtimeBindingOutputs(root, "container", []string{"composition-source", "interop-harness", "go-runtime", "container-profile"}, "run-container-runtime-binding")
+	containerIDs, containerOutputs, err := runtimeBindingOutputs(root, "container", []string{"repository-contract", "composition-source", "interop-harness", "go-runtime", "container-profile"}, "run-container-runtime-binding")
 	if err != nil {
 		return CompositionEvidenceDependencyGraph{}, err
 	}
@@ -259,9 +260,9 @@ func buildCompositionEvidenceGraph(root string, local, container RuntimeBindingE
 	containerStart, _ := time.Parse(time.RFC3339, container.ExecutionStartedAt)
 	containerComplete, _ := time.Parse(time.RFC3339, container.ExecutionCompletedAt)
 	runs := []CompositionEvidenceRun{
-		compositionRuntimeRun("run-local-runtime-binding", "go run ./cmd/atlas-lab runtime-binding --profile local", localStart, localComplete, local.Platform, local.Executable.RuntimeBinaryDigest, []string{"composition-source", "interop-harness", "go-runtime", "local-profile"}, inputDigest, localIDs),
-		compositionRuntimeRun("run-container-runtime-binding", "go run ./cmd/atlas-lab runtime-binding --profile container", containerStart, containerComplete, container.Platform, container.Executable.RuntimeBinaryDigest, []string{"composition-source", "interop-harness", "go-runtime", "container-profile"}, inputDigest, containerIDs),
-		{ID: "run-composition-closure", ExecutionKind: "derived", Command: "go run ./cmd/atlas-lab composition-evidence-closure", StartedAt: derivedStarted.UTC().Format(time.RFC3339), CompletedAt: derivedCompleted.UTC().Format(time.RFC3339), Result: "passed", Attempts: 1, InputBindings: compositionBindings([]string{"composition-source", "interop-harness", "go-runtime", "local-profile", "container-profile"}, inputDigest), OutputIDs: derivedIDs},
+		compositionRuntimeRun("run-local-runtime-binding", "go run ./cmd/atlas-lab runtime-binding --profile local", localStart, localComplete, local.Platform, local.Executable.RuntimeBinaryDigest, []string{"repository-contract", "composition-source", "interop-harness", "go-runtime", "local-profile"}, inputDigest, localIDs),
+		compositionRuntimeRun("run-container-runtime-binding", "go run ./cmd/atlas-lab runtime-binding --profile container", containerStart, containerComplete, container.Platform, container.Executable.RuntimeBinaryDigest, []string{"repository-contract", "composition-source", "interop-harness", "go-runtime", "container-profile"}, inputDigest, containerIDs),
+		{ID: "run-composition-closure", ExecutionKind: "derived", Command: "go run ./cmd/atlas-lab composition-evidence-closure", StartedAt: derivedStarted.UTC().Format(time.RFC3339), CompletedAt: derivedCompleted.UTC().Format(time.RFC3339), Result: "passed", Attempts: 1, InputBindings: compositionBindings([]string{"repository-contract", "composition-source", "interop-harness", "go-runtime", "local-profile", "container-profile"}, inputDigest), OutputIDs: derivedIDs},
 	}
 	proofDigest, _ := DigestFile(filepath.Join(root, "evidence", "preview", "runtime-binding", "proof-index.json"))
 	planDigest, _ := DigestFile(filepath.Join(root, "evidence", "preview", "runtime-binding", "closure-plan.json"))
@@ -291,11 +292,12 @@ func compositionEvidenceInputMembers(root string) (map[string][]string, error) {
 	}
 	sort.Strings(harness)
 	return map[string][]string{
-		"composition-source": {"compatibility/evidence-dependency-core.lock.json", "compositions/fixture-stage2.json", "compositions/fixture-stage2-v2-definitive.preview.json", "fixtures/subjects/fixture-http-source/release.json", "fixtures/subjects/fixture-http-source/completion-certificate.json", "fixtures/subjects/fixture-http-sink/release.json", "fixtures/subjects/fixture-http-sink/completion-certificate.json", "cmd/fixture-subject/main.go"},
-		"interop-harness":    harness,
-		"go-runtime":         {"go.mod"},
-		"local-profile":      {"environments/local.json"},
-		"container-profile":  {"environments/container.json", "environments/Dockerfile.fixture"},
+		"repository-contract": {"repo.yaml"},
+		"composition-source":  {"compatibility/evidence-dependency-core.lock.json", "compositions/fixture-stage2.json", "compositions/fixture-stage2-v2-definitive.preview.json", "fixtures/subjects/fixture-http-source/release.json", "fixtures/subjects/fixture-http-source/completion-certificate.json", "fixtures/subjects/fixture-http-sink/release.json", "fixtures/subjects/fixture-http-sink/completion-certificate.json", "cmd/fixture-subject/main.go"},
+		"interop-harness":     harness,
+		"go-runtime":          {"go.mod"},
+		"local-profile":       {"environments/local.json"},
+		"container-profile":   {"environments/container.json", "environments/Dockerfile.fixture"},
 	}, nil
 }
 

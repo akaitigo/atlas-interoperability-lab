@@ -22,7 +22,7 @@ func AuditCompositionEvidenceDependency(root, relative string) (CompositionEvide
 		return fail("Composition Evidence Dependency GraphはcurrentなCore正式main契約ではありません")
 	}
 	generatedAt, generatedErr := time.Parse(time.RFC3339, graph.GeneratedAt)
-	if generatedErr != nil || len(graph.Inputs) != 5 || len(graph.Outputs) != 19 || len(graph.Runs) != 3 {
+	if generatedErr != nil || len(graph.Inputs) != 6 || len(graph.Outputs) != 19 || len(graph.Runs) != 3 {
 		return fail("Composition Evidence Dependency Graphの時刻またはclosure分母が不正です")
 	}
 	if !graph.Policy.TransitiveStaleness || !graph.Policy.DigestOnlyClosureForbidden || !graph.Policy.ActualRerunRequired || !graph.Policy.MissingRerunTargetsFail || !graph.Policy.ProofStructureInvariant || !graph.Policy.ClosurePlanStructureInvariant {
@@ -39,7 +39,7 @@ func AuditCompositionEvidenceDependency(root, relative string) (CompositionEvide
 		return fail("Lab固有input memberを列挙できません: %v", expectedMembersErr)
 	}
 	for _, input := range graph.Inputs {
-		if input.ID == "" || inputs[input.ID].ID != "" || !contains([]string{"source", "harness", "runtime", "profile"}, input.Kind) {
+		if input.ID == "" || inputs[input.ID].ID != "" || !contains([]string{"contract", "source", "harness", "runtime", "profile"}, input.Kind) {
 			return fail("Evidence Dependency inputが空、重複、または未知kindです: %s", input.ID)
 		}
 		actual, err := aggregateCompositionMembers(root, input.Members)
@@ -58,7 +58,7 @@ func AuditCompositionEvidenceDependency(root, relative string) (CompositionEvide
 		}
 		inputs[input.ID] = input
 	}
-	if !sameSet(mapKeysInput(inputs), []string{"composition-source", "interop-harness", "go-runtime", "local-profile", "container-profile"}) {
+	if !sameSet(mapKeysInput(inputs), []string{"repository-contract", "composition-source", "interop-harness", "go-runtime", "local-profile", "container-profile"}) {
 		return fail("Lab固有input closureが不足しています")
 	}
 	outputs, outputPaths := map[string]CompositionEvidenceOutput{}, map[string]string{}

@@ -23,7 +23,7 @@
         "closure_plan_structure_invariant": {"const": true}
       }
     },
-    "inputs": {"type": "array", "minItems": 5, "items": {"$ref": "#/$defs/input"}},
+    "inputs": {"type": "array", "minItems": 6, "items": {"$ref": "#/$defs/input"}},
     "outputs": {"type": "array", "minItems": 19, "items": {"$ref": "#/$defs/output"}},
     "runs": {"type": "array", "minItems": 3, "items": {"$ref": "#/$defs/run"}},
     "required_outputs": {"type": "array", "minItems": 19, "uniqueItems": true, "items": {"type": "string", "minLength": 3}},
@@ -43,7 +43,7 @@
       "required": ["id", "kind", "members", "baseline_digest", "current_digest", "observed_at"],
       "properties": {
         "id": {"$ref": "#/$defs/id"},
-        "kind": {"enum": ["source", "harness", "runtime", "profile"]},
+        "kind": {"enum": ["contract", "source", "harness", "runtime", "profile"]},
         "members": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
         "baseline_digest": {"$ref": "#/$defs/digest"},
         "current_digest": {"$ref": "#/$defs/digest"},

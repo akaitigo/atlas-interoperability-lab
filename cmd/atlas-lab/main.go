@@ -79,6 +79,18 @@ func main() {
 			fatal(fmt.Errorf("Evidence Set Digestが再現しません: first=%s second=%s", first.EvidenceSetDigest, second.EvidenceSetDigest))
 		}
 		fmt.Printf("REPRODUCIBLE: profile=%s evidence_set=%s\n", *profile, first.EvidenceSetDigest)
+	case "checkpoint-runtime":
+		report, err := lab.ValidateIsolatedCheckpointRuntime(root)
+		if err != nil {
+			fatal(err)
+		}
+		printJSON(report)
+	case "checkpoint-publication":
+		report, err := lab.ValidateIsolatedPublicationCheckpoint(root)
+		if err != nil {
+			fatal(err)
+		}
+		printJSON(report)
 	case "publication-gate":
 		report, err := lab.PublicationGate(root)
 		if err != nil {

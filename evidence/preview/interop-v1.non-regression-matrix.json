@@ -2,6 +2,18 @@
   "schema_version": 1,
   "cases": [
     {
+      "id": "reject.repository-contract-delete",
+      "rejected": true,
+      "violation_code": "repository-contract-removed",
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.repository-boundary-loosen",
+      "rejected": true,
+      "violation_code": "repository-contract-regressed",
+      "verdict": "pass"
+    },
+    {
       "id": "reject.scenario-delete",
       "rejected": true,
       "violation_code": "scenario-removed",

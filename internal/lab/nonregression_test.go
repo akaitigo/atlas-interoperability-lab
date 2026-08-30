@@ -86,7 +86,7 @@ func TestNonRegressionMutationMatrixRejectsEveryRegression(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if report.Verdict != "pass" || len(report.Cases) != 20 {
+	if report.Verdict != "pass" || len(report.Cases) != 22 {
 		t.Fatalf("unexpected matrix: %#v", report)
 	}
 }

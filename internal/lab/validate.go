@@ -140,6 +140,9 @@ func resolve(root, path string) string {
 }
 
 func ValidateRepository(root string) error {
+	if err := ValidateRepositoryContract(root); err != nil {
+		return err
+	}
 	if _, err := Preflight(root, "compositions/fixture-stage2.json", "local"); err != nil {
 		return err
 	}
