@@ -63,6 +63,14 @@
       "expected_failed_subjects": ["sink"]
     },
     {
+      "id": "reject-multiple-subject-failures-without-aggregation",
+      "mutations": {"source": "stale-status", "sink": "digest-only-closure"},
+      "graph_mutation": "none",
+      "expected_composition": "reject",
+      "expected_claim_graph": "pass",
+      "expected_failed_subjects": ["source", "sink"]
+    },
+    {
       "id": "reject-cross-subject-claim-link-gap",
       "mutations": {"source": "none", "sink": "none"},
       "graph_mutation": "remove-subject-link",

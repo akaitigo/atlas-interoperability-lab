@@ -192,7 +192,7 @@ func runCompositionCompatibilityMatrix(root, matrixPath string, requireNonRegres
 }
 
 func validateCompositionCompatibilityContract(matrix CompositionCompatibilityMatrix, composition PreviewComposition, lock EvidenceDependencyCoreLock) error {
-	if matrix.SchemaVersion != 1 || matrix.CoreLock != "compatibility/evidence-dependency-core.lock.json" || matrix.Composition != "compositions/fixture-stage2-v2-definitive.preview.json" || matrix.ClaimEvidenceGraph != "graphs/fixture-stage2.claim-evidence.json" || !sameSet(matrix.Consumers, []string{"codex", "claude-code", "generic-cli"}) || !sameSet(matrix.Subjects, []string{"source", "sink"}) || len(matrix.Cases) != 8 {
+	if matrix.SchemaVersion != 1 || matrix.CoreLock != "compatibility/evidence-dependency-core.lock.json" || matrix.Composition != "compositions/fixture-stage2-v2-definitive.preview.json" || matrix.ClaimEvidenceGraph != "graphs/fixture-stage2.claim-evidence.json" || !sameSet(matrix.Consumers, []string{"codex", "claude-code", "generic-cli"}) || !sameSet(matrix.Subjects, []string{"source", "sink"}) || len(matrix.Cases) != 9 {
 		return fmt.Errorf("Composition互換性Matrix契約が不正です")
 	}
 	if err := validateEvidenceDependencyCoreLock(lock); err != nil {

@@ -524,14 +524,31 @@ func AuditDefinitivePreview(root string) DefinitivePreviewAudit {
 	var compositionMatrix CompositionCompatibilityResult
 	compositionMatrixErr := LoadJSON(filepath.Join(root, "evidence", "preview", "composition-compatibility.matrix.json"), &compositionMatrix)
 	if compositionMatrixErr == nil {
-		if compositionMatrix.Verdict != "pass" || compositionMatrix.CoreCommit != evidenceDependencyCoreCommit || len(compositionMatrix.Results) != 24 {
+		if compositionMatrix.Verdict != "pass" || compositionMatrix.CoreCommit != evidenceDependencyCoreCommit || len(compositionMatrix.Results) != 27 {
 			compositionMatrixErr = fmt.Errorf("複数Subject Composition互換性Evidenceが不正です")
 		}
+		multipleSubjectFailureResults := 0
 		for _, result := range compositionMatrix.Results {
 			if result.DefinitiveEligible || !result.ConsumerIndependent || !containsAll(result.InheritedGaps, []string{"core-v2-draft", "subject-depth-parity-incomplete", "subject-probe-atomic-binding-gap", "surface-pattern-proof-gaps"}) {
 				compositionMatrixErr = fmt.Errorf("複数Subject CompositionがGapを隠しています")
 				break
 			}
+			if result.CaseID == "reject-multiple-subject-failures-without-aggregation" {
+				if result.CompatibilityState != "reject" || result.ClaimGraphState != "pass" || !sameSet(result.FailedSubjects, []string{"source", "sink"}) {
+					compositionMatrixErr = fmt.Errorf("複数Subject同時失敗が個別結果を保持していません")
+					break
+				}
+				for _, subject := range result.Subjects {
+					if subject.GateState != "reject" || subject.CertificateState != "reject" {
+						compositionMatrixErr = fmt.Errorf("複数Subject同時失敗がSubject probe拒否を保持していません")
+						break
+					}
+				}
+				multipleSubjectFailureResults++
+			}
+		}
+		if compositionMatrixErr == nil && multipleSubjectFailureResults != 3 {
+			compositionMatrixErr = fmt.Errorf("複数Subject同時失敗Evidenceのconsumer網羅が不足しています")
 		}
 	}
 	report.add("multi-subject-composition-compatibility", compositionMatrixErr)

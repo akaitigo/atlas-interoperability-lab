@@ -14,7 +14,7 @@
     "subjects": {"type": "array", "minItems": 2, "uniqueItems": true, "items": {"enum": ["source", "sink"]}},
     "cases": {
       "type": "array",
-      "minItems": 8,
+      "minItems": 9,
       "items": {
         "type": "object",
         "additionalProperties": false,

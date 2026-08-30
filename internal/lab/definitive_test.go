@@ -57,10 +57,10 @@ func TestMultiSubjectCompositionCompatibilityDoesNotHideGaps(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if report.Verdict != "pass" || report.CoreCommit != evidenceDependencyCoreCommit || len(report.Results) != 24 {
+	if report.Verdict != "pass" || report.CoreCommit != evidenceDependencyCoreCommit || len(report.Results) != 27 {
 		t.Fatalf("unexpected Composition Compatibility Matrix: %#v", report)
 	}
-	honestIncomplete, claimLinkRejections := 0, 0
+	honestIncomplete, claimLinkRejections, multipleSubjectRejections := 0, 0, 0
 	for _, result := range report.Results {
 		if result.Verdict != "pass" || !result.ConsumerIndependent || result.DefinitiveEligible || len(result.Subjects) != 2 || !containsAll(result.InheritedGaps, []string{"core-v2-draft", "subject-depth-parity-incomplete", "subject-probe-atomic-binding-gap", "surface-pattern-proof-gaps"}) {
 			t.Fatalf("Gapまたはconsumer判定が不正です: %#v", result)
@@ -71,8 +71,10 @@ func TestMultiSubjectCompositionCompatibilityDoesNotHideGaps(t *testing.T) {
 		if result.CaseID == "reject-cross-subject-claim-link-gap" && result.ClaimGraphState == "reject" && len(result.FailedSubjects) == 0 {
 			claimLinkRejections++
 		}
-		if len(result.FailedSubjects) == 1 {
-			failed := result.FailedSubjects[0]
+		if result.CaseID == "reject-multiple-subject-failures-without-aggregation" && sameSet(result.FailedSubjects, []string{"source", "sink"}) {
+			multipleSubjectRejections++
+		}
+		for _, failed := range result.FailedSubjects {
 			for _, subject := range result.Subjects {
 				if subject.Name == failed && (subject.GateState != "reject" || subject.CertificateState != "reject") {
 					t.Fatalf("失敗Subjectが構成成功で隠されています: %#v", result)
@@ -80,7 +82,7 @@ func TestMultiSubjectCompositionCompatibilityDoesNotHideGaps(t *testing.T) {
 			}
 		}
 	}
-	if honestIncomplete != 3 || claimLinkRejections != 3 {
-		t.Fatalf("incompleteまたはClaim link negative fixtureのconsumer網羅が不足しています: incomplete=%d claim=%d", honestIncomplete, claimLinkRejections)
+	if honestIncomplete != 3 || claimLinkRejections != 3 || multipleSubjectRejections != 3 {
+		t.Fatalf("incomplete、Claim link、または複数Subject同時失敗fixtureのconsumer網羅が不足しています: incomplete=%d claim=%d multiple=%d", honestIncomplete, claimLinkRejections, multipleSubjectRejections)
 	}
 }
