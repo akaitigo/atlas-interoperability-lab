@@ -2,7 +2,12 @@
   "schema_version": 1,
   "gate": "actual-subject-binding-admission",
   "core_commit": "072d7ca77981f51754e824d70c6d4ecd55ea67e5",
-  "verification_mode": "local-git-object-byte-digest",
+  "verification_boundary": {
+    "local_git_object_verification": "required",
+    "public_ci_verification": "owner-signed-tracked-input",
+    "local_gate_required": true,
+    "completion_effect": "none"
+  },
   "candidates": [
     {
       "subject_id": "rabbitmq-reference-atlas",
@@ -17,8 +22,7 @@
         "v2-depth-unavailable",
         "surface-pattern-proof-unavailable",
         "atomic-authority-binding-unavailable"
-      ],
-      "live_verified": true
+      ]
     },
     {
       "subject_id": "postgresql-reference-atlas",
@@ -33,8 +37,7 @@
         "v2-depth-unavailable",
         "surface-pattern-proof-unavailable",
         "atomic-authority-binding-unavailable"
-      ],
-      "live_verified": true
+      ]
     },
     {
       "subject_id": "zero-trust-reference-atlas",
@@ -49,8 +52,7 @@
         "v2-depth-unavailable",
         "surface-pattern-proof-unavailable",
         "atomic-authority-binding-unavailable"
-      ],
-      "live_verified": true
+      ]
     }
   ],
   "completion_state": "incomplete",

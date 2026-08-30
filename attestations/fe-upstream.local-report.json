@@ -33,7 +33,7 @@
     },
     {
       "path": "internal/lab/public_ci.go",
-      "digest": "sha256:47ee426f9a22555f5f81eed54827f939fb2748053d0c943f8a2b714874f5b3b2"
+      "digest": "sha256:b0338b2a3d1a4ac1bf4ff95d8327a519801e7945213885897fb59087eed37d3b"
     },
     {
       "path": "internal/lab/nonregression.go",
@@ -45,7 +45,7 @@
     },
     {
       "path": "cmd/atlas-lab/main.go",
-      "digest": "sha256:e4e1cfaebc4b7d9327904339ddf97358c53b05de1c7dc492e93a2f44f7e55085"
+      "digest": "sha256:bd331a973bc27fa965022ef0b293efb3bf65e3bfe7c1dedcdfbea32cf022393b"
     },
     {
       "path": "attestations/fe-upstream.allowed-signers",
@@ -97,11 +97,11 @@
     },
     {
       "path": "internal/lab/subject_binding_admission.go",
-      "digest": "sha256:a9a37ef4b0272917d3856a76249fe571d6db106d435df64167bf7d3fe2f3e8a0"
+      "digest": "sha256:091f30e5969790b18bcde45749c956018d0388f6408a13fdd68d0aa9241214a6"
     },
     {
       "path": "internal/lab/subject_binding_admission_test.go",
-      "digest": "sha256:dde284bb3a48e913555c28a7837e6567c449299ca4be203888d7cee8a26a1bb2"
+      "digest": "sha256:0206f3413c17c7dea396f7fde7c530a1ce8637d8e8c4118ec7c6c917fc43fd12"
     }
   ],
   "verdict": "pass"

@@ -67,20 +67,19 @@ type SubjectBindingCandidateResult struct {
 	CertificateDigest string   `json:"certificate_digest"`
 	AdmissionState    string   `json:"admission_state"`
 	RejectionReasons  []string `json:"rejection_reasons"`
-	LiveVerified      bool     `json:"live_verified"`
 }
 
 type SubjectBindingAdmissionReport struct {
-	SchemaVersion      int                             `json:"schema_version"`
-	Gate               string                          `json:"gate"`
-	CoreCommit         string                          `json:"core_commit"`
-	VerificationMode   string                          `json:"verification_mode"`
-	Candidates         []SubjectBindingCandidateResult `json:"candidates"`
-	CompletionState    string                          `json:"completion_state"`
-	Gaps               []string                        `json:"gaps"`
-	DefinitiveEligible bool                            `json:"definitive_eligible"`
-	NegativeCases      int                             `json:"negative_cases"`
-	Verdict            string                          `json:"verdict"`
+	SchemaVersion        int                                `json:"schema_version"`
+	Gate                 string                             `json:"gate"`
+	CoreCommit           string                             `json:"core_commit"`
+	VerificationBoundary SubjectBindingVerificationBoundary `json:"verification_boundary"`
+	Candidates           []SubjectBindingCandidateResult    `json:"candidates"`
+	CompletionState      string                             `json:"completion_state"`
+	Gaps                 []string                           `json:"gaps"`
+	DefinitiveEligible   bool                               `json:"definitive_eligible"`
+	NegativeCases        int                                `json:"negative_cases"`
+	Verdict              string                             `json:"verdict"`
 }
 
 type SubjectBindingAdmissionMatrix struct {
@@ -118,26 +117,102 @@ func EvaluateSubjectBindingAdmission(root, referenceRoot string) (SubjectBinding
 		return SubjectBindingAdmissionReport{}, err
 	}
 	publicMode := os.Getenv("ATLAS_LAB_PUBLIC_CI_ATTESTATION") == "1"
-	mode := "local-git-object-byte-digest"
 	if publicMode {
 		reader := func(path string) ([]byte, error) { return os.ReadFile(resolve(referenceRoot, path)) }
 		if _, err := validateFEPublicAttestation(reader); err != nil {
 			return SubjectBindingAdmissionReport{}, fmt.Errorf("Subject binding public境界のowner署名を検証できません: %w", err)
 		}
-		mode = "public-owner-signed-rejection-metadata"
 	}
-	report := SubjectBindingAdmissionReport{SchemaVersion: 1, Gate: "actual-subject-binding-admission", CoreCommit: evidenceDependencyCoreCommit, VerificationMode: mode, Candidates: []SubjectBindingCandidateResult{}, CompletionState: "incomplete", Gaps: append([]string{}, lock.Gaps...), DefinitiveEligible: false, NegativeCases: 14, Verdict: "pass"}
+	report := buildSubjectBindingAdmissionReport(lock)
 	for _, candidate := range lock.Candidates {
-		liveVerified := false
 		if !publicMode {
 			if err := verifyLiveSubjectCandidate(referenceRoot, candidate); err != nil {
 				return report, err
 			}
-			liveVerified = true
 		}
-		report.Candidates = append(report.Candidates, SubjectBindingCandidateResult{SubjectID: candidate.SubjectID, Commit: candidate.Commit, CertificateDigest: candidate.Certificate.Digest, AdmissionState: candidate.AdmissionState, RejectionReasons: append([]string{}, candidate.RejectionReasons...), LiveVerified: liveVerified})
 	}
 	return report, nil
+}
+
+func PersistSubjectBindingAdmissionEvidence(root string, report SubjectBindingAdmissionReport, matrix SubjectBindingAdmissionMatrixResult) error {
+	if err := validateSubjectBindingAdmissionReport(report); err != nil {
+		return err
+	}
+	if err := validateSubjectBindingAdmissionMatrixResult(matrix); err != nil {
+		return err
+	}
+	outputs := []struct {
+		path  string
+		value any
+	}{
+		{path: "evidence/preview/subject-binding-admission.json", value: report},
+		{path: "evidence/preview/subject-binding-admission.matrix.json", value: matrix},
+	}
+	if os.Getenv("ATLAS_LAB_PUBLIC_CI_ATTESTATION") == "1" {
+		return validateTrackedSubjectBindingEvidence(root, outputs)
+	}
+	if err := WriteJSON(filepath.Join(root, "evidence", "preview", "subject-binding-admission.json"), report); err != nil {
+		return err
+	}
+	return WriteJSON(filepath.Join(root, "evidence", "preview", "subject-binding-admission.matrix.json"), matrix)
+}
+
+func validateTrackedSubjectBindingEvidence(root string, outputs []struct {
+	path  string
+	value any
+}) error {
+	for _, output := range outputs {
+		expected, err := subjectBindingEvidenceBytes(output.value)
+		if err != nil {
+			return err
+		}
+		tracked, err := os.ReadFile(resolve(root, output.path))
+		if err != nil {
+			return fmt.Errorf("public CIでtracked Subject binding Evidenceを読めません: %s: %w", output.path, err)
+		}
+		if !bytes.Equal(tracked, expected) {
+			return fmt.Errorf("public CIでtracked Subject binding Evidenceが決定論的出力と一致しません: %s", output.path)
+		}
+	}
+	return nil
+}
+
+func subjectBindingEvidenceBytes(value any) ([]byte, error) {
+	data, err := json.MarshalIndent(value, "", "  ")
+	if err != nil {
+		return nil, err
+	}
+	return append(data, '\n'), nil
+}
+
+func buildSubjectBindingAdmissionReport(lock SubjectBindingCandidateLock) SubjectBindingAdmissionReport {
+	report := SubjectBindingAdmissionReport{SchemaVersion: 1, Gate: "actual-subject-binding-admission", CoreCommit: evidenceDependencyCoreCommit, VerificationBoundary: lock.VerificationBoundary, Candidates: []SubjectBindingCandidateResult{}, CompletionState: "incomplete", Gaps: append([]string{}, lock.Gaps...), DefinitiveEligible: false, NegativeCases: 14, Verdict: "pass"}
+	for _, candidate := range lock.Candidates {
+		report.Candidates = append(report.Candidates, SubjectBindingCandidateResult{SubjectID: candidate.SubjectID, Commit: candidate.Commit, CertificateDigest: candidate.Certificate.Digest, AdmissionState: candidate.AdmissionState, RejectionReasons: append([]string{}, candidate.RejectionReasons...)})
+	}
+	return report
+}
+
+func validateSubjectBindingAdmissionReport(report SubjectBindingAdmissionReport) error {
+	expectedBoundary := SubjectBindingVerificationBoundary{LocalGitObjectVerification: "required", PublicCIVerification: "owner-signed-tracked-input", LocalGateRequired: true, CompletionEffect: "none"}
+	if report.SchemaVersion != 1 || report.Gate != "actual-subject-binding-admission" || report.CoreCommit != evidenceDependencyCoreCommit || report.VerificationBoundary != expectedBoundary || report.CompletionState != "incomplete" || report.DefinitiveEligible || report.NegativeCases != 14 || report.Verdict != "pass" || !sameSet(report.Gaps, []string{"subject-v2-certificate-atomic-binding-unavailable"}) {
+		return fmt.Errorf("Actual Subject binding Evidence境界が不正です")
+	}
+	expectedOrder := []string{"rabbitmq-reference-atlas", "postgresql-reference-atlas", "zero-trust-reference-atlas"}
+	expected := expectedSubjectBindingCandidates()
+	if len(report.Candidates) != len(expectedOrder) {
+		return fmt.Errorf("Actual Subject binding Evidence分母が不正です")
+	}
+	for index, candidate := range report.Candidates {
+		if candidate.SubjectID != expectedOrder[index] {
+			return fmt.Errorf("Actual Subject binding Evidence順序が不正です")
+		}
+		want := expected[candidate.SubjectID]
+		if candidate.Commit != want.Commit || candidate.CertificateDigest != want.Certificate.Digest || candidate.AdmissionState != "rejected" || !sameSet(candidate.RejectionReasons, want.RejectionReasons) {
+			return fmt.Errorf("Actual Subject binding EvidenceがLockと一致しません: %s", candidate.SubjectID)
+		}
+	}
+	return nil
 }
 
 func validateSubjectBindingLock(lock SubjectBindingCandidateLock) error {
@@ -150,7 +225,11 @@ func validateSubjectBindingLock(lock SubjectBindingCandidateLock) error {
 		return fmt.Errorf("Actual Subject candidate分母が縮小されています")
 	}
 	seen := map[string]bool{}
-	for _, candidate := range lock.Candidates {
+	expectedOrder := []string{"rabbitmq-reference-atlas", "postgresql-reference-atlas", "zero-trust-reference-atlas"}
+	for index, candidate := range lock.Candidates {
+		if candidate.SubjectID != expectedOrder[index] {
+			return fmt.Errorf("Actual Subject candidate順序が不正です")
+		}
 		want, ok := expected[candidate.SubjectID]
 		if !ok || seen[candidate.SubjectID] {
 			return fmt.Errorf("Actual Subject candidate identityが不正です: %s", candidate.SubjectID)
@@ -253,8 +332,14 @@ func RunSubjectBindingAdmissionMatrix(root, matrixPath string) (SubjectBindingAd
 	if err := LoadJSON(resolve(root, matrixPath), &matrix); err != nil {
 		return SubjectBindingAdmissionMatrixResult{}, err
 	}
-	if matrix.SchemaVersion != 1 || len(matrix.Cases) != 14 {
+	expectedCases := expectedSubjectBindingAdmissionMatrixCases()
+	if matrix.SchemaVersion != 1 || len(matrix.Cases) != len(expectedCases) {
 		return SubjectBindingAdmissionMatrixResult{}, fmt.Errorf("Subject binding admission negative matrix契約が不正です")
+	}
+	for index, testCase := range matrix.Cases {
+		if testCase != expectedCases[index] {
+			return SubjectBindingAdmissionMatrixResult{}, fmt.Errorf("Subject binding admission negative matrix順序が不正です")
+		}
 	}
 	data, err := os.ReadFile(resolve(root, subjectBindingCandidateLockPath))
 	if err != nil {
@@ -287,6 +372,38 @@ func RunSubjectBindingAdmissionMatrix(root, matrixPath string) (SubjectBindingAd
 		return report, fmt.Errorf("Subject binding admission negative matrixがfailです")
 	}
 	return report, nil
+}
+
+func expectedSubjectBindingAdmissionMatrixCases() []SubjectBindingAdmissionMatrixCase {
+	return []SubjectBindingAdmissionMatrixCase{
+		{ID: "reject.v1-certificate-promotion", Operation: "admit-v1-certificate"},
+		{ID: "reject.v2-certificate-claim", Operation: "claim-v2-certificate"},
+		{ID: "reject.release-digest-invention", Operation: "invent-release-digest"},
+		{ID: "reject.signature-claim", Operation: "claim-cryptographic-signature"},
+		{ID: "reject.commit-binding-claim", Operation: "claim-certificate-main-binding"},
+		{ID: "reject.depth-completion-claim", Operation: "claim-depth-complete"},
+		{ID: "reject.surface-pattern-completion-claim", Operation: "claim-surface-pattern-complete"},
+		{ID: "reject.atomic-authority-claim", Operation: "claim-atomic-authority"},
+		{ID: "reject.multi-subject-gap-aggregation", Operation: "aggregate-rejections"},
+		{ID: "reject.candidate-denominator-shrink", Operation: "drop-candidate"},
+		{ID: "reject.fixture-substitution", Operation: "substitute-fixture"},
+		{ID: "reject.public-completion-effect", Operation: "public-completion-effect"},
+		{ID: "reject.source-commit-drift", Operation: "source-commit-drift"},
+		{ID: "reject.certificate-digest-drift", Operation: "certificate-digest-drift"},
+	}
+}
+
+func validateSubjectBindingAdmissionMatrixResult(report SubjectBindingAdmissionMatrixResult) error {
+	expected := expectedSubjectBindingAdmissionMatrixCases()
+	if report.SchemaVersion != 1 || report.Verdict != "pass" || len(report.Results) != len(expected) {
+		return fmt.Errorf("Subject binding admission negative Evidenceが不正です")
+	}
+	for index, result := range report.Results {
+		if result.ID != expected[index].ID || !result.Rejected || result.Verdict != "pass" {
+			return fmt.Errorf("Subject binding admission negative Evidence順序または拒否が不正です")
+		}
+	}
+	return nil
 }
 
 func mutateSubjectBindingCandidate(lock *SubjectBindingCandidateLock, operation string) error {

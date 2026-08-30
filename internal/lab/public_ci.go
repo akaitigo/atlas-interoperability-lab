@@ -80,7 +80,7 @@ var fePublicTrackedInputs = []string{
 	"internal/lab/subject_binding_admission_test.go",
 }
 
-var fePublicRequiredGateCommands = []string{"go test ./...", "go run ./cmd/atlas-lab depth-parity", "go run ./cmd/atlas-lab definitive-matrix", "go run ./cmd/atlas-lab definitive-migrate", "go run ./cmd/atlas-lab composition-compatibility-matrix", "go run ./cmd/atlas-lab subject-binding-admission", "go run ./cmd/atlas-lab definitive-preview-audit", "go run ./cmd/atlas-lab preview-publication-gate"}
+var fePublicRequiredGateCommands = []string{"go test ./...", "go run ./cmd/atlas-lab depth-parity", "go run ./cmd/atlas-lab definitive-matrix", "go run ./cmd/atlas-lab definitive-migrate", "go run ./cmd/atlas-lab composition-compatibility-matrix", "go run ./cmd/atlas-lab subject-binding-admission", "go run ./cmd/atlas-lab composition-evidence-audit", "go run ./cmd/atlas-lab definitive-preview-audit", "go run ./cmd/atlas-lab preview-publication-gate"}
 
 var fePublicIsolatedGateBindings = []struct {
 	Step string
@@ -148,7 +148,23 @@ func ValidatePublicCIGate(root string) (PublicCIGateReport, error) {
 		report.Verdict = "fail"
 		return report, err
 	}
-	report.Checks = append(report.Checks, "actual-subject-rejection-metadata-no-completion-effect")
+	subjectBindingMatrix, err := RunSubjectBindingAdmissionMatrix(root, "tests/fixtures/subject-binding-admission.matrix.json")
+	if err != nil {
+		report.Verdict = "fail"
+		return report, err
+	}
+	outputs := []struct {
+		path  string
+		value any
+	}{
+		{path: "evidence/preview/subject-binding-admission.json", value: subjectBinding},
+		{path: "evidence/preview/subject-binding-admission.matrix.json", value: subjectBindingMatrix},
+	}
+	if err := validateTrackedSubjectBindingEvidence(root, outputs); err != nil {
+		report.Verdict = "fail"
+		return report, err
+	}
+	report.Checks = append(report.Checks, "actual-subject-rejection-metadata-no-completion-effect", "tracked-subject-binding-byte-identity")
 	report.NegativeCases = 19 + len(fePublicRequiredGateCommands)
 	return report, nil
 }

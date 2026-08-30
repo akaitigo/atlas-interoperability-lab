@@ -8,7 +8,7 @@
     "evidence/runs/container/recovery.json",
     "evidence/runs/container/compatibility.json"
   ],
-  "evidence_set_digest": "sha256:ee49d8aea7bf272f0a97f54ab2d78aca2f1e1a5f790c8ee3ae62b1cc499fa7bd",
+  "evidence_set_digest": "sha256:8ade5bea76d839099bd21f2dd5890cffb335bc95fb4e4cee2f223888a129a6e6",
   "verdict": "pass",
   "cleanup_receipt": "cleanup/container.receipt.json"
 }
