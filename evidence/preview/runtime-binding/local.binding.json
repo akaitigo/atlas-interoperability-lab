@@ -5,9 +5,9 @@
   "composition_id": "fixture-http-stage2-v1",
   "composition_digest": "sha256:f562551e4081576ed603010e77f025d1a78b91feefde57647c48c300259293ce",
   "profile": "local",
-  "observed_at": "2026-08-30T20:06:40Z",
-  "execution_started_at": "2026-08-30T20:06:30Z",
-  "execution_completed_at": "2026-08-30T20:06:40Z",
+  "observed_at": "2026-08-30T20:36:37Z",
+  "execution_started_at": "2026-08-30T20:36:32Z",
+  "execution_completed_at": "2026-08-30T20:36:37Z",
   "platform": {
     "kind": "local-process",
     "os": "darwin",
@@ -24,13 +24,13 @@
         "subject_name": "sink",
         "capture_method": "darwin-ps-live-process",
         "observed_digest": "sha256:0418becff63a07e7c5ae3f8b92abe90c2c3eb6ba58d298be7bcf653900449733",
-        "observed_at": "2026-08-30T20:06:40Z"
+        "observed_at": "2026-08-30T20:36:37Z"
       },
       {
         "subject_name": "source",
         "capture_method": "darwin-ps-live-process",
         "observed_digest": "sha256:0418becff63a07e7c5ae3f8b92abe90c2c3eb6ba58d298be7bcf653900449733",
-        "observed_at": "2026-08-30T20:06:40Z"
+        "observed_at": "2026-08-30T20:36:37Z"
       }
     ]
   },
@@ -57,7 +57,7 @@
   "runtime_evidence": {
     "summary": {
       "path": "evidence/preview/runtime-binding/local/summary.json",
-      "digest": "sha256:70765be2cc1a167d8648d093260ef552a059ed9bdb0dcc8c6e4a8f1af3342af4"
+      "digest": "sha256:d5864c8b118165d65b5c734b83c433aec01171f09fd4656d6a465b11ab1e9f95"
     },
     "scenarios": [
       {

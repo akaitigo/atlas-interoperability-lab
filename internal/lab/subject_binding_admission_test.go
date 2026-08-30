@@ -41,15 +41,34 @@ func TestActualSubjectBindingAdmissionNegativeMatrix(t *testing.T) {
 
 func TestSubjectBindingEvidenceIsByteIdenticalAcrossLocalAndPublicBoundaries(t *testing.T) {
 	root := filepath.Clean(filepath.Join("..", ".."))
-	t.Setenv("ATLAS_LAB_PUBLIC_CI_ATTESTATION", "")
-	localReport, err := EvaluateSubjectBindingAdmission(root, root)
+	publicCI := os.Getenv("ATLAS_LAB_PUBLIC_CI_ATTESTATION") == "1"
+	data, err := os.ReadFile(filepath.Join(root, subjectBindingCandidateLockPath))
 	if err != nil {
 		t.Fatal(err)
+	}
+	var lock SubjectBindingCandidateLock
+	if err := json.Unmarshal(data, &lock); err != nil {
+		t.Fatal(err)
+	}
+	if err := validateSubjectBindingLock(lock); err != nil {
+		t.Fatal(err)
+	}
+	localReport := buildSubjectBindingAdmissionReport(lock)
+	if !publicCI {
+		t.Setenv("ATLAS_LAB_PUBLIC_CI_ATTESTATION", "")
+		liveReport, err := EvaluateSubjectBindingAdmission(root, root)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if !reflect.DeepEqual(localReport, liveReport) {
+			t.Fatal("local実Git object検証後のSubject binding構造が決定論的期待値と一致しません")
+		}
 	}
 	localMatrix, err := RunSubjectBindingAdmissionMatrix(root, "tests/fixtures/subject-binding-admission.matrix.json")
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Setenv("ATLAS_LAB_PUBLIC_CI_ATTESTATION", "")
 	localRoot := t.TempDir()
 	if err := PersistSubjectBindingAdmissionEvidence(localRoot, localReport, localMatrix); err != nil {
 		t.Fatal(err)
@@ -114,6 +133,7 @@ func TestSubjectBindingEvidenceIsByteIdenticalAcrossLocalAndPublicBoundaries(t *
 }
 
 func TestSubjectBindingEvidenceRejectsOrderAndPromotionDriftAcrossCleanRoots(t *testing.T) {
+	t.Setenv("ATLAS_LAB_PUBLIC_CI_ATTESTATION", "")
 	root := filepath.Clean(filepath.Join("..", ".."))
 	data, err := os.ReadFile(filepath.Join(root, subjectBindingCandidateLockPath))
 	if err != nil {
@@ -141,5 +161,49 @@ func TestSubjectBindingEvidenceRejectsOrderAndPromotionDriftAcrossCleanRoots(t *
 	}
 	if err := PersistSubjectBindingAdmissionEvidence(negativeRoot, mutated, matrix); err == nil {
 		t.Fatal("negative rootへ不正なSubject binding Evidenceを保存できました")
+	}
+}
+
+func TestSubjectBindingPublicTrackedEvidenceCleanRootBoundary(t *testing.T) {
+	root := filepath.Clean(filepath.Join("..", ".."))
+	t.Setenv("ATLAS_LAB_PUBLIC_CI_ATTESTATION", "1")
+	report, err := EvaluateSubjectBindingAdmission(root, root)
+	if err != nil {
+		t.Fatal(err)
+	}
+	matrix, err := RunSubjectBindingAdmissionMatrix(root, "tests/fixtures/subject-binding-admission.matrix.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	missingRoot := t.TempDir()
+	if err := PersistSubjectBindingAdmissionEvidence(missingRoot, report, matrix); err == nil {
+		t.Fatal("public clean rootでtracked Subject binding Evidence欠落が拒否されません")
+	}
+	cleanRoot := t.TempDir()
+	for _, relativePath := range []string{"evidence/preview/subject-binding-admission.json", "evidence/preview/subject-binding-admission.matrix.json"} {
+		data, err := os.ReadFile(filepath.Join(root, relativePath))
+		if err != nil {
+			t.Fatal(err)
+		}
+		target := filepath.Join(cleanRoot, relativePath)
+		if err := os.MkdirAll(filepath.Dir(target), 0o755); err != nil {
+			t.Fatal(err)
+		}
+		if err := os.WriteFile(target, data, 0o644); err != nil {
+			t.Fatal(err)
+		}
+	}
+	if err := PersistSubjectBindingAdmissionEvidence(cleanRoot, report, matrix); err != nil {
+		t.Fatalf("public clean rootのtracked Subject binding Evidenceが拒否されました: %v", err)
+	}
+	mutated := report
+	mutated.Candidates = append([]SubjectBindingCandidateResult{}, report.Candidates...)
+	mutated.Candidates[0], mutated.Candidates[1] = mutated.Candidates[1], mutated.Candidates[0]
+	mutated.DefinitiveEligible = true
+	if err := WriteJSON(filepath.Join(cleanRoot, "evidence/preview/subject-binding-admission.json"), mutated); err != nil {
+		t.Fatal(err)
+	}
+	if err := PersistSubjectBindingAdmissionEvidence(cleanRoot, report, matrix); err == nil {
+		t.Fatal("public clean rootでSubject順序driftと未完成候補の昇格が拒否されません")
 	}
 }

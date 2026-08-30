@@ -165,7 +165,7 @@ func ValidatePublicCIGate(root string) (PublicCIGateReport, error) {
 		return report, err
 	}
 	report.Checks = append(report.Checks, "actual-subject-rejection-metadata-no-completion-effect", "tracked-subject-binding-byte-identity")
-	report.NegativeCases = 19 + len(fePublicRequiredGateCommands)
+	report.NegativeCases = 20 + len(fePublicRequiredGateCommands)
 	return report, nil
 }
 
@@ -221,7 +221,7 @@ func validatePublicCIWorkflow(text string) error {
 	if strings.Contains(text, "git clone --no-checkout https://github.com/akaitigo/frontend-behavior-atlas.git") || !strings.Contains(text, "go run ./cmd/atlas-lab public-ci-gate") {
 		return fmt.Errorf("public CIへprivate FE cloneが再導入されたかGate入口がありません")
 	}
-	requiredWorkflowFragments := append([]string{"actions/checkout@11d5960a326750d5838078e36cf38b85af677262", "actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff", "fetch-depth: 0", "ATLAS_LAB_PUBLIC_CI_ATTESTATION: \"1\"", "ATLAS_LAB_REFERENCE_ROOT: ${{ github.workspace }}", "checkout --detach 072d7ca77981f51754e824d70c6d4ecd55ea67e5", "rev-parse HEAD", "scripts/check_dco_range.py --self-test", "scripts/check_dco_range.py --base", "BASE_SHA:", "HEAD_SHA:"}, fePublicRequiredGateCommands...)
+	requiredWorkflowFragments := append([]string{"actions/checkout@11d5960a326750d5838078e36cf38b85af677262", "actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff", "fetch-depth: 0", "go-version: \"1.26.x\"", "cache: false", "ATLAS_LAB_PUBLIC_CI_ATTESTATION: \"1\"", "ATLAS_LAB_REFERENCE_ROOT: ${{ github.workspace }}", "checkout --detach 072d7ca77981f51754e824d70c6d4ecd55ea67e5", "rev-parse HEAD", "scripts/check_dco_range.py --self-test", "scripts/check_dco_range.py --base", "BASE_SHA:", "HEAD_SHA:"}, fePublicRequiredGateCommands...)
 	for _, fragment := range requiredWorkflowFragments {
 		if !strings.Contains(text, fragment) {
 			return fmt.Errorf("public CI供給網またはDCO range Gateが不足しています: %s", fragment)
@@ -284,6 +284,19 @@ func validatePublicCINegatives(reader repositoryReader) error {
 		if _, err := validateFEPublicAttestation(overlay); err == nil {
 			return fmt.Errorf("public CI Gate削除fixtureが受理されました: %s", command)
 		}
+	}
+	cacheDisabled := func(candidate string) ([]byte, error) {
+		data, err := reader(candidate)
+		if err != nil {
+			return nil, err
+		}
+		if candidate == ".github/workflows/ci.yml" {
+			return []byte(strings.Replace(string(data), "          cache: false\n", "", 1)), nil
+		}
+		return data, nil
+	}
+	if _, err := validateFEPublicAttestation(cacheDisabled); err == nil {
+		return fmt.Errorf("依存なしGo moduleのsetup-go cache無効化削除fixtureが受理されました")
 	}
 	workflow, err := reader(".github/workflows/ci.yml")
 	if err != nil {

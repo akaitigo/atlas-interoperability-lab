@@ -21,7 +21,7 @@
   "tracked_inputs": [
     {
       "path": ".github/workflows/ci.yml",
-      "digest": "sha256:e9d21c44f84e30c1d8eaca2fd6f2c8cf0b98f517f990633dac28d72745aa5234"
+      "digest": "sha256:91e510732039e2b27478516f3b0f6e5d9a225cfdba117fb37c8501538e21abf4"
     },
     {
       "path": "internal/lab/depth.go",
@@ -33,7 +33,7 @@
     },
     {
       "path": "internal/lab/public_ci.go",
-      "digest": "sha256:b0338b2a3d1a4ac1bf4ff95d8327a519801e7945213885897fb59087eed37d3b"
+      "digest": "sha256:6e6b483e08ebe7b5060f7726386ab0bacedb016f1525630a6e578001dd59169f"
     },
     {
       "path": "internal/lab/nonregression.go",
@@ -101,7 +101,7 @@
     },
     {
       "path": "internal/lab/subject_binding_admission_test.go",
-      "digest": "sha256:0206f3413c17c7dea396f7fde7c530a1ce8637d8e8c4118ec7c6c917fc43fd12"
+      "digest": "sha256:058d797b35eaa275aa57036715a007ecc7989db424ba83d119fcf484ad88f656"
     }
   ],
   "verdict": "pass"
