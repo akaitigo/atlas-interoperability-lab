@@ -5,9 +5,9 @@
   "composition_id": "fixture-http-stage2-v1",
   "composition_digest": "sha256:f562551e4081576ed603010e77f025d1a78b91feefde57647c48c300259293ce",
   "profile": "container",
-  "observed_at": "2026-08-30T18:06:36Z",
-  "execution_started_at": "2026-08-30T18:06:28Z",
-  "execution_completed_at": "2026-08-30T18:06:36Z",
+  "observed_at": "2026-08-30T18:26:30Z",
+  "execution_started_at": "2026-08-30T18:26:23Z",
+  "execution_completed_at": "2026-08-30T18:26:30Z",
   "platform": {
     "kind": "docker-container",
     "os": "linux",
@@ -25,13 +25,13 @@
         "subject_name": "sink",
         "capture_method": "docker-cp-live-container",
         "observed_digest": "sha256:32c6ecc606d834eea770b5995586199c9b28f3a6bbe7bfb9ecc8faa4358d3799",
-        "observed_at": "2026-08-30T18:06:35Z"
+        "observed_at": "2026-08-30T18:26:29Z"
       },
       {
         "subject_name": "source",
         "capture_method": "docker-cp-live-container",
         "observed_digest": "sha256:32c6ecc606d834eea770b5995586199c9b28f3a6bbe7bfb9ecc8faa4358d3799",
-        "observed_at": "2026-08-30T18:06:35Z"
+        "observed_at": "2026-08-30T18:26:29Z"
       }
     ]
   },
@@ -58,7 +58,7 @@
   "runtime_evidence": {
     "summary": {
       "path": "evidence/preview/runtime-binding/container/summary.json",
-      "digest": "sha256:496502741898cdb66a4f64b92e555bd54d5a60472f7a843ff1358ed2fd08309e"
+      "digest": "sha256:e33f7c63dd25cf5c312010e4205f219d84a3afc69953ca286d23b956e0a37ed9"
     },
     "scenarios": [
       {

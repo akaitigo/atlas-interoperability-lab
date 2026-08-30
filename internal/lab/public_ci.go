@@ -77,6 +77,16 @@ var fePublicTrackedInputs = []string{
 
 var fePublicRequiredGateCommands = []string{"go test ./...", "go run ./cmd/atlas-lab depth-parity", "go run ./cmd/atlas-lab definitive-matrix", "go run ./cmd/atlas-lab definitive-migrate", "go run ./cmd/atlas-lab composition-compatibility-matrix", "go run ./cmd/atlas-lab definitive-preview-audit", "go run ./cmd/atlas-lab preview-publication-gate"}
 
+var fePublicIsolatedGateBindings = []struct {
+	Step string
+	Root string
+}{
+	{Step: "Local E2E", Root: "/tmp/atlas-lab-e2e-local"},
+	{Step: "Container E2E", Root: "/tmp/atlas-lab-e2e-container"},
+	{Step: "Runtime binding evidence", Root: "/tmp/atlas-lab-runtime-binding"},
+	{Step: "Failure diagnostics", Root: "/tmp/atlas-lab-diagnostics"},
+}
+
 func GenerateFEPublicReport(root string) error {
 	var composition PreviewComposition
 	if err := LoadJSON(resolve(root, "compositions/fixture-stage2-v2-definitive.preview.json"), &composition); err != nil {
@@ -125,7 +135,7 @@ func ValidatePublicCIGate(root string) (PublicCIGateReport, error) {
 		report.Verdict = "fail"
 		return report, err
 	}
-	report.NegativeCases = 13 + len(fePublicRequiredGateCommands)
+	report.NegativeCases = 14 + len(fePublicRequiredGateCommands)
 	return report, nil
 }
 
@@ -171,20 +181,38 @@ func validateFEPublicAttestation(reader repositoryReader) (FEPublicBoundary, err
 	if err != nil {
 		return attestation.Boundary, err
 	}
-	text := string(workflow)
+	if err := validatePublicCIWorkflow(string(workflow)); err != nil {
+		return attestation.Boundary, err
+	}
+	return attestation.Boundary, nil
+}
+
+func validatePublicCIWorkflow(text string) error {
 	if strings.Contains(text, "git clone --no-checkout https://github.com/akaitigo/frontend-behavior-atlas.git") || !strings.Contains(text, "go run ./cmd/atlas-lab public-ci-gate") {
-		return attestation.Boundary, fmt.Errorf("public CIへprivate FE cloneが再導入されたかGate入口がありません")
+		return fmt.Errorf("public CIへprivate FE cloneが再導入されたかGate入口がありません")
 	}
 	requiredWorkflowFragments := append([]string{"actions/checkout@11d5960a326750d5838078e36cf38b85af677262", "actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff", "fetch-depth: 0", "ATLAS_LAB_PUBLIC_CI_ATTESTATION: \"1\"", "ATLAS_LAB_REFERENCE_ROOT: ${{ github.workspace }}", "checkout --detach 072d7ca77981f51754e824d70c6d4ecd55ea67e5", "rev-parse HEAD", "scripts/check_dco_range.py --self-test", "scripts/check_dco_range.py --base", "BASE_SHA:", "HEAD_SHA:"}, fePublicRequiredGateCommands...)
 	for _, fragment := range requiredWorkflowFragments {
 		if !strings.Contains(text, fragment) {
-			return attestation.Boundary, fmt.Errorf("public CI供給網またはDCO range Gateが不足しています: %s", fragment)
+			return fmt.Errorf("public CI供給網またはDCO range Gateが不足しています: %s", fragment)
+		}
+	}
+	seenRoots := map[string]bool{}
+	for _, binding := range fePublicIsolatedGateBindings {
+		if seenRoots[binding.Root] {
+			return fmt.Errorf("public CI Gateの隔離rootが重複しています: %s", binding.Root)
+		}
+		seenRoots[binding.Root] = true
+		archiveFragment := "git archive HEAD | tar -x -C " + binding.Root
+		bindingFragment := "- name: " + binding.Step + "\n        working-directory: " + binding.Root
+		if !strings.Contains(text, archiveFragment) || !strings.Contains(text, bindingFragment) {
+			return fmt.Errorf("public CI Gateの独立HEAD copy bindingが不足しています: %s", binding.Step)
 		}
 	}
 	if strings.Contains(text, "uses: actions/checkout@v") || strings.Contains(text, "uses: actions/setup-go@v") || strings.Contains(text, "checkout -B main") || strings.Contains(text, "git log --format='%H%x00%B%x00' |") {
-		return attestation.Boundary, fmt.Errorf("mutable Action、Core branch上書き、または全履歴DCO検査は禁止です")
+		return fmt.Errorf("mutable Action、Core branch上書き、または全履歴DCO検査は禁止です")
 	}
-	return attestation.Boundary, nil
+	return nil
 }
 
 func validatePublicCINegatives(reader repositoryReader) error {
@@ -226,6 +254,14 @@ func validatePublicCINegatives(reader repositoryReader) error {
 		if _, err := validateFEPublicAttestation(overlay); err == nil {
 			return fmt.Errorf("public CI Gate削除fixtureが受理されました: %s", command)
 		}
+	}
+	workflow, err := reader(".github/workflows/ci.yml")
+	if err != nil {
+		return err
+	}
+	merged := strings.Replace(string(workflow), "working-directory: /tmp/atlas-lab-e2e-container", "working-directory: /tmp/atlas-lab-e2e-local", 1)
+	if err := validatePublicCIWorkflow(merged); err == nil {
+		return fmt.Errorf("public CI Gate共有copy再統合fixtureが受理されました")
 	}
 	return nil
 }

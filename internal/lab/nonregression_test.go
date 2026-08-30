@@ -44,6 +44,17 @@ func TestNonRegressionGateRequiresExplicitReferenceRootFromGitlessCopy(t *testin
 	if report.Verdict != "pass" {
 		t.Fatalf("明示reference rootでBaselineを検証できません: %#v", report)
 	}
+	harnessPath := filepath.Join(gitlessRoot, "evidence", "harness-manifest.json")
+	harness, err := os.ReadFile(harnessPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(harnessPath, append(harness, '\n'), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := NonRegressionGate(gitlessRoot); err == nil || !strings.Contains(err.Error(), "artifact-regressed: evidence/harness-manifest.json") {
+		t.Fatalf("共有E2E outputで汚染された隔離copyを受理しました: %v", err)
+	}
 }
 
 func TestProvenReplacementPreservesOrExceedsIntegrationProof(t *testing.T) {

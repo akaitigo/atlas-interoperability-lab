@@ -54,16 +54,22 @@ jobs:
           HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
       - name: Isolate E2E output from signed baseline
         run: |
-          mkdir -p /tmp/atlas-lab-e2e
-          git archive HEAD | tar -x -C /tmp/atlas-lab-e2e
+          mkdir -p /tmp/atlas-lab-e2e-local
+          mkdir -p /tmp/atlas-lab-e2e-container
+          mkdir -p /tmp/atlas-lab-runtime-binding
+          mkdir -p /tmp/atlas-lab-diagnostics
+          git archive HEAD | tar -x -C /tmp/atlas-lab-e2e-local
+          git archive HEAD | tar -x -C /tmp/atlas-lab-e2e-container
+          git archive HEAD | tar -x -C /tmp/atlas-lab-runtime-binding
+          git archive HEAD | tar -x -C /tmp/atlas-lab-diagnostics
       - name: Local E2E
-        working-directory: /tmp/atlas-lab-e2e
+        working-directory: /tmp/atlas-lab-e2e-local
         run: go run ./cmd/atlas-lab reproducibility --profile local
       - name: Container E2E
-        working-directory: /tmp/atlas-lab-e2e
+        working-directory: /tmp/atlas-lab-e2e-container
         run: go run ./cmd/atlas-lab run --profile container
       - name: Runtime binding evidence
-        working-directory: /tmp/atlas-lab-e2e
+        working-directory: /tmp/atlas-lab-runtime-binding
         env:
           ATLAS_LAB_REFERENCE_ROOT: ${{ github.workspace }}
         run: |
@@ -73,7 +79,7 @@ jobs:
           ATLAS_LAB_REFERENCE_ROOT="$GITHUB_WORKSPACE" go run ./cmd/atlas-lab composition-evidence-closure
           go test ./internal/lab -run 'Test(SavedRuntimeBindingEvidence|SavedCompositionEvidenceDependencyClosure|CompositionEvidenceDependencyNegativeMatrix)' -count=1
       - name: Failure diagnostics
-        working-directory: /tmp/atlas-lab-e2e
+        working-directory: /tmp/atlas-lab-diagnostics
         run: |
           go run ./cmd/atlas-lab diagnose --profile local
           go run ./cmd/atlas-lab diagnose --profile container
