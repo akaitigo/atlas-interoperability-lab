@@ -3,6 +3,8 @@ package lab
 import (
 	"encoding/json"
 	"os"
+	"path/filepath"
+	"strings"
 	"testing"
 )
 
@@ -13,6 +15,34 @@ func TestNonRegressionGateAcceptsSuperset(t *testing.T) {
 	}
 	if report.Verdict != "pass" {
 		t.Fatalf("unexpected report: %#v", report)
+	}
+}
+
+func TestNonRegressionGateRequiresExplicitReferenceRootFromGitlessCopy(t *testing.T) {
+	root, err := filepath.Abs("../..")
+	if err != nil {
+		t.Fatal(err)
+	}
+	gitlessRoot := t.TempDir()
+	if err := copyRuntimeRepository(root, gitlessRoot); err != nil {
+		t.Fatal(err)
+	}
+	t.Chdir(t.TempDir())
+	t.Setenv("ATLAS_LAB_REFERENCE_ROOT", "")
+	if _, err := NonRegressionGate(gitlessRoot); err == nil || !strings.Contains(err.Error(), "Baseline Commitがありません") {
+		t.Fatalf("Git metadataのないcopyを暗黙に受理しました: %v", err)
+	}
+	t.Setenv("ATLAS_LAB_REFERENCE_ROOT", t.TempDir())
+	if _, err := NonRegressionGate(gitlessRoot); err == nil || !strings.Contains(err.Error(), "Baseline Commitがありません") {
+		t.Fatalf("誤ったreference rootを受理しました: %v", err)
+	}
+	t.Setenv("ATLAS_LAB_REFERENCE_ROOT", root)
+	report, err := NonRegressionGate(gitlessRoot)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if report.Verdict != "pass" {
+		t.Fatalf("明示reference rootでBaselineを検証できません: %#v", report)
 	}
 }
 

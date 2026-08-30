@@ -21,7 +21,7 @@
   "tracked_inputs": [
     {
       "path": ".github/workflows/ci.yml",
-      "digest": "sha256:898cd5995ab9d13d21292dccd54bd3434d26165773168a023a7dae84df191861"
+      "digest": "sha256:ac53d4ac14c16ff13c34d14662c35f7c8f5e4cfcdc9a7661a0506570e6ddc5bd"
     },
     {
       "path": "internal/lab/depth.go",
@@ -33,7 +33,15 @@
     },
     {
       "path": "internal/lab/public_ci.go",
-      "digest": "sha256:0dd8dcd63722a0b280c40ee57395a93f2ec591a9c331fef6637eb8cfacfa8463"
+      "digest": "sha256:85fb6702b09593a4734157a51f4463bd0a77410f708d5b4f87d287531744d871"
+    },
+    {
+      "path": "internal/lab/nonregression.go",
+      "digest": "sha256:e0268bcba84d60b13b8602dadebc39f6fe2230aa002963abb474f9f37d816a54"
+    },
+    {
+      "path": "internal/lab/nonregression_test.go",
+      "digest": "sha256:bbb986fa4abfd80f7fd0cc79267658024348d4340a92141a925e288213438d53"
     },
     {
       "path": "cmd/atlas-lab/main.go",

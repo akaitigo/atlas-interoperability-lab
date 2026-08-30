@@ -4,7 +4,7 @@
   "source_commit": "deadad18b6588d2c907170a451c3b5cea5ea4192",
   "report": {
     "path": "attestations/fe-upstream.local-report.json",
-    "digest": "sha256:b29bec3b9ca3b3dbd791566226c3705f2878c498cefba29527acf897aa0fdb1c"
+    "digest": "sha256:ea58c7bd92c022b5b6ffedf24bcc217f6bd2fc6e0d346ca2c4244739eb72f1b9"
   },
   "repository_contract": {
     "path": "repo.yaml",

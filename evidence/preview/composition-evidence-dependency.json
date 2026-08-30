@@ -2,7 +2,7 @@
   "schema_version": 1,
   "atlas_id": "atlas-interoperability-lab",
   "core_commit": "072d7ca77981f51754e824d70c6d4ecd55ea67e5",
-  "generated_at": "2026-08-30T17:14:29Z",
+  "generated_at": "2026-08-30T18:07:32Z",
   "status": "current",
   "policy": {
     "transitive_staleness": true,
@@ -21,7 +21,7 @@
       ],
       "baseline_digest": "sha256:434b9851cca41f10bff2b7739f04704d299db4b725f826bd5e13f6d923165e70",
       "current_digest": "sha256:434b9851cca41f10bff2b7739f04704d299db4b725f826bd5e13f6d923165e70",
-      "observed_at": "2026-08-30T17:12:05Z"
+      "observed_at": "2026-08-30T18:06:37Z"
     },
     {
       "id": "composition-source",
@@ -41,9 +41,9 @@
         "fixtures/subjects/fixture-http-sink/completion-certificate.json",
         "cmd/fixture-subject/main.go"
       ],
-      "baseline_digest": "sha256:7ad99c087c1cf32aa0227afb288870e571421e9b30f03d7b8390357ad86a16a0",
-      "current_digest": "sha256:7ad99c087c1cf32aa0227afb288870e571421e9b30f03d7b8390357ad86a16a0",
-      "observed_at": "2026-08-30T17:12:05Z"
+      "baseline_digest": "sha256:6e4adf1ed0e4bb84f4b47ea7d4fe5ba7aa9a73cdacd6bcedc2125d38d0ce26ed",
+      "current_digest": "sha256:6e4adf1ed0e4bb84f4b47ea7d4fe5ba7aa9a73cdacd6bcedc2125d38d0ce26ed",
+      "observed_at": "2026-08-30T18:06:37Z"
     },
     {
       "id": "interop-harness",
@@ -90,9 +90,9 @@
         "tests/fixtures/composition-compatibility.matrix.json",
         "tests/fixtures/composition-evidence-dependency.matrix.json"
       ],
-      "baseline_digest": "sha256:a62d683479beaf5f262a0469214edf49d0be1dadb8b01a109d3693ea25f75a23",
-      "current_digest": "sha256:a62d683479beaf5f262a0469214edf49d0be1dadb8b01a109d3693ea25f75a23",
-      "observed_at": "2026-08-30T17:12:05Z"
+      "baseline_digest": "sha256:a5dc9e79a0768ec5e9a725e826ee797211b2931101862353515131f9e07c2792",
+      "current_digest": "sha256:a5dc9e79a0768ec5e9a725e826ee797211b2931101862353515131f9e07c2792",
+      "observed_at": "2026-08-30T18:06:37Z"
     },
     {
       "id": "go-runtime",
@@ -102,7 +102,7 @@
       ],
       "baseline_digest": "sha256:3d7647ca4d4f397a9dbf167e30dacb28d1c90fbd907a3a36f1d2ce045f591aeb",
       "current_digest": "sha256:3d7647ca4d4f397a9dbf167e30dacb28d1c90fbd907a3a36f1d2ce045f591aeb",
-      "observed_at": "2026-08-30T17:12:05Z"
+      "observed_at": "2026-08-30T18:06:37Z"
     },
     {
       "id": "local-profile",
@@ -112,7 +112,7 @@
       ],
       "baseline_digest": "sha256:3781e09d4802de869b1f578ceb4bc82eba9a75342723954315644cdb95bcb6e6",
       "current_digest": "sha256:3781e09d4802de869b1f578ceb4bc82eba9a75342723954315644cdb95bcb6e6",
-      "observed_at": "2026-08-30T17:12:05Z"
+      "observed_at": "2026-08-30T18:06:37Z"
     },
     {
       "id": "container-profile",
@@ -123,7 +123,7 @@
       ],
       "baseline_digest": "sha256:9d88fae91884a0afcd18a3ec27aa8ceaa071c4d4f173b2144ca29a35056010b2",
       "current_digest": "sha256:9d88fae91884a0afcd18a3ec27aa8ceaa071c4d4f173b2144ca29a35056010b2",
-      "observed_at": "2026-08-30T17:12:05Z"
+      "observed_at": "2026-08-30T18:06:37Z"
     }
   ],
   "outputs": [
@@ -131,7 +131,7 @@
       "id": "local-binding",
       "kind": "runtime-evidence",
       "path": "evidence/preview/runtime-binding/local.binding.json",
-      "digest": "sha256:28e193f3c62266ce8d22616f3c14643918161bf4a23974cb4aed78f146083dc7",
+      "digest": "sha256:a2448728977ce89c463f43688929a291daefda5aa456a8c03186486348422745",
       "depends_on": [
         "repository-contract",
         "composition-source",
@@ -146,7 +146,7 @@
       "id": "local-summary",
       "kind": "runtime-evidence",
       "path": "evidence/preview/runtime-binding/local/summary.json",
-      "digest": "sha256:63666fd2ab9c540e1ddf31cff93b3a70f7f4787909e34d941d3a955523839083",
+      "digest": "sha256:d2577a57260154fb8400855157d5aa071f26601e5de15016c52b58081423ac7e",
       "depends_on": [
         "repository-contract",
         "composition-source",
@@ -251,7 +251,7 @@
       "id": "container-binding",
       "kind": "runtime-evidence",
       "path": "evidence/preview/runtime-binding/container.binding.json",
-      "digest": "sha256:374738477b40d69186016b10184132820688c0240a824dd1404ad1c5ece8a538",
+      "digest": "sha256:17c345301eec39fe5788a61667a823bb980551e0571e2131639fa914436eb060",
       "depends_on": [
         "repository-contract",
         "composition-source",
@@ -266,7 +266,7 @@
       "id": "container-summary",
       "kind": "runtime-evidence",
       "path": "evidence/preview/runtime-binding/container/summary.json",
-      "digest": "sha256:8051a6a3fe8a48f594101a99908302bebf50afa5dcfb40cab63648c4d95754d8",
+      "digest": "sha256:496502741898cdb66a4f64b92e555bd54d5a60472f7a843ff1358ed2fd08309e",
       "depends_on": [
         "repository-contract",
         "composition-source",
@@ -412,8 +412,8 @@
       "id": "run-local-runtime-binding",
       "execution_kind": "runtime",
       "command": "go run ./cmd/atlas-lab runtime-binding --profile local",
-      "started_at": "2026-08-30T17:11:25Z",
-      "completed_at": "2026-08-30T17:11:39Z",
+      "started_at": "2026-08-30T18:06:15Z",
+      "completed_at": "2026-08-30T18:06:21Z",
       "result": "passed",
       "attempts": 1,
       "runtime_identity": {
@@ -430,11 +430,11 @@
         },
         {
           "input_id": "composition-source",
-          "digest": "sha256:7ad99c087c1cf32aa0227afb288870e571421e9b30f03d7b8390357ad86a16a0"
+          "digest": "sha256:6e4adf1ed0e4bb84f4b47ea7d4fe5ba7aa9a73cdacd6bcedc2125d38d0ce26ed"
         },
         {
           "input_id": "interop-harness",
-          "digest": "sha256:a62d683479beaf5f262a0469214edf49d0be1dadb8b01a109d3693ea25f75a23"
+          "digest": "sha256:a5dc9e79a0768ec5e9a725e826ee797211b2931101862353515131f9e07c2792"
         },
         {
           "input_id": "go-runtime",
@@ -460,8 +460,8 @@
       "id": "run-container-runtime-binding",
       "execution_kind": "runtime",
       "command": "go run ./cmd/atlas-lab runtime-binding --profile container",
-      "started_at": "2026-08-30T17:11:53Z",
-      "completed_at": "2026-08-30T17:12:04Z",
+      "started_at": "2026-08-30T18:06:28Z",
+      "completed_at": "2026-08-30T18:06:36Z",
       "result": "passed",
       "attempts": 1,
       "runtime_identity": {
@@ -479,11 +479,11 @@
         },
         {
           "input_id": "composition-source",
-          "digest": "sha256:7ad99c087c1cf32aa0227afb288870e571421e9b30f03d7b8390357ad86a16a0"
+          "digest": "sha256:6e4adf1ed0e4bb84f4b47ea7d4fe5ba7aa9a73cdacd6bcedc2125d38d0ce26ed"
         },
         {
           "input_id": "interop-harness",
-          "digest": "sha256:a62d683479beaf5f262a0469214edf49d0be1dadb8b01a109d3693ea25f75a23"
+          "digest": "sha256:a5dc9e79a0768ec5e9a725e826ee797211b2931101862353515131f9e07c2792"
         },
         {
           "input_id": "go-runtime",
@@ -509,8 +509,8 @@
       "id": "run-composition-closure",
       "execution_kind": "derived",
       "command": "go run ./cmd/atlas-lab composition-evidence-closure",
-      "started_at": "2026-08-30T17:12:05Z",
-      "completed_at": "2026-08-30T17:14:29Z",
+      "started_at": "2026-08-30T18:06:37Z",
+      "completed_at": "2026-08-30T18:07:32Z",
       "result": "passed",
       "attempts": 1,
       "input_bindings": [
@@ -520,11 +520,11 @@
         },
         {
           "input_id": "composition-source",
-          "digest": "sha256:7ad99c087c1cf32aa0227afb288870e571421e9b30f03d7b8390357ad86a16a0"
+          "digest": "sha256:6e4adf1ed0e4bb84f4b47ea7d4fe5ba7aa9a73cdacd6bcedc2125d38d0ce26ed"
         },
         {
           "input_id": "interop-harness",
-          "digest": "sha256:a62d683479beaf5f262a0469214edf49d0be1dadb8b01a109d3693ea25f75a23"
+          "digest": "sha256:a5dc9e79a0768ec5e9a725e826ee797211b2931101862353515131f9e07c2792"
         },
         {
           "input_id": "go-runtime",

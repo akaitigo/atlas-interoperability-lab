@@ -64,6 +64,8 @@ jobs:
         run: go run ./cmd/atlas-lab run --profile container
       - name: Runtime binding evidence
         working-directory: /tmp/atlas-lab-e2e
+        env:
+          ATLAS_LAB_REFERENCE_ROOT: ${{ github.workspace }}
         run: |
           go run ./cmd/atlas-lab runtime-binding --profile local
           go run ./cmd/atlas-lab runtime-binding --profile container

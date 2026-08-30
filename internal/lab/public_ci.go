@@ -61,6 +61,8 @@ var fePublicTrackedInputs = []string{
 	"internal/lab/depth.go",
 	"internal/lab/scenario_contract.go",
 	"internal/lab/public_ci.go",
+	"internal/lab/nonregression.go",
+	"internal/lab/nonregression_test.go",
 	"cmd/atlas-lab/main.go",
 	"attestations/fe-upstream.allowed-signers",
 	"scripts/check_dco_range.py",
@@ -123,7 +125,7 @@ func ValidatePublicCIGate(root string) (PublicCIGateReport, error) {
 		report.Verdict = "fail"
 		return report, err
 	}
-	report.NegativeCases = 11 + len(fePublicRequiredGateCommands)
+	report.NegativeCases = 13 + len(fePublicRequiredGateCommands)
 	return report, nil
 }
 
@@ -173,7 +175,7 @@ func validateFEPublicAttestation(reader repositoryReader) (FEPublicBoundary, err
 	if strings.Contains(text, "git clone --no-checkout https://github.com/akaitigo/frontend-behavior-atlas.git") || !strings.Contains(text, "go run ./cmd/atlas-lab public-ci-gate") {
 		return attestation.Boundary, fmt.Errorf("public CIへprivate FE cloneが再導入されたかGate入口がありません")
 	}
-	requiredWorkflowFragments := append([]string{"actions/checkout@11d5960a326750d5838078e36cf38b85af677262", "actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff", "fetch-depth: 0", "ATLAS_LAB_PUBLIC_CI_ATTESTATION: \"1\"", "checkout --detach 072d7ca77981f51754e824d70c6d4ecd55ea67e5", "rev-parse HEAD", "scripts/check_dco_range.py --self-test", "scripts/check_dco_range.py --base", "BASE_SHA:", "HEAD_SHA:"}, fePublicRequiredGateCommands...)
+	requiredWorkflowFragments := append([]string{"actions/checkout@11d5960a326750d5838078e36cf38b85af677262", "actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff", "fetch-depth: 0", "ATLAS_LAB_PUBLIC_CI_ATTESTATION: \"1\"", "ATLAS_LAB_REFERENCE_ROOT: ${{ github.workspace }}", "checkout --detach 072d7ca77981f51754e824d70c6d4ecd55ea67e5", "rev-parse HEAD", "scripts/check_dco_range.py --self-test", "scripts/check_dco_range.py --base", "BASE_SHA:", "HEAD_SHA:"}, fePublicRequiredGateCommands...)
 	for _, fragment := range requiredWorkflowFragments {
 		if !strings.Contains(text, fragment) {
 			return attestation.Boundary, fmt.Errorf("public CI供給網またはDCO range Gateが不足しています: %s", fragment)
@@ -186,7 +188,7 @@ func validateFEPublicAttestation(reader repositoryReader) (FEPublicBoundary, err
 }
 
 func validatePublicCINegatives(reader repositoryReader) error {
-	paths := []string{fePublicSignaturePath, fePublicReportPath, "depth/fe-depth-reference.lock.json", "depth/fixture-subjects.depth-parity.preview.json", fePublicAttestationPath, ".github/workflows/ci.yml", "repo.yaml", "internal/lab/public_ci.go", "cmd/atlas-lab/main.go", feAllowedSignersPath, "scripts/check_dco_range.py"}
+	paths := []string{fePublicSignaturePath, fePublicReportPath, "depth/fe-depth-reference.lock.json", "depth/fixture-subjects.depth-parity.preview.json", fePublicAttestationPath, ".github/workflows/ci.yml", "repo.yaml", "internal/lab/public_ci.go", "internal/lab/nonregression.go", "internal/lab/nonregression_test.go", "cmd/atlas-lab/main.go", feAllowedSignersPath, "scripts/check_dco_range.py"}
 	for _, path := range paths {
 		overlay := func(candidate string) ([]byte, error) {
 			data, err := reader(candidate)

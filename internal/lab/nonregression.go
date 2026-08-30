@@ -226,7 +226,11 @@ func loadNonRegressionPolicy(root string, reader repositoryReader) (NonRegressio
 	if baseline.SchemaVersion != 1 || baseline.ID != "interop-v1-non-regression" || baseline.SourceCommit != nonRegressionBaselineCommit || !sameSet(baseline.RequiredProfiles, []string{"local", "container"}) {
 		return baseline, NonRegressionMigration{}, violation("baseline-tampered", "Baseline IdentityまたはProfileが不正です")
 	}
-	if output, gitErr := exec.Command("git", "-C", root, "cat-file", "-e", baseline.SourceCommit+"^{commit}").CombinedOutput(); gitErr != nil {
+	gitRoot, err := nonRegressionGitRoot(root)
+	if err != nil {
+		return baseline, NonRegressionMigration{}, err
+	}
+	if output, gitErr := exec.Command("git", "-C", gitRoot, "cat-file", "-e", baseline.SourceCommit+"^{commit}").CombinedOutput(); gitErr != nil {
 		return baseline, NonRegressionMigration{}, fmt.Errorf("Baseline Commitがありません: %w: %s", gitErr, strings.TrimSpace(string(output)))
 	}
 	var migrations NonRegressionMigration
@@ -570,7 +574,11 @@ func isSuperset(current, baseline []string) bool {
 }
 
 func gitFile(root, commit, path string) ([]byte, error) {
-	output, err := exec.Command("git", "-C", root, "show", commit+":"+filepath.ToSlash(path)).Output()
+	gitRoot, err := nonRegressionGitRoot(root)
+	if err != nil {
+		return nil, err
+	}
+	output, err := exec.Command("git", "-C", gitRoot, "show", commit+":"+filepath.ToSlash(path)).Output()
 	if err != nil {
 		return nil, err
 	}
@@ -578,7 +586,11 @@ func gitFile(root, commit, path string) ([]byte, error) {
 }
 
 func gitList(root, commit, prefix string) ([]string, error) {
-	output, err := exec.Command("git", "-C", root, "ls-tree", "-r", "--name-only", commit, "--", prefix).Output()
+	gitRoot, err := nonRegressionGitRoot(root)
+	if err != nil {
+		return nil, err
+	}
+	output, err := exec.Command("git", "-C", gitRoot, "ls-tree", "-r", "--name-only", commit, "--", prefix).Output()
 	if err != nil {
 		return nil, err
 	}
@@ -590,6 +602,18 @@ func gitList(root, commit, prefix string) ([]string, error) {
 	}
 	sort.Strings(paths)
 	return paths, nil
+}
+
+func nonRegressionGitRoot(root string) (string, error) {
+	configured := strings.TrimSpace(os.Getenv("ATLAS_LAB_REFERENCE_ROOT"))
+	if configured == "" {
+		return root, nil
+	}
+	gitRoot, err := filepath.Abs(configured)
+	if err != nil {
+		return "", fmt.Errorf("Baseline Git reference rootを解決できません: %w", err)
+	}
+	return gitRoot, nil
 }
 
 func decodeStrictJSON(path string, data []byte, value any) error {
