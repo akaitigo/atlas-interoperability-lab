@@ -81,6 +81,8 @@ Evidence Dependency互換性はCore正式main／CI成功commit `072d7ca77981f517
 
 複数Subject Composition Previewは、各Subject probeのCore Gate／CertificateとCross-Subject Claim/Evidence linkを分離して検証します。一方の成功で他方の失敗を隠さず、全instanceが通過してもAtomic Binding、Depth、SurfaceのGapを継承し、互換性`incomplete`と`definitive_eligible: false`を保持します。詳細は[複数Subject Composition互換性 Preview](docs/COMPOSITION_COMPATIBILITY_PREVIEW.md)を参照してください。
 
+Actual Subject binding admissionは、RabbitMQ、PostgreSQL、Zero Trustの固定main Git objectとCompletion Certificateをread-onlyで照合します。現候補はいずれもv1-onlyで、固定Release Digest、Core v2 Certificate、暗号署名、18軸Depth／Surface Proof、CertificateとAuthorityのatomic bindingを同時に満たさないため、候補ごとに`rejected`です。公開CIではowner署名済みtracked lockだけを検証し、live照合やCompletionの代替にはしません。複数候補の不足を集約して昇格するmutationも拒否します。
+
 local processとDocker containerのRuntime Binding Previewは、隔離Repository copyで同じ5 Scenarioを再実行し、実Platform、再現build recipe、起動後にOSまたはlive containerから採取したRuntime binary digest、Scenario Evidence、完全Cleanupを固定します。旧`process-executable-attestation-unavailable`はMigration mappingと改ざんnegative testを伴うlive attestationで閉じましたが、Subject v2 Certificateとのatomic bindingは未達のため、gapと`definitive_eligible: false`を明示します。詳細は[Runtime Binding Evidence Preview](docs/RUNTIME_BINDING_PREVIEW.md)を参照してください。
 
 未公開FE upstreamは公開CIからcloneしません。公開CIはローカル実Git object照合から生成した署名attestationと、追跡済みlock／derived preview／report／`repo.yaml` Digestだけをfail-closed検証します。このattestationのCompletion、Distribution Gap、Authorizationへの効果は全て`none`で、実upstream検証は`make verify`のlocal-required Gateとして保持します。詳細は[Public CI Upstream Separation](docs/PUBLIC_CI_UPSTREAM_SEPARATION.md)を参照してください。

@@ -21,7 +21,7 @@
   "tracked_inputs": [
     {
       "path": ".github/workflows/ci.yml",
-      "digest": "sha256:244f07911d3ce94c32d259118a703cb4bd5b625f1cb2a636f48ca3bd912341b4"
+      "digest": "sha256:e9d21c44f84e30c1d8eaca2fd6f2c8cf0b98f517f990633dac28d72745aa5234"
     },
     {
       "path": "internal/lab/depth.go",
@@ -33,7 +33,7 @@
     },
     {
       "path": "internal/lab/public_ci.go",
-      "digest": "sha256:44188915d6e006f6980ec98ea438aa8e0394464fbdad6f0d10d7b1a705035a76"
+      "digest": "sha256:47ee426f9a22555f5f81eed54827f939fb2748053d0c943f8a2b714874f5b3b2"
     },
     {
       "path": "internal/lab/nonregression.go",
@@ -45,7 +45,7 @@
     },
     {
       "path": "cmd/atlas-lab/main.go",
-      "digest": "sha256:d12a3b66e80021a55a211f123a56637c52da4478d08aa8f973bea7b94cbacf2a"
+      "digest": "sha256:e4e1cfaebc4b7d9327904339ddf97358c53b05de1c7dc492e93a2f44f7e55085"
     },
     {
       "path": "attestations/fe-upstream.allowed-signers",
@@ -82,6 +82,26 @@
     {
       "path": "compositions/fixture-stage2-v2-definitive.preview.json",
       "digest": "sha256:0d51ef449ec4c7d13eab11c82e8b084ac13e99cf2aa76b0bd38b36936370fc22"
+    },
+    {
+      "path": "compatibility/subject-binding-candidates.lock.json",
+      "digest": "sha256:bdfa5d282e63ab0f1481cdac0f7143baa63706947ba2e537716fea3864628844"
+    },
+    {
+      "path": "schemas/subject-binding-admission.schema.json",
+      "digest": "sha256:ce57f6e1bacf0e23c6d10d12184374647c4d86c5dca8dacacd966f53e60c8e0d"
+    },
+    {
+      "path": "tests/fixtures/subject-binding-admission.matrix.json",
+      "digest": "sha256:8809fc26592a46174e95bf8c02f9d5484353e6064e7589d3550313a13f54d801"
+    },
+    {
+      "path": "internal/lab/subject_binding_admission.go",
+      "digest": "sha256:a9a37ef4b0272917d3856a76249fe571d6db106d435df64167bf7d3fe2f3e8a0"
+    },
+    {
+      "path": "internal/lab/subject_binding_admission_test.go",
+      "digest": "sha256:dde284bb3a48e913555c28a7837e6567c449299ca4be203888d7cee8a26a1bb2"
     }
   ],
   "verdict": "pass"

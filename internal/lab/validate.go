@@ -152,6 +152,12 @@ func ValidateRepository(root string) error {
 		}
 		return fmt.Errorf("public CI upstream separationがpassではありません")
 	}
+	if report, err := EvaluateSubjectBindingAdmission(root, root); err != nil || report.Verdict != "pass" || report.CompletionState != "incomplete" || report.DefinitiveEligible {
+		if err != nil {
+			return err
+		}
+		return fmt.Errorf("Actual Subject binding admissionが正直なincompleteではありません")
+	}
 	if _, err := Preflight(root, "compositions/fixture-stage2.json", "local"); err != nil {
 		return err
 	}

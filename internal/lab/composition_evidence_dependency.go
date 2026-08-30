@@ -122,6 +122,20 @@ func GenerateCompositionEvidenceClosure(root string) (CompositionEvidenceAudit, 
 	if err := writeCompositionEvidenceStructures(temporaryRoot); err != nil {
 		return CompositionEvidenceAudit{}, err
 	}
+	subjectBinding, err := EvaluateSubjectBindingAdmission(temporaryRoot, pinnedRepositoryRoot)
+	if err != nil {
+		return CompositionEvidenceAudit{}, err
+	}
+	if err := WriteJSON(filepath.Join(temporaryRoot, "evidence", "preview", "subject-binding-admission.json"), subjectBinding); err != nil {
+		return CompositionEvidenceAudit{}, err
+	}
+	subjectBindingMatrix, err := RunSubjectBindingAdmissionMatrix(temporaryRoot, "tests/fixtures/subject-binding-admission.matrix.json")
+	if err != nil {
+		return CompositionEvidenceAudit{}, err
+	}
+	if err := WriteJSON(filepath.Join(temporaryRoot, "evidence", "preview", "subject-binding-admission.matrix.json"), subjectBindingMatrix); err != nil {
+		return CompositionEvidenceAudit{}, err
+	}
 	local, err := generateRuntimeBindingEvidence(temporaryRoot, "local", false)
 	if err != nil {
 		return CompositionEvidenceAudit{}, err
@@ -189,6 +203,7 @@ func writeCompositionEvidenceStructures(root string) error {
 		"schema_version": 1, "id": "fixture-stage2-evidence-closure-preview", "core_commit": evidenceDependencyCoreCommit, "policy": "no-gap-aggregation",
 		"tranches": []map[string]any{
 			{"id": "runtime-binding", "state": "completed-with-explicit-gaps", "rows": []string{"local-runtime-binding", "container-runtime-binding"}},
+			{"id": "actual-subject-binding-readiness", "state": "completed-with-explicit-rejections", "rows": []string{"rabbitmq-reference-atlas", "postgresql-reference-atlas", "zero-trust-reference-atlas"}},
 			{"id": "subject-v2-atomic-binding", "state": "blocked-by-subject-authority", "rows": []string{"source-v2-certificate", "sink-v2-certificate"}},
 		},
 		"definitive_eligible": false,
@@ -238,6 +253,8 @@ func buildCompositionEvidenceGraph(root string, local, container RuntimeBindingE
 		deps           []string
 	}{
 		{"composition-compatibility", "compatibility", "evidence/preview/composition-compatibility.matrix.json", []string{"local-binding", "container-binding", "composition-source", "interop-harness"}},
+		{"actual-subject-binding-admission", "subject-admission", "evidence/preview/subject-binding-admission.json", []string{"composition-source", "interop-harness"}},
+		{"actual-subject-binding-negative-matrix", "negative-fixture", "evidence/preview/subject-binding-admission.matrix.json", []string{"actual-subject-binding-admission", "composition-source", "interop-harness"}},
 		{"runtime-proof-index", "scenario-proof", "evidence/preview/runtime-binding/proof-index.json", []string{"local-binding", "container-binding", "composition-source"}},
 		{"evidence-closure-plan", "closure-plan", "evidence/preview/runtime-binding/closure-plan.json", []string{"runtime-proof-index", "composition-source"}},
 	}
@@ -275,7 +292,7 @@ func buildCompositionEvidenceGraph(root string, local, container RuntimeBindingE
 }
 
 func compositionEvidenceInputMembers(root string) (map[string][]string, error) {
-	harness := []string{"cmd/atlas-lab/main.go", "graphs/fixture-stage2.claim-evidence.json", "scenarios/normal.json", "scenarios/rejection.json", "scenarios/failure.json", "scenarios/recovery.json", "scenarios/compatibility.json", "oracles/http-json-v1.json", "oracles/failure-recovery-v1.json", "oracles/security-boundary-v1.json", "tests/fixtures/composition-compatibility.matrix.json", "tests/fixtures/composition-evidence-dependency.matrix.json"}
+	harness := []string{"cmd/atlas-lab/main.go", "graphs/fixture-stage2.claim-evidence.json", "scenarios/normal.json", "scenarios/rejection.json", "scenarios/failure.json", "scenarios/recovery.json", "scenarios/compatibility.json", "oracles/http-json-v1.json", "oracles/failure-recovery-v1.json", "oracles/security-boundary-v1.json", "tests/fixtures/composition-compatibility.matrix.json", "tests/fixtures/composition-evidence-dependency.matrix.json", "tests/fixtures/subject-binding-admission.matrix.json"}
 	matches, err := filepath.Glob(filepath.Join(root, "internal", "lab", "*.go"))
 	if err != nil {
 		return nil, err
@@ -293,7 +310,7 @@ func compositionEvidenceInputMembers(root string) (map[string][]string, error) {
 	sort.Strings(harness)
 	return map[string][]string{
 		"repository-contract": {"repo.yaml"},
-		"composition-source":  {"compatibility/evidence-dependency-core.lock.json", "compositions/fixture-stage2.json", "compositions/fixture-stage2-v2-definitive.preview.json", "migrations/runtime-binding-executable-attestation.json", "attestations/fe-upstream.local-report.json", "attestations/fe-upstream.attestation.json", "attestations/fe-upstream.attestation.json.sig", "attestations/fe-upstream.allowed-signers", "fixtures/subjects/fixture-http-source/release.json", "fixtures/subjects/fixture-http-source/completion-certificate.json", "fixtures/subjects/fixture-http-sink/release.json", "fixtures/subjects/fixture-http-sink/completion-certificate.json", "cmd/fixture-subject/main.go"},
+		"composition-source":  {"compatibility/evidence-dependency-core.lock.json", "compatibility/subject-binding-candidates.lock.json", "schemas/subject-binding-admission.schema.json", "compositions/fixture-stage2.json", "compositions/fixture-stage2-v2-definitive.preview.json", "migrations/runtime-binding-executable-attestation.json", "attestations/fe-upstream.local-report.json", "attestations/fe-upstream.attestation.json", "attestations/fe-upstream.attestation.json.sig", "attestations/fe-upstream.allowed-signers", "fixtures/subjects/fixture-http-source/release.json", "fixtures/subjects/fixture-http-source/completion-certificate.json", "fixtures/subjects/fixture-http-sink/release.json", "fixtures/subjects/fixture-http-sink/completion-certificate.json", "cmd/fixture-subject/main.go"},
 		"interop-harness":     harness,
 		"go-runtime":          {"go.mod"},
 		"local-profile":       {"environments/local.json"},

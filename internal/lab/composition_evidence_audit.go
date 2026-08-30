@@ -22,7 +22,7 @@ func AuditCompositionEvidenceDependency(root, relative string) (CompositionEvide
 		return fail("Composition Evidence Dependency GraphはcurrentなCore正式main契約ではありません")
 	}
 	generatedAt, generatedErr := time.Parse(time.RFC3339, graph.GeneratedAt)
-	if generatedErr != nil || len(graph.Inputs) != 6 || len(graph.Outputs) != 19 || len(graph.Runs) != 3 {
+	if generatedErr != nil || len(graph.Inputs) != 6 || len(graph.Outputs) != 21 || len(graph.Runs) != 3 {
 		return fail("Composition Evidence Dependency Graphの時刻またはclosure分母が不正です")
 	}
 	if !graph.Policy.TransitiveStaleness || !graph.Policy.DigestOnlyClosureForbidden || !graph.Policy.ActualRerunRequired || !graph.Policy.MissingRerunTargetsFail || !graph.Policy.ProofStructureInvariant || !graph.Policy.ClosurePlanStructureInvariant {
@@ -187,7 +187,7 @@ func expectedCompositionEvidenceOutputs() []string {
 			paths = append(paths, "evidence/preview/runtime-binding/"+profile+"/"+name)
 		}
 	}
-	paths = append(paths, "evidence/preview/composition-compatibility.matrix.json", "evidence/preview/runtime-binding/proof-index.json", "evidence/preview/runtime-binding/closure-plan.json")
+	paths = append(paths, "evidence/preview/composition-compatibility.matrix.json", "evidence/preview/subject-binding-admission.json", "evidence/preview/subject-binding-admission.matrix.json", "evidence/preview/runtime-binding/proof-index.json", "evidence/preview/runtime-binding/closure-plan.json")
 	sort.Strings(paths)
 	return paths
 }

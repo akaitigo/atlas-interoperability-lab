@@ -101,6 +101,22 @@ func main() {
 			fatal(err)
 		}
 		printJSON(report)
+	case "subject-binding-admission":
+		report, err := lab.EvaluateSubjectBindingAdmission(root, root)
+		if err != nil {
+			fatal(err)
+		}
+		if err := lab.WriteJSON(filepath.Join(root, "evidence", "preview", "subject-binding-admission.json"), report); err != nil {
+			fatal(err)
+		}
+		matrix, matrixErr := lab.RunSubjectBindingAdmissionMatrix(root, "tests/fixtures/subject-binding-admission.matrix.json")
+		if err := lab.WriteJSON(filepath.Join(root, "evidence", "preview", "subject-binding-admission.matrix.json"), matrix); err != nil {
+			fatal(err)
+		}
+		if matrixErr != nil {
+			fatal(matrixErr)
+		}
+		printJSON(report)
 	case "publication-gate":
 		report, err := lab.PublicationGate(root)
 		if err != nil {

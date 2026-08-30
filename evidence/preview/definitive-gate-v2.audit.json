@@ -53,6 +53,11 @@
       "detail": "検証済み"
     },
     {
+      "name": "actual-subject-binding-admission",
+      "verdict": "pass",
+      "detail": "検証済み"
+    },
+    {
       "name": "multi-subject-composition-compatibility",
       "verdict": "pass",
       "detail": "検証済み"

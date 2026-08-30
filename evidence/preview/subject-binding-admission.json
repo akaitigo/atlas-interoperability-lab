@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "gate": "actual-subject-binding-admission",
+  "core_commit": "072d7ca77981f51754e824d70c6d4ecd55ea67e5",
+  "verification_mode": "local-git-object-byte-digest",
+  "candidates": [
+    {
+      "subject_id": "rabbitmq-reference-atlas",
+      "commit": "22ab07cc6c3d92ab489fe6ff8855c9fb8a97db5a",
+      "certificate_digest": "sha256:8dbf8e2820e0e839eef7574e447f5607350f84f7a6367af58022d34a6ce69099",
+      "admission_state": "rejected",
+      "rejection_reasons": [
+        "fixed-release-digest-unavailable",
+        "certificate-v1-only",
+        "certificate-commit-unbound",
+        "cryptographic-signature-missing",
+        "v2-depth-unavailable",
+        "surface-pattern-proof-unavailable",
+        "atomic-authority-binding-unavailable"
+      ],
+      "live_verified": true
+    },
+    {
+      "subject_id": "postgresql-reference-atlas",
+      "commit": "8a4259d2de288178b8b87f09a09e5b57654c88e0",
+      "certificate_digest": "sha256:7f88fc0e072438d84b296b51428e88983688eca85cf4f97d7bf819b0bde9a26a",
+      "admission_state": "rejected",
+      "rejection_reasons": [
+        "fixed-release-digest-unavailable",
+        "certificate-v1-only",
+        "certificate-main-commit-mismatch",
+        "cryptographic-signature-missing",
+        "v2-depth-unavailable",
+        "surface-pattern-proof-unavailable",
+        "atomic-authority-binding-unavailable"
+      ],
+      "live_verified": true
+    },
+    {
+      "subject_id": "zero-trust-reference-atlas",
+      "commit": "fef700605d4aecb7d8f7975a6a4067bfe390ac86",
+      "certificate_digest": "sha256:59f0e0b2f8a85f3705fd9b4d5198f2df6f662932ca5a8f616091650cb0e3f700",
+      "admission_state": "rejected",
+      "rejection_reasons": [
+        "fixed-release-digest-unavailable",
+        "certificate-v1-only",
+        "certificate-main-commit-mismatch",
+        "cryptographic-signature-missing",
+        "v2-depth-unavailable",
+        "surface-pattern-proof-unavailable",
+        "atomic-authority-binding-unavailable"
+      ],
+      "live_verified": true
+    }
+  ],
+  "completion_state": "incomplete",
+  "gaps": [
+    "subject-v2-certificate-atomic-binding-unavailable"
+  ],
+  "definitive_eligible": false,
+  "negative_cases": 14,
+  "verdict": "pass"
+}

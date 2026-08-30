@@ -73,9 +73,14 @@ var fePublicTrackedInputs = []string{
 	"evidence/preview/depth-parity.result.json",
 	"compositions/fixture-stage2-v2-bounded.preview.json",
 	"compositions/fixture-stage2-v2-definitive.preview.json",
+	"compatibility/subject-binding-candidates.lock.json",
+	"schemas/subject-binding-admission.schema.json",
+	"tests/fixtures/subject-binding-admission.matrix.json",
+	"internal/lab/subject_binding_admission.go",
+	"internal/lab/subject_binding_admission_test.go",
 }
 
-var fePublicRequiredGateCommands = []string{"go test ./...", "go run ./cmd/atlas-lab depth-parity", "go run ./cmd/atlas-lab definitive-matrix", "go run ./cmd/atlas-lab definitive-migrate", "go run ./cmd/atlas-lab composition-compatibility-matrix", "go run ./cmd/atlas-lab definitive-preview-audit", "go run ./cmd/atlas-lab preview-publication-gate"}
+var fePublicRequiredGateCommands = []string{"go test ./...", "go run ./cmd/atlas-lab depth-parity", "go run ./cmd/atlas-lab definitive-matrix", "go run ./cmd/atlas-lab definitive-migrate", "go run ./cmd/atlas-lab composition-compatibility-matrix", "go run ./cmd/atlas-lab subject-binding-admission", "go run ./cmd/atlas-lab definitive-preview-audit", "go run ./cmd/atlas-lab preview-publication-gate"}
 
 var fePublicIsolatedGateBindings = []struct {
 	Step string
@@ -135,7 +140,16 @@ func ValidatePublicCIGate(root string) (PublicCIGateReport, error) {
 		report.Verdict = "fail"
 		return report, err
 	}
-	report.NegativeCases = 14 + len(fePublicRequiredGateCommands)
+	subjectBinding, err := EvaluateSubjectBindingAdmission(root, root)
+	if err != nil || subjectBinding.Verdict != "pass" || subjectBinding.CompletionState != "incomplete" || subjectBinding.DefinitiveEligible {
+		if err == nil {
+			err = fmt.Errorf("Actual Subject binding public境界が正直なincompleteではありません")
+		}
+		report.Verdict = "fail"
+		return report, err
+	}
+	report.Checks = append(report.Checks, "actual-subject-rejection-metadata-no-completion-effect")
+	report.NegativeCases = 19 + len(fePublicRequiredGateCommands)
 	return report, nil
 }
 
@@ -216,7 +230,7 @@ func validatePublicCIWorkflow(text string) error {
 }
 
 func validatePublicCINegatives(reader repositoryReader) error {
-	paths := []string{fePublicSignaturePath, fePublicReportPath, "depth/fe-depth-reference.lock.json", "depth/fixture-subjects.depth-parity.preview.json", fePublicAttestationPath, ".github/workflows/ci.yml", "repo.yaml", "internal/lab/public_ci.go", "internal/lab/nonregression.go", "internal/lab/nonregression_test.go", "cmd/atlas-lab/main.go", feAllowedSignersPath, "scripts/check_dco_range.py"}
+	paths := []string{fePublicSignaturePath, fePublicReportPath, "depth/fe-depth-reference.lock.json", "depth/fixture-subjects.depth-parity.preview.json", fePublicAttestationPath, ".github/workflows/ci.yml", "repo.yaml", "internal/lab/public_ci.go", "internal/lab/nonregression.go", "internal/lab/nonregression_test.go", "cmd/atlas-lab/main.go", feAllowedSignersPath, "scripts/check_dco_range.py", "compatibility/subject-binding-candidates.lock.json", "schemas/subject-binding-admission.schema.json", "tests/fixtures/subject-binding-admission.matrix.json", "internal/lab/subject_binding_admission.go", "internal/lab/subject_binding_admission_test.go"}
 	for _, path := range paths {
 		overlay := func(candidate string) ([]byte, error) {
 			data, err := reader(candidate)

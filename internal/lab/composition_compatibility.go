@@ -311,6 +311,11 @@ func PreviewPublicationGate(root string) (SelfAuditReport, error) {
 	add("runtime-binding-local", ValidateSavedRuntimeBindingEvidence(root, "local"))
 	add("runtime-binding-container", ValidateSavedRuntimeBindingEvidence(root, "container"))
 	add("composition-evidence-dependency-closure", ValidateCompositionEvidenceClosure(root))
+	subjectBinding, subjectBindingErr := EvaluateSubjectBindingAdmission(root, root)
+	if subjectBindingErr == nil && (subjectBinding.Verdict != "pass" || subjectBinding.CompletionState != "incomplete" || subjectBinding.DefinitiveEligible || len(subjectBinding.Candidates) != 3) {
+		subjectBindingErr = fmt.Errorf("Actual Subject binding admissionが未完成候補を保持していません")
+	}
+	add("actual-subject-binding-admission", subjectBindingErr)
 	matrix, matrixErr := RunCompositionCompatibilityMatrix(root, "tests/fixtures/composition-compatibility.matrix.json")
 	add("multi-subject-composition-compatibility", matrixErr)
 	if matrixErr == nil {

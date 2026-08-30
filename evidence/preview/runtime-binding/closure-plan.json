@@ -14,6 +14,15 @@
       "state": "completed-with-explicit-gaps"
     },
     {
+      "id": "actual-subject-binding-readiness",
+      "rows": [
+        "rabbitmq-reference-atlas",
+        "postgresql-reference-atlas",
+        "zero-trust-reference-atlas"
+      ],
+      "state": "completed-with-explicit-rejections"
+    },
+    {
       "id": "subject-v2-atomic-binding",
       "rows": [
         "source-v2-certificate",

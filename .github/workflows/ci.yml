@@ -42,6 +42,7 @@ jobs:
           go run ./cmd/atlas-lab definitive-migrate
           go run ./cmd/atlas-lab evidence-dependency-matrix
           go run ./cmd/atlas-lab composition-compatibility-matrix
+          go run ./cmd/atlas-lab subject-binding-admission
           go run ./cmd/atlas-lab composition-evidence-audit
           go run ./cmd/atlas-lab legacy-v1-check
           go run ./cmd/atlas-lab definitive-preview-audit

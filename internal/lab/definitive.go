@@ -521,6 +521,11 @@ func AuditDefinitivePreview(root string) DefinitivePreviewAudit {
 	report.add("runtime-binding-local", ValidateSavedRuntimeBindingEvidence(root, "local"))
 	report.add("runtime-binding-container", ValidateSavedRuntimeBindingEvidence(root, "container"))
 	report.add("composition-evidence-dependency-closure", ValidateCompositionEvidenceClosure(root))
+	subjectBinding, subjectBindingErr := EvaluateSubjectBindingAdmission(root, root)
+	if subjectBindingErr == nil && (subjectBinding.Verdict != "pass" || subjectBinding.CompletionState != "incomplete" || subjectBinding.DefinitiveEligible || len(subjectBinding.Candidates) != 3 || subjectBinding.NegativeCases != 14) {
+		subjectBindingErr = fmt.Errorf("Actual Subject binding admissionが未完成候補を保持していません")
+	}
+	report.add("actual-subject-binding-admission", subjectBindingErr)
 	var compositionMatrix CompositionCompatibilityResult
 	compositionMatrixErr := LoadJSON(filepath.Join(root, "evidence", "preview", "composition-compatibility.matrix.json"), &compositionMatrix)
 	if compositionMatrixErr == nil {
