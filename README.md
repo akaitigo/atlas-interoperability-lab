@@ -48,6 +48,8 @@ go run ./cmd/atlas-lab validate
 go run ./cmd/atlas-lab preflight --composition compositions/fixture-stage2.json --profile local
 go run ./cmd/atlas-lab run --composition compositions/fixture-stage2.json --profile local
 go run ./cmd/atlas-lab run --composition compositions/fixture-stage2.json --profile container
+go run ./cmd/atlas-lab runtime-binding --profile local
+go run ./cmd/atlas-lab runtime-binding --profile container
 go run ./cmd/atlas-lab diagnose --profile container
 python3 evals/run.py
 go run ./cmd/atlas-lab publication-gate
@@ -76,3 +78,5 @@ Core v2 Previewは、各構成Subjectの18軸Depth Parity、Interop固有Proof�
 Evidence Dependency互換性はCore正式main／CI成功commit `072d7ca77981f51754e824d70c6d4ecd55ea67e5`へ固定します。Codex、Claude Code、generic CLIの全consumerで同じCore CLI GateとDefinitive Certificate検証を実行し、stale、digest-only closure、再実行対象漏れ、output退避、Proof／Closure Plan構造縮小を同じ判定で拒否します。詳細は[Evidence Dependency consumer互換性](docs/EVIDENCE_DEPENDENCY_COMPATIBILITY.md)を参照してください。
 
 複数Subject Composition Previewは、各Subject probeのCore Gate／CertificateとCross-Subject Claim/Evidence linkを分離して検証します。一方の成功で他方の失敗を隠さず、全instanceが通過してもAtomic Binding、Depth、SurfaceのGapを継承し、互換性`incomplete`と`definitive_eligible: false`を保持します。詳細は[複数Subject Composition互換性 Preview](docs/COMPOSITION_COMPATIBILITY_PREVIEW.md)を参照してください。
+
+local processとDocker containerのRuntime Binding Previewは、隔離Repository copyで同じ5 Scenarioを再実行し、実Platform、再現build recipe、Runtime binary digest、Scenario Evidence、完全Cleanupを固定します。これはprocess executableの直接attestationやSubject v2 Certificateとのatomic bindingを代替しないため、2つのgapと`definitive_eligible: false`を明示します。詳細は[Runtime Binding Evidence Preview](docs/RUNTIME_BINDING_PREVIEW.md)を参照してください。

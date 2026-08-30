@@ -5,7 +5,7 @@ FE_DIR ?= ../frontend-behavior-atlas
 FE_DEPTH_COMMIT := deadad18b6588d2c907170a451c3b5cea5ea4192
 GO_CACHE_DIR := $(CURDIR)/.cache/go-build
 
-.PHONY: test depth-reference core-main-reference lab-validate graph-check evidence-local evidence-container evidence reproducibility skill-validate skill-eval skill-eval-v2 non-regression evidence-dependency-matrix composition-compatibility-matrix preview-publication definitive-preview legacy-v1-check diagnose provenance publication certificate core-validate core-audit dco-check self-audit cleanup-check check
+.PHONY: test depth-reference core-main-reference lab-validate graph-check evidence-local evidence-container evidence runtime-binding-local runtime-binding-container runtime-binding reproducibility skill-validate skill-eval skill-eval-v2 non-regression evidence-dependency-matrix composition-compatibility-matrix preview-publication definitive-preview legacy-v1-check diagnose provenance publication certificate core-validate core-audit dco-check self-audit cleanup-check check
 
 depth-reference:
 	git -C "$(FE_DIR)" cat-file -e "$(FE_DEPTH_COMMIT)^{commit}"
@@ -29,6 +29,14 @@ evidence-container:
 	GOCACHE="$(GO_CACHE_DIR)" go run ./cmd/atlas-lab run --composition compositions/fixture-stage2.json --profile container
 
 evidence: evidence-local evidence-container
+
+runtime-binding-local:
+	GOCACHE="$(GO_CACHE_DIR)" go run ./cmd/atlas-lab runtime-binding --profile local
+
+runtime-binding-container:
+	GOCACHE="$(GO_CACHE_DIR)" go run ./cmd/atlas-lab runtime-binding --profile container
+
+runtime-binding: runtime-binding-local runtime-binding-container
 
 reproducibility:
 	GOCACHE="$(GO_CACHE_DIR)" go run ./cmd/atlas-lab reproducibility --composition compositions/fixture-stage2.json --profile local

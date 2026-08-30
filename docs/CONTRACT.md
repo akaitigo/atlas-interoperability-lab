@@ -24,3 +24,5 @@ Depth Parityは`fe-depth-reference-lock.schema.json`、`fe-scenario-contract-loc
 Evidence Dependency consumer互換性は`evidence-dependency-core-lock.schema.json`と`evidence-dependency-consumer-matrix.schema.json`へ分離します。Core正式main commit、CLI Gate、Definitive Certificate検証を固定し、consumer名によらず同じstale／closure結果を要求します。Subject固有の件数とprofileはMatrix共通閾値に含めません。
 
 Composition互換性Previewは`composition-compatibility-matrix.schema.json`を使用します。各Subject probe instanceのEvidence Dependency Gate／Certificate、Composition SubjectとのBinding状態、Cross-Subject Claim/Evidence link、Composition互換状態、継承Gapを別fieldで記録し、集約結果だけによるDefinitive昇格を禁止します。
+
+Runtime Binding Previewは`runtime-binding-evidence.schema.json`を使用します。local／containerごとに実Platform、Runtime binary digest、固定Subject Release、5 Scenario Report、Cleanup ReceiptをDigest固定します。build recipeによる観測と実process／container executableのattestationは区別し、Subject v2 Certificateとのatomic bindingを含む未閉鎖gapを必須fieldとして保持します。

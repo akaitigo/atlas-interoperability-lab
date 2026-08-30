@@ -38,6 +38,16 @@
       "detail": "検証済み"
     },
     {
+      "name": "runtime-binding-local",
+      "verdict": "pass",
+      "detail": "検証済み"
+    },
+    {
+      "name": "runtime-binding-container",
+      "verdict": "pass",
+      "detail": "検証済み"
+    },
+    {
       "name": "multi-subject-composition-compatibility",
       "verdict": "pass",
       "detail": "検証済み"

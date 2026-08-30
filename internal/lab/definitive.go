@@ -514,6 +514,8 @@ func AuditDefinitivePreview(root string) DefinitivePreviewAudit {
 		consumerMatrixErr = fmt.Errorf("Evidence Dependency consumer互換性Matrixが確定main契約を保持していません")
 	}
 	report.add("evidence-dependency-consumer-matrix", consumerMatrixErr)
+	report.add("runtime-binding-local", ValidateSavedRuntimeBindingEvidence(root, "local"))
+	report.add("runtime-binding-container", ValidateSavedRuntimeBindingEvidence(root, "container"))
 	var compositionMatrix CompositionCompatibilityResult
 	compositionMatrixErr := LoadJSON(filepath.Join(root, "evidence", "preview", "composition-compatibility.matrix.json"), &compositionMatrix)
 	if compositionMatrixErr == nil {

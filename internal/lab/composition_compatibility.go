@@ -291,6 +291,8 @@ func PreviewPublicationGate(root string) (SelfAuditReport, error) {
 	_, v1Err := PublicationGate(root)
 	add("v1-publication-baseline", v1Err)
 	add("depth-gap-inheritance", ValidateDepthInheritance(root))
+	add("runtime-binding-local", ValidateSavedRuntimeBindingEvidence(root, "local"))
+	add("runtime-binding-container", ValidateSavedRuntimeBindingEvidence(root, "container"))
 	matrix, matrixErr := RunCompositionCompatibilityMatrix(root, "tests/fixtures/composition-compatibility.matrix.json")
 	add("multi-subject-composition-compatibility", matrixErr)
 	if matrixErr == nil {

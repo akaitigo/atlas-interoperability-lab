@@ -49,6 +49,19 @@ func main() {
 			fatal(err)
 		}
 		fmt.Printf("E2E PASS: profile=%s evidence_set=%s cleanup=%s\n", summary.Profile, summary.EvidenceSetDigest, summary.CleanupReceipt)
+	case "runtime-binding":
+		fs := flag.NewFlagSet("runtime-binding", flag.ExitOnError)
+		profile := fs.String("profile", "local", "")
+		_ = fs.Parse(os.Args[2:])
+		evidence, err := lab.GenerateRuntimeBindingEvidence(root, *profile)
+		if err != nil {
+			fatal(err)
+		}
+		path := filepath.Join(root, "evidence", "preview", "runtime-binding", *profile+".binding.json")
+		if writeErr := lab.WriteJSON(path, evidence); writeErr != nil {
+			fatal(writeErr)
+		}
+		printJSON(evidence)
 	case "reproducibility":
 		fs := flag.NewFlagSet("reproducibility", flag.ExitOnError)
 		composition := fs.String("composition", "compositions/fixture-stage2.json", "")
@@ -216,7 +229,7 @@ func main() {
 	}
 }
 func usage() {
-	fmt.Fprintln(os.Stderr, "usage: atlas-lab <validate|preflight|run|reproducibility|provenance|publication-gate|preview-publication-gate|certificate|certificate-check|diagnose|self-audit|definitive-gate|depth-parity|definitive-matrix|definitive-migrate|definitive-preview-audit|evidence-dependency-matrix|composition-compatibility-matrix|legacy-v1-check|non-regression-gate>")
+	fmt.Fprintln(os.Stderr, "usage: atlas-lab <validate|preflight|run|runtime-binding|reproducibility|provenance|publication-gate|preview-publication-gate|certificate|certificate-check|diagnose|self-audit|definitive-gate|depth-parity|definitive-matrix|definitive-migrate|definitive-preview-audit|evidence-dependency-matrix|composition-compatibility-matrix|legacy-v1-check|non-regression-gate>")
 }
 func fatal(err error) { fmt.Fprintln(os.Stderr, "ERROR:", err); os.Exit(1) }
 

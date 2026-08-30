@@ -53,6 +53,12 @@ jobs:
       - name: Container E2E
         working-directory: /tmp/atlas-lab-e2e
         run: go run ./cmd/atlas-lab run --profile container
+      - name: Runtime binding evidence
+        working-directory: /tmp/atlas-lab-e2e
+        run: |
+          go run ./cmd/atlas-lab runtime-binding --profile local
+          go run ./cmd/atlas-lab runtime-binding --profile container
+          go test ./internal/lab -run TestSavedRuntimeBindingEvidence -count=1
       - name: Failure diagnostics
         working-directory: /tmp/atlas-lab-e2e
         run: |
