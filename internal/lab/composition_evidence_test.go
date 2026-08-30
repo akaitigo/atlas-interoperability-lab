@@ -1,6 +1,11 @@
 package lab
 
-import "testing"
+import (
+	"fmt"
+	"os"
+	"strings"
+	"testing"
+)
 
 func TestSavedCompositionEvidenceDependencyClosure(t *testing.T) {
 	audit, err := AuditCompositionEvidenceDependency("../..", compositionEvidenceGraphPath)
@@ -31,5 +36,33 @@ func TestCompositionEvidenceDependencyNegativeMatrix(t *testing.T) {
 	}
 	if rejections != 10 {
 		t.Fatalf("negative rejection数が不正です: %d", rejections)
+	}
+}
+
+func TestCompositionEvidenceDocumentationMatchesCurrentClosure(t *testing.T) {
+	audit, err := AuditCompositionEvidenceDependency("../..", compositionEvidenceGraphPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	document, err := os.ReadFile("../../docs/COMPOSITION_EVIDENCE_DEPENDENCY.md")
+	if err != nil {
+		t.Fatal(err)
+	}
+	text := string(document)
+	required := []string{
+		fmt.Sprintf("%d件", audit.Outputs),
+		"Actual Subject Admission／Negative Matrix",
+		"process executableの独立attestationは実process／container観測とMigration Evidenceにより閉鎖済み",
+	}
+	required = append(required, audit.Gaps...)
+	for _, fragment := range required {
+		if !strings.Contains(text, fragment) {
+			t.Fatalf("Composition Evidence文書が現行closureを記録していません: %s", fragment)
+		}
+	}
+	for _, stale := range []string{"Closure Planの19件", "- process executableの独立attestation"} {
+		if strings.Contains(text, stale) {
+			t.Fatalf("Composition Evidence文書に閉鎖前の記述が残っています: %s", stale)
+		}
 	}
 }
