@@ -1,0 +1,25 @@
+{
+  "core_commit": "072d7ca77981f51754e824d70c6d4ecd55ea67e5",
+  "definitive_eligible": false,
+  "id": "fixture-stage2-evidence-closure-preview",
+  "policy": "no-gap-aggregation",
+  "schema_version": 1,
+  "tranches": [
+    {
+      "id": "runtime-binding",
+      "rows": [
+        "local-runtime-binding",
+        "container-runtime-binding"
+      ],
+      "state": "completed-with-explicit-gaps"
+    },
+    {
+      "id": "subject-v2-atomic-binding",
+      "rows": [
+        "source-v2-certificate",
+        "sink-v2-certificate"
+      ],
+      "state": "blocked-by-subject-authority"
+    }
+  ]
+}

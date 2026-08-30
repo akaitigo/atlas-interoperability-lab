@@ -134,6 +134,10 @@ func EvaluateDefinitiveComposition(root, compositionPath, asOf string) (Definiti
 }
 
 func evaluateDefinitiveComposition(root, compositionPath, asOf string, overrides map[string]CertificateOverride) (DefinitiveGateResult, error) {
+	return evaluateDefinitiveCompositionWithPinnedRoot(root, root, compositionPath, asOf, overrides)
+}
+
+func evaluateDefinitiveCompositionWithPinnedRoot(root, pinnedRepositoryRoot, compositionPath, asOf string, overrides map[string]CertificateOverride) (DefinitiveGateResult, error) {
 	var composition PreviewComposition
 	if err := LoadJSON(resolve(root, compositionPath), &composition); err != nil {
 		return DefinitiveGateResult{}, err
@@ -150,7 +154,7 @@ func evaluateDefinitiveComposition(root, compositionPath, asOf string, overrides
 	if composition.CoreContract.BaseCommit != evidenceDependencyCoreCommit {
 		return DefinitiveGateResult{}, fmt.Errorf("Core Evidence Dependency確定main Commitと一致しません")
 	}
-	if err := verifyPinnedCoreCommit(root, composition.CoreContract.Repository, composition.CoreContract.BaseCommit); err != nil {
+	if err := verifyPinnedCoreCommit(pinnedRepositoryRoot, composition.CoreContract.Repository, composition.CoreContract.BaseCommit); err != nil {
 		return DefinitiveGateResult{}, err
 	}
 	instant, err := time.Parse(time.RFC3339, asOf)
@@ -166,7 +170,7 @@ func evaluateDefinitiveComposition(root, compositionPath, asOf string, overrides
 		LegacyBundlePreserved: true,
 		Warnings:              []DefinitiveWarning{},
 	}
-	depthComplete, err := evaluateCompositionDepth(root, composition, &result)
+	depthComplete, err := evaluateCompositionDepth(root, pinnedRepositoryRoot, composition, &result)
 	if err != nil {
 		return DefinitiveGateResult{}, err
 	}
@@ -516,6 +520,7 @@ func AuditDefinitivePreview(root string) DefinitivePreviewAudit {
 	report.add("evidence-dependency-consumer-matrix", consumerMatrixErr)
 	report.add("runtime-binding-local", ValidateSavedRuntimeBindingEvidence(root, "local"))
 	report.add("runtime-binding-container", ValidateSavedRuntimeBindingEvidence(root, "container"))
+	report.add("composition-evidence-dependency-closure", ValidateCompositionEvidenceClosure(root))
 	var compositionMatrix CompositionCompatibilityResult
 	compositionMatrixErr := LoadJSON(filepath.Join(root, "evidence", "preview", "composition-compatibility.matrix.json"), &compositionMatrix)
 	if compositionMatrixErr == nil {

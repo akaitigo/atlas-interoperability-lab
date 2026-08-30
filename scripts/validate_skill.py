@@ -31,6 +31,9 @@ def main() -> int:
         index.get("evidence_dependency", {}).get("command") == "go run ./cmd/atlas-lab evidence-dependency-matrix",
         index.get("composition_compatibility", {}).get("matrix_command") == "go run ./cmd/atlas-lab composition-compatibility-matrix",
         index.get("composition_compatibility", {}).get("publication_command") == "go run ./cmd/atlas-lab preview-publication-gate",
+        index.get("composition_evidence_dependency", {}).get("graph") == "evidence/preview/composition-evidence-dependency.json",
+        index.get("composition_evidence_dependency", {}).get("closure_command") == "go run ./cmd/atlas-lab composition-evidence-closure",
+        index.get("composition_evidence_dependency", {}).get("audit_command") == "go run ./cmd/atlas-lab composition-evidence-audit",
     )
     if not all(required):
         raise SystemExit("Router Skillのfrontmatter、UI metadata、Reference Indexが不正です")

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/akaitigo/atlas-interoperability-lab/schemas/runtime-binding-proof-index.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "id", "authority_denominator", "rows"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "id": {"const": "fixture-stage2-runtime-proof-index"},
+    "authority_denominator": {"const": "interop-runtime-binding-only"},
+    "rows": {
+      "type": "array", "minItems": 2, "maxItems": 2,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "profile", "scenarios", "binding", "gaps"],
+        "properties": {
+          "id": {"enum": ["local-runtime-binding", "container-runtime-binding"]},
+          "profile": {"enum": ["local", "container"]},
+          "scenarios": {"type": "array", "minItems": 5, "maxItems": 5, "uniqueItems": true, "items": {"enum": ["normal", "rejection", "failure", "recovery", "compatibility"]}},
+          "binding": {"type": "string", "pattern": "^evidence/preview/runtime-binding/(local|container)\\.binding\\.json$"},
+          "gaps": {"type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true, "items": {"enum": ["process-executable-attestation-unavailable", "subject-v2-certificate-atomic-binding-unavailable"]}}
+        }
+      }
+    }
+  }
+}

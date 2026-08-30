@@ -5,7 +5,7 @@ FE_DIR ?= ../frontend-behavior-atlas
 FE_DEPTH_COMMIT := deadad18b6588d2c907170a451c3b5cea5ea4192
 GO_CACHE_DIR := $(CURDIR)/.cache/go-build
 
-.PHONY: test depth-reference core-main-reference lab-validate graph-check evidence-local evidence-container evidence runtime-binding-local runtime-binding-container runtime-binding reproducibility skill-validate skill-eval skill-eval-v2 non-regression evidence-dependency-matrix composition-compatibility-matrix preview-publication definitive-preview legacy-v1-check diagnose provenance publication certificate core-validate core-audit dco-check self-audit cleanup-check check
+.PHONY: test depth-reference core-main-reference lab-validate graph-check evidence-local evidence-container evidence runtime-binding-local runtime-binding-container runtime-binding composition-evidence-closure composition-evidence-audit reproducibility skill-validate skill-eval skill-eval-v2 non-regression evidence-dependency-matrix composition-compatibility-matrix preview-publication definitive-preview legacy-v1-check diagnose provenance publication certificate core-validate core-audit dco-check self-audit cleanup-check check
 
 depth-reference:
 	git -C "$(FE_DIR)" cat-file -e "$(FE_DEPTH_COMMIT)^{commit}"
@@ -38,6 +38,12 @@ runtime-binding-container:
 
 runtime-binding: runtime-binding-local runtime-binding-container
 
+composition-evidence-closure: core-main-reference depth-reference
+	GOCACHE="$(GO_CACHE_DIR)" go run ./cmd/atlas-lab composition-evidence-closure
+
+composition-evidence-audit:
+	GOCACHE="$(GO_CACHE_DIR)" go run ./cmd/atlas-lab composition-evidence-audit
+
 reproducibility:
 	GOCACHE="$(GO_CACHE_DIR)" go run ./cmd/atlas-lab reproducibility --composition compositions/fixture-stage2.json --profile local
 
@@ -65,7 +71,7 @@ composition-compatibility-matrix: core-main-reference depth-reference
 preview-publication: core-main-reference depth-reference
 	GOCACHE="$(GO_CACHE_DIR)" go run ./cmd/atlas-lab preview-publication-gate
 
-definitive-preview: depth-reference core-main-reference non-regression legacy-v1-check skill-eval-v2 evidence-dependency-matrix composition-compatibility-matrix
+definitive-preview: depth-reference core-main-reference non-regression legacy-v1-check skill-eval-v2 evidence-dependency-matrix composition-compatibility-matrix composition-evidence-audit
 	GOCACHE="$(GO_CACHE_DIR)" go run ./cmd/atlas-lab depth-parity
 	GOCACHE="$(GO_CACHE_DIR)" go run ./cmd/atlas-lab definitive-matrix
 	GOCACHE="$(GO_CACHE_DIR)" go run ./cmd/atlas-lab definitive-migrate

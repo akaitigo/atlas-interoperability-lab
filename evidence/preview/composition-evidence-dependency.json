@@ -1,0 +1,543 @@
+{
+  "schema_version": 1,
+  "atlas_id": "atlas-interoperability-lab",
+  "core_commit": "072d7ca77981f51754e824d70c6d4ecd55ea67e5",
+  "generated_at": "2026-08-30T14:46:43Z",
+  "status": "current",
+  "policy": {
+    "transitive_staleness": true,
+    "digest_only_closure_forbidden": true,
+    "actual_rerun_required": true,
+    "missing_rerun_targets_fail": true,
+    "proof_structure_invariant": true,
+    "closure_plan_structure_invariant": true
+  },
+  "inputs": [
+    {
+      "id": "composition-source",
+      "kind": "source",
+      "members": [
+        "compatibility/evidence-dependency-core.lock.json",
+        "compositions/fixture-stage2.json",
+        "compositions/fixture-stage2-v2-definitive.preview.json",
+        "fixtures/subjects/fixture-http-source/release.json",
+        "fixtures/subjects/fixture-http-source/completion-certificate.json",
+        "fixtures/subjects/fixture-http-sink/release.json",
+        "fixtures/subjects/fixture-http-sink/completion-certificate.json",
+        "cmd/fixture-subject/main.go"
+      ],
+      "baseline_digest": "sha256:c428641f8a03ad9254a9282506d05c7eb9d35553a442dd60d0879d3f066bcdf1",
+      "current_digest": "sha256:c428641f8a03ad9254a9282506d05c7eb9d35553a442dd60d0879d3f066bcdf1",
+      "observed_at": "2026-08-30T14:45:17Z"
+    },
+    {
+      "id": "interop-harness",
+      "kind": "harness",
+      "members": [
+        "cmd/atlas-lab/main.go",
+        "graphs/fixture-stage2.claim-evidence.json",
+        "internal/lab/composition_compatibility.go",
+        "internal/lab/composition_evidence_audit.go",
+        "internal/lab/composition_evidence_dependency.go",
+        "internal/lab/composition_evidence_matrix.go",
+        "internal/lab/definitive.go",
+        "internal/lab/depth.go",
+        "internal/lab/diagnose.go",
+        "internal/lab/editorial.go",
+        "internal/lab/engine.go",
+        "internal/lab/evidence_dependency_matrix.go",
+        "internal/lab/files.go",
+        "internal/lab/gates.go",
+        "internal/lab/graph.go",
+        "internal/lab/nonregression.go",
+        "internal/lab/nonregression_matrix.go",
+        "internal/lab/pinned_core.go",
+        "internal/lab/runtime.go",
+        "internal/lab/runtime_binding.go",
+        "internal/lab/scenario_contract.go",
+        "internal/lab/selfaudit.go",
+        "internal/lab/types.go",
+        "internal/lab/validate.go",
+        "oracles/failure-recovery-v1.json",
+        "oracles/http-json-v1.json",
+        "oracles/security-boundary-v1.json",
+        "scenarios/compatibility.json",
+        "scenarios/failure.json",
+        "scenarios/normal.json",
+        "scenarios/recovery.json",
+        "scenarios/rejection.json",
+        "tests/fixtures/composition-compatibility.matrix.json",
+        "tests/fixtures/composition-evidence-dependency.matrix.json"
+      ],
+      "baseline_digest": "sha256:11b55c48cd4382674752f953ab08df1bde0c6ddcc5a0239569d0a1ba15e3c4b4",
+      "current_digest": "sha256:11b55c48cd4382674752f953ab08df1bde0c6ddcc5a0239569d0a1ba15e3c4b4",
+      "observed_at": "2026-08-30T14:45:17Z"
+    },
+    {
+      "id": "go-runtime",
+      "kind": "runtime",
+      "members": [
+        "go.mod"
+      ],
+      "baseline_digest": "sha256:3d7647ca4d4f397a9dbf167e30dacb28d1c90fbd907a3a36f1d2ce045f591aeb",
+      "current_digest": "sha256:3d7647ca4d4f397a9dbf167e30dacb28d1c90fbd907a3a36f1d2ce045f591aeb",
+      "observed_at": "2026-08-30T14:45:17Z"
+    },
+    {
+      "id": "local-profile",
+      "kind": "profile",
+      "members": [
+        "environments/local.json"
+      ],
+      "baseline_digest": "sha256:3781e09d4802de869b1f578ceb4bc82eba9a75342723954315644cdb95bcb6e6",
+      "current_digest": "sha256:3781e09d4802de869b1f578ceb4bc82eba9a75342723954315644cdb95bcb6e6",
+      "observed_at": "2026-08-30T14:45:17Z"
+    },
+    {
+      "id": "container-profile",
+      "kind": "profile",
+      "members": [
+        "environments/container.json",
+        "environments/Dockerfile.fixture"
+      ],
+      "baseline_digest": "sha256:9d88fae91884a0afcd18a3ec27aa8ceaa071c4d4f173b2144ca29a35056010b2",
+      "current_digest": "sha256:9d88fae91884a0afcd18a3ec27aa8ceaa071c4d4f173b2144ca29a35056010b2",
+      "observed_at": "2026-08-30T14:45:17Z"
+    }
+  ],
+  "outputs": [
+    {
+      "id": "local-binding",
+      "kind": "runtime-evidence",
+      "path": "evidence/preview/runtime-binding/local.binding.json",
+      "digest": "sha256:cd8f389c62db6e1165d408711a11af2a83075d00fa85dd83eb7228167b57e649",
+      "depends_on": [
+        "composition-source",
+        "interop-harness",
+        "go-runtime",
+        "local-profile"
+      ],
+      "status": "current",
+      "run_id": "run-local-runtime-binding"
+    },
+    {
+      "id": "local-summary",
+      "kind": "runtime-evidence",
+      "path": "evidence/preview/runtime-binding/local/summary.json",
+      "digest": "sha256:cdf306d5b37ddabd9c5148e67d3195e2fcb15bee747c9d3fe86853b2e9e46988",
+      "depends_on": [
+        "composition-source",
+        "interop-harness",
+        "go-runtime",
+        "local-profile"
+      ],
+      "status": "current",
+      "run_id": "run-local-runtime-binding"
+    },
+    {
+      "id": "local-normal",
+      "kind": "runtime-evidence",
+      "path": "evidence/preview/runtime-binding/local/normal.json",
+      "digest": "sha256:85b6adfd9d756123a309ae789057e4344067c598bbe660468c9840d2ef0afead",
+      "depends_on": [
+        "composition-source",
+        "interop-harness",
+        "go-runtime",
+        "local-profile"
+      ],
+      "status": "current",
+      "run_id": "run-local-runtime-binding"
+    },
+    {
+      "id": "local-rejection",
+      "kind": "runtime-evidence",
+      "path": "evidence/preview/runtime-binding/local/rejection.json",
+      "digest": "sha256:1759c0dd1184ac2925b63c192de5e5e4f78b21443e78ef2c333aa9f6177d4eb1",
+      "depends_on": [
+        "composition-source",
+        "interop-harness",
+        "go-runtime",
+        "local-profile"
+      ],
+      "status": "current",
+      "run_id": "run-local-runtime-binding"
+    },
+    {
+      "id": "local-failure",
+      "kind": "runtime-evidence",
+      "path": "evidence/preview/runtime-binding/local/failure.json",
+      "digest": "sha256:b0e2d2390e084005332ea5b84bb31b80f132328677266bf68784609da3429488",
+      "depends_on": [
+        "composition-source",
+        "interop-harness",
+        "go-runtime",
+        "local-profile"
+      ],
+      "status": "current",
+      "run_id": "run-local-runtime-binding"
+    },
+    {
+      "id": "local-recovery",
+      "kind": "runtime-evidence",
+      "path": "evidence/preview/runtime-binding/local/recovery.json",
+      "digest": "sha256:dc17a5ca1aa1a06c3dd49abcfd02c56c21be1a575e40785a13737d11b87f61e5",
+      "depends_on": [
+        "composition-source",
+        "interop-harness",
+        "go-runtime",
+        "local-profile"
+      ],
+      "status": "current",
+      "run_id": "run-local-runtime-binding"
+    },
+    {
+      "id": "local-compatibility",
+      "kind": "runtime-evidence",
+      "path": "evidence/preview/runtime-binding/local/compatibility.json",
+      "digest": "sha256:059754e00bdf32405d1ba8ceaf25be0bd43634e9726a82ea853d7504263b6f4e",
+      "depends_on": [
+        "composition-source",
+        "interop-harness",
+        "go-runtime",
+        "local-profile"
+      ],
+      "status": "current",
+      "run_id": "run-local-runtime-binding"
+    },
+    {
+      "id": "local-cleanup-receipt",
+      "kind": "runtime-evidence",
+      "path": "evidence/preview/runtime-binding/local/cleanup.receipt.json",
+      "digest": "sha256:316eff76611497dc1bcffdc95643c7315fe3945493b841fe23fa007f40a2e177",
+      "depends_on": [
+        "composition-source",
+        "interop-harness",
+        "go-runtime",
+        "local-profile"
+      ],
+      "status": "current",
+      "run_id": "run-local-runtime-binding"
+    },
+    {
+      "id": "container-binding",
+      "kind": "runtime-evidence",
+      "path": "evidence/preview/runtime-binding/container.binding.json",
+      "digest": "sha256:d4dec3dd62dc730d2da22fcc129d28c7303d8637d2263b3bdffd9b4ce3d5a8ac",
+      "depends_on": [
+        "composition-source",
+        "interop-harness",
+        "go-runtime",
+        "container-profile"
+      ],
+      "status": "current",
+      "run_id": "run-container-runtime-binding"
+    },
+    {
+      "id": "container-summary",
+      "kind": "runtime-evidence",
+      "path": "evidence/preview/runtime-binding/container/summary.json",
+      "digest": "sha256:99b02b50401dc8e53d2ca5a1525a4882e88948b7c9172a7bd4b8f69e189a96cc",
+      "depends_on": [
+        "composition-source",
+        "interop-harness",
+        "go-runtime",
+        "container-profile"
+      ],
+      "status": "current",
+      "run_id": "run-container-runtime-binding"
+    },
+    {
+      "id": "container-normal",
+      "kind": "runtime-evidence",
+      "path": "evidence/preview/runtime-binding/container/normal.json",
+      "digest": "sha256:bc04ca3801687856c798842056e8ed741109c234aba0735b492c14481f557b48",
+      "depends_on": [
+        "composition-source",
+        "interop-harness",
+        "go-runtime",
+        "container-profile"
+      ],
+      "status": "current",
+      "run_id": "run-container-runtime-binding"
+    },
+    {
+      "id": "container-rejection",
+      "kind": "runtime-evidence",
+      "path": "evidence/preview/runtime-binding/container/rejection.json",
+      "digest": "sha256:dbab0b4afa42cb71b977d665e69d5888ddd418c0a7fea6b323b50f265e7663dd",
+      "depends_on": [
+        "composition-source",
+        "interop-harness",
+        "go-runtime",
+        "container-profile"
+      ],
+      "status": "current",
+      "run_id": "run-container-runtime-binding"
+    },
+    {
+      "id": "container-failure",
+      "kind": "runtime-evidence",
+      "path": "evidence/preview/runtime-binding/container/failure.json",
+      "digest": "sha256:4c71c0fb799c137d76c7f996b3b9336ed07a659269fb207489fb5e4064d5f447",
+      "depends_on": [
+        "composition-source",
+        "interop-harness",
+        "go-runtime",
+        "container-profile"
+      ],
+      "status": "current",
+      "run_id": "run-container-runtime-binding"
+    },
+    {
+      "id": "container-recovery",
+      "kind": "runtime-evidence",
+      "path": "evidence/preview/runtime-binding/container/recovery.json",
+      "digest": "sha256:d05fd7417193a4c21a1bbcd08efed346beb5d99e026a9e7ea3747fd4a083db68",
+      "depends_on": [
+        "composition-source",
+        "interop-harness",
+        "go-runtime",
+        "container-profile"
+      ],
+      "status": "current",
+      "run_id": "run-container-runtime-binding"
+    },
+    {
+      "id": "container-compatibility",
+      "kind": "runtime-evidence",
+      "path": "evidence/preview/runtime-binding/container/compatibility.json",
+      "digest": "sha256:aa4799286e4ae5c7bfc622588646da1f58c2fc44c133004fd6fbd7eb4bfbe0b3",
+      "depends_on": [
+        "composition-source",
+        "interop-harness",
+        "go-runtime",
+        "container-profile"
+      ],
+      "status": "current",
+      "run_id": "run-container-runtime-binding"
+    },
+    {
+      "id": "container-cleanup-receipt",
+      "kind": "runtime-evidence",
+      "path": "evidence/preview/runtime-binding/container/cleanup.receipt.json",
+      "digest": "sha256:3123a587342e556d83030b5d9ad04a34d6a838d55f4d528e47fc5df17c79a775",
+      "depends_on": [
+        "composition-source",
+        "interop-harness",
+        "go-runtime",
+        "container-profile"
+      ],
+      "status": "current",
+      "run_id": "run-container-runtime-binding"
+    },
+    {
+      "id": "composition-compatibility",
+      "kind": "compatibility",
+      "path": "evidence/preview/composition-compatibility.matrix.json",
+      "digest": "sha256:cb17237a96b277fca1dde83106eaa759917f5228ea4774b4dffebb26da6ddaed",
+      "depends_on": [
+        "local-binding",
+        "container-binding",
+        "composition-source",
+        "interop-harness"
+      ],
+      "status": "current",
+      "run_id": "run-composition-closure"
+    },
+    {
+      "id": "runtime-proof-index",
+      "kind": "scenario-proof",
+      "path": "evidence/preview/runtime-binding/proof-index.json",
+      "digest": "sha256:01a5854a06a19a04e1c692b1e3f5add3291816f413ccb2cd5f255a17aa879498",
+      "depends_on": [
+        "local-binding",
+        "container-binding",
+        "composition-source"
+      ],
+      "status": "current",
+      "run_id": "run-composition-closure"
+    },
+    {
+      "id": "evidence-closure-plan",
+      "kind": "closure-plan",
+      "path": "evidence/preview/runtime-binding/closure-plan.json",
+      "digest": "sha256:03722588d587d740dc19e0610bbc92e9ee63e46e91f61b65ea1e8be0072d91e6",
+      "depends_on": [
+        "runtime-proof-index",
+        "composition-source"
+      ],
+      "status": "current",
+      "run_id": "run-composition-closure"
+    }
+  ],
+  "runs": [
+    {
+      "id": "run-local-runtime-binding",
+      "execution_kind": "runtime",
+      "command": "go run ./cmd/atlas-lab runtime-binding --profile local",
+      "started_at": "2026-08-30T14:44:51Z",
+      "completed_at": "2026-08-30T14:44:57Z",
+      "result": "passed",
+      "attempts": 1,
+      "runtime_identity": {
+        "architecture": "arm64",
+        "go_version": "go1.26.0",
+        "kind": "local-process",
+        "os": "darwin",
+        "runtime_binary_digest": "sha256:0418becff63a07e7c5ae3f8b92abe90c2c3eb6ba58d298be7bcf653900449733"
+      },
+      "input_bindings": [
+        {
+          "input_id": "composition-source",
+          "digest": "sha256:c428641f8a03ad9254a9282506d05c7eb9d35553a442dd60d0879d3f066bcdf1"
+        },
+        {
+          "input_id": "interop-harness",
+          "digest": "sha256:11b55c48cd4382674752f953ab08df1bde0c6ddcc5a0239569d0a1ba15e3c4b4"
+        },
+        {
+          "input_id": "go-runtime",
+          "digest": "sha256:3d7647ca4d4f397a9dbf167e30dacb28d1c90fbd907a3a36f1d2ce045f591aeb"
+        },
+        {
+          "input_id": "local-profile",
+          "digest": "sha256:3781e09d4802de869b1f578ceb4bc82eba9a75342723954315644cdb95bcb6e6"
+        }
+      ],
+      "output_ids": [
+        "local-binding",
+        "local-summary",
+        "local-normal",
+        "local-rejection",
+        "local-failure",
+        "local-recovery",
+        "local-compatibility",
+        "local-cleanup-receipt"
+      ]
+    },
+    {
+      "id": "run-container-runtime-binding",
+      "execution_kind": "runtime",
+      "command": "go run ./cmd/atlas-lab runtime-binding --profile container",
+      "started_at": "2026-08-30T14:45:04Z",
+      "completed_at": "2026-08-30T14:45:16Z",
+      "result": "passed",
+      "attempts": 1,
+      "runtime_identity": {
+        "architecture": "arm64",
+        "container_runtime": "docker/29.7.2",
+        "go_version": "go1.26.0",
+        "kind": "docker-container",
+        "os": "linux",
+        "runtime_binary_digest": "sha256:32c6ecc606d834eea770b5995586199c9b28f3a6bbe7bfb9ecc8faa4358d3799"
+      },
+      "input_bindings": [
+        {
+          "input_id": "composition-source",
+          "digest": "sha256:c428641f8a03ad9254a9282506d05c7eb9d35553a442dd60d0879d3f066bcdf1"
+        },
+        {
+          "input_id": "interop-harness",
+          "digest": "sha256:11b55c48cd4382674752f953ab08df1bde0c6ddcc5a0239569d0a1ba15e3c4b4"
+        },
+        {
+          "input_id": "go-runtime",
+          "digest": "sha256:3d7647ca4d4f397a9dbf167e30dacb28d1c90fbd907a3a36f1d2ce045f591aeb"
+        },
+        {
+          "input_id": "container-profile",
+          "digest": "sha256:9d88fae91884a0afcd18a3ec27aa8ceaa071c4d4f173b2144ca29a35056010b2"
+        }
+      ],
+      "output_ids": [
+        "container-binding",
+        "container-summary",
+        "container-normal",
+        "container-rejection",
+        "container-failure",
+        "container-recovery",
+        "container-compatibility",
+        "container-cleanup-receipt"
+      ]
+    },
+    {
+      "id": "run-composition-closure",
+      "execution_kind": "derived",
+      "command": "go run ./cmd/atlas-lab composition-evidence-closure",
+      "started_at": "2026-08-30T14:45:17Z",
+      "completed_at": "2026-08-30T14:46:43Z",
+      "result": "passed",
+      "attempts": 1,
+      "input_bindings": [
+        {
+          "input_id": "composition-source",
+          "digest": "sha256:c428641f8a03ad9254a9282506d05c7eb9d35553a442dd60d0879d3f066bcdf1"
+        },
+        {
+          "input_id": "interop-harness",
+          "digest": "sha256:11b55c48cd4382674752f953ab08df1bde0c6ddcc5a0239569d0a1ba15e3c4b4"
+        },
+        {
+          "input_id": "go-runtime",
+          "digest": "sha256:3d7647ca4d4f397a9dbf167e30dacb28d1c90fbd907a3a36f1d2ce045f591aeb"
+        },
+        {
+          "input_id": "local-profile",
+          "digest": "sha256:3781e09d4802de869b1f578ceb4bc82eba9a75342723954315644cdb95bcb6e6"
+        },
+        {
+          "input_id": "container-profile",
+          "digest": "sha256:9d88fae91884a0afcd18a3ec27aa8ceaa071c4d4f173b2144ca29a35056010b2"
+        }
+      ],
+      "output_ids": [
+        "composition-compatibility",
+        "runtime-proof-index",
+        "evidence-closure-plan"
+      ]
+    }
+  ],
+  "required_outputs": [
+    "evidence/preview/composition-compatibility.matrix.json",
+    "evidence/preview/runtime-binding/closure-plan.json",
+    "evidence/preview/runtime-binding/container.binding.json",
+    "evidence/preview/runtime-binding/container/cleanup.receipt.json",
+    "evidence/preview/runtime-binding/container/compatibility.json",
+    "evidence/preview/runtime-binding/container/failure.json",
+    "evidence/preview/runtime-binding/container/normal.json",
+    "evidence/preview/runtime-binding/container/recovery.json",
+    "evidence/preview/runtime-binding/container/rejection.json",
+    "evidence/preview/runtime-binding/container/summary.json",
+    "evidence/preview/runtime-binding/local.binding.json",
+    "evidence/preview/runtime-binding/local/cleanup.receipt.json",
+    "evidence/preview/runtime-binding/local/compatibility.json",
+    "evidence/preview/runtime-binding/local/failure.json",
+    "evidence/preview/runtime-binding/local/normal.json",
+    "evidence/preview/runtime-binding/local/recovery.json",
+    "evidence/preview/runtime-binding/local/rejection.json",
+    "evidence/preview/runtime-binding/local/summary.json",
+    "evidence/preview/runtime-binding/proof-index.json"
+  ],
+  "structures": [
+    {
+      "id": "runtime-proof-structure",
+      "kind": "scenario-proof-index",
+      "path": "evidence/preview/runtime-binding/proof-index.json",
+      "baseline_digest": "sha256:01a5854a06a19a04e1c692b1e3f5add3291816f413ccb2cd5f255a17aa879498"
+    },
+    {
+      "id": "closure-plan-structure",
+      "kind": "scenario-closure-plan",
+      "path": "evidence/preview/runtime-binding/closure-plan.json",
+      "baseline_digest": "sha256:03722588d587d740dc19e0610bbc92e9ee63e46e91f61b65ea1e8be0072d91e6"
+    }
+  ],
+  "completion_state": "incomplete",
+  "gaps": [
+    "process-executable-attestation-unavailable",
+    "subject-depth-parity-incomplete",
+    "subject-v2-certificate-atomic-binding-unavailable",
+    "surface-pattern-proof-gaps"
+  ],
+  "definitive_eligible": false
+}

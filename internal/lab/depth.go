@@ -99,13 +99,13 @@ type IntegrationProfileProof struct {
 	Digest  string `json:"digest"`
 }
 
-func evaluateCompositionDepth(root string, composition PreviewComposition, result *DefinitiveGateResult) (bool, error) {
-	reference, referenceStates, err := loadFEDepthReference(root, composition.DepthReferenceLock)
+func evaluateCompositionDepth(root, referenceRepositoryRoot string, composition PreviewComposition, result *DefinitiveGateResult) (bool, error) {
+	reference, referenceStates, err := loadFEDepthReference(root, referenceRepositoryRoot, composition.DepthReferenceLock)
 	if err != nil {
 		return false, err
 	}
 	result.DepthReferenceStatus = reference.Status
-	scenarioStats, err := validateFEScenarioContract(root, composition.ScenarioContractLock)
+	scenarioStats, err := validateFEScenarioContract(root, referenceRepositoryRoot, composition.ScenarioContractLock)
 	if err != nil {
 		return false, err
 	}
@@ -165,7 +165,7 @@ func ValidateDepthInheritance(root string) error {
 	return nil
 }
 
-func loadFEDepthReference(root string, artifact PreviewArtifactLock) (feDepthReference, map[string]string, error) {
+func loadFEDepthReference(root, referenceRepositoryRoot string, artifact PreviewArtifactLock) (feDepthReference, map[string]string, error) {
 	var lock FEDepthReferenceLock
 	if err := loadLockedJSON(root, artifact, &lock); err != nil {
 		return feDepthReference{}, nil, err
@@ -173,7 +173,7 @@ func loadFEDepthReference(root string, artifact PreviewArtifactLock) (feDepthRef
 	if lock.SchemaVersion != 1 || lock.ID != "fe-depth-reference-v1" || lock.Repository != "frontend-behavior-atlas" || lock.SourceURL != "https://github.com/akaitigo/frontend-behavior-atlas/blob/"+feDepthReferenceCommit+"/FE_DEPTH_REFERENCE.json" || lock.License != "Apache-2.0" || lock.Commit != feDepthReferenceCommit || lock.Path != "FE_DEPTH_REFERENCE.json" || lock.Digest != feDepthReferenceDigest || lock.ExpectedStatus != "incomplete" || lock.ExpectedSummary != (DepthSummary{Satisfied: 1, Partial: 17, Missing: 0}) {
 		return feDepthReference{}, nil, fmt.Errorf("FE Depth Reference Lockが確定値と一致しません")
 	}
-	repository := filepath.Join(root, "..", lock.Repository)
+	repository := filepath.Join(referenceRepositoryRoot, "..", lock.Repository)
 	data, err := exec.Command("git", "-C", repository, "show", lock.Commit+":"+lock.Path).Output()
 	if err != nil {
 		return feDepthReference{}, nil, fmt.Errorf("FE Depth Reference Git Objectを読めません: %w", err)

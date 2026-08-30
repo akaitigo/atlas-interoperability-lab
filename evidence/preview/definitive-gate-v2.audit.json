@@ -48,6 +48,11 @@
       "detail": "検証済み"
     },
     {
+      "name": "composition-evidence-dependency-closure",
+      "verdict": "pass",
+      "detail": "検証済み"
+    },
+    {
       "name": "multi-subject-composition-compatibility",
       "verdict": "pass",
       "detail": "検証済み"

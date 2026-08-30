@@ -61,13 +61,25 @@ type CompositionCompatibilitySubjectResult struct {
 }
 
 func RunCompositionCompatibilityMatrix(root, matrixPath string) (CompositionCompatibilityResult, error) {
+	return runCompositionCompatibilityMatrix(root, matrixPath, true, root)
+}
+
+func runCompositionCompatibilityMatrix(root, matrixPath string, requireNonRegression bool, pinnedRepositoryRoot string) (CompositionCompatibilityResult, error) {
 	absoluteRoot, err := filepath.Abs(root)
 	if err != nil {
 		return CompositionCompatibilityResult{}, err
 	}
 	root = absoluteRoot
-	if _, err := NonRegressionGate(root); err != nil {
-		return CompositionCompatibilityResult{}, err
+	if requireNonRegression {
+		if _, err := NonRegressionGate(root); err != nil {
+			return CompositionCompatibilityResult{}, err
+		}
+	}
+	if err := ValidateSavedRuntimeBindingEvidence(root, "local"); err != nil {
+		return CompositionCompatibilityResult{}, fmt.Errorf("local Runtime Binding未閉鎖: %w", err)
+	}
+	if err := ValidateSavedRuntimeBindingEvidence(root, "container"); err != nil {
+		return CompositionCompatibilityResult{}, fmt.Errorf("container Runtime Binding未閉鎖: %w", err)
 	}
 	var matrix CompositionCompatibilityMatrix
 	if err := LoadJSON(resolve(root, matrixPath), &matrix); err != nil {
@@ -84,7 +96,12 @@ func RunCompositionCompatibilityMatrix(root, matrixPath string) (CompositionComp
 	if err := validateCompositionCompatibilityContract(matrix, composition, lock); err != nil {
 		return CompositionCompatibilityResult{}, err
 	}
-	depth, err := EvaluateDefinitiveComposition(root, matrix.Composition, "2026-08-28T12:00:00Z")
+	var depth DefinitiveGateResult
+	if requireNonRegression {
+		depth, err = EvaluateDefinitiveComposition(root, matrix.Composition, "2026-08-28T12:00:00Z")
+	} else {
+		depth, err = evaluateDefinitiveCompositionWithPinnedRoot(root, pinnedRepositoryRoot, matrix.Composition, "2026-08-28T12:00:00Z", nil)
+	}
 	if err != nil {
 		return CompositionCompatibilityResult{}, err
 	}
@@ -96,7 +113,7 @@ func RunCompositionCompatibilityMatrix(root, matrixPath string) (CompositionComp
 		return CompositionCompatibilityResult{}, fmt.Errorf("Compositionの未完Gap継承が保持されていません")
 	}
 
-	coreRoot, cleanupCore, err := extractPinnedCore(root, lock.Repository, lock.Commit)
+	coreRoot, cleanupCore, err := extractPinnedCore(pinnedRepositoryRoot, lock.Repository, lock.Commit)
 	if err != nil {
 		return CompositionCompatibilityResult{}, err
 	}
@@ -293,6 +310,7 @@ func PreviewPublicationGate(root string) (SelfAuditReport, error) {
 	add("depth-gap-inheritance", ValidateDepthInheritance(root))
 	add("runtime-binding-local", ValidateSavedRuntimeBindingEvidence(root, "local"))
 	add("runtime-binding-container", ValidateSavedRuntimeBindingEvidence(root, "container"))
+	add("composition-evidence-dependency-closure", ValidateCompositionEvidenceClosure(root))
 	matrix, matrixErr := RunCompositionCompatibilityMatrix(root, "tests/fixtures/composition-compatibility.matrix.json")
 	add("multi-subject-composition-compatibility", matrixErr)
 	if matrixErr == nil {

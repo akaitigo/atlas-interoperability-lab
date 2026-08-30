@@ -128,7 +128,7 @@ var feScenarioValidation struct {
 	err   error
 }
 
-func validateFEScenarioContract(root string, artifact PreviewArtifactLock) (FEScenarioContractStats, error) {
+func validateFEScenarioContract(root, referenceRepositoryRoot string, artifact PreviewArtifactLock) (FEScenarioContractStats, error) {
 	var lock FEScenarioContractLock
 	if err := loadLockedJSON(root, artifact, &lock); err != nil {
 		return FEScenarioContractStats{}, err
@@ -138,13 +138,13 @@ func validateFEScenarioContract(root string, artifact PreviewArtifactLock) (FESc
 		return FEScenarioContractStats{}, fmt.Errorf("FE Scenario Contract Lockが確定値と一致しません")
 	}
 	feScenarioValidation.Do(func() {
-		feScenarioValidation.stats, feScenarioValidation.err = validateFEScenarioGitObject(root, lock)
+		feScenarioValidation.stats, feScenarioValidation.err = validateFEScenarioGitObject(referenceRepositoryRoot, lock)
 	})
 	return feScenarioValidation.stats, feScenarioValidation.err
 }
 
-func validateFEScenarioGitObject(root string, lock FEScenarioContractLock) (FEScenarioContractStats, error) {
-	repository := filepath.Join(root, "..", lock.Repository)
+func validateFEScenarioGitObject(referenceRepositoryRoot string, lock FEScenarioContractLock) (FEScenarioContractStats, error) {
+	repository := filepath.Join(referenceRepositoryRoot, "..", lock.Repository)
 	indexData, err := externalGitFile(repository, lock.Commit, lock.ScenarioIndex)
 	if err != nil {
 		return FEScenarioContractStats{}, err

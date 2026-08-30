@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/akaitigo/atlas-interoperability-lab/schemas/composition-evidence-dependency-matrix.schema.json",
+  "title": "Composition Evidence Dependency Negative Matrix",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "graph", "cases"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "graph": {"const": "evidence/preview/composition-evidence-dependency.json"},
+    "cases": {
+      "type": "array", "minItems": 10, "maxItems": 10,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "mutation", "expected_state"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]+$"},
+          "mutation": {"enum": ["none", "stale-status", "digest-only-closure", "missing-local-rerun-target", "missing-container-rerun-target", "output-withdrawal", "proof-structure-shrink", "closure-structure-shrink", "definitive-promotion", "runtime-identity-drift"]},
+          "expected_state": {"enum": ["pass", "reject"]},
+          "expected_error": {"type": "string", "minLength": 1}
+        }
+      }
+    }
+  }
+}

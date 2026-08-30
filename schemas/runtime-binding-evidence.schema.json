@@ -4,7 +4,7 @@
   "title": "Stage 2 Runtime Binding Evidence",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "id", "core_commit", "composition_id", "composition_digest", "profile", "observed_at", "platform", "executable", "subjects", "runtime_evidence", "binding_state", "gaps", "definitive_eligible", "verdict"],
+  "required": ["schema_version", "id", "core_commit", "composition_id", "composition_digest", "profile", "observed_at", "execution_started_at", "execution_completed_at", "platform", "executable", "subjects", "runtime_evidence", "binding_state", "gaps", "definitive_eligible", "verdict"],
   "properties": {
     "schema_version": {"const": 1},
     "id": {"type": "string", "minLength": 3},
@@ -13,6 +13,8 @@
     "composition_digest": {"$ref": "#/$defs/digest"},
     "profile": {"enum": ["local", "container"]},
     "observed_at": {"type": "string", "format": "date-time"},
+    "execution_started_at": {"type": "string", "format": "date-time"},
+    "execution_completed_at": {"type": "string", "format": "date-time"},
     "platform": {
       "type": "object",
       "additionalProperties": false,

@@ -43,6 +43,14 @@
     "publication_command": "go run ./cmd/atlas-lab preview-publication-gate",
     "warning": "subject-gaps-not-aggregated"
   },
+  "composition_evidence_dependency": {
+    "graph": "evidence/preview/composition-evidence-dependency.json",
+    "matrix": "tests/fixtures/composition-evidence-dependency.matrix.json",
+    "evidence": "evidence/preview/composition-evidence-dependency.matrix.json",
+    "closure_command": "go run ./cmd/atlas-lab composition-evidence-closure",
+    "audit_command": "go run ./cmd/atlas-lab composition-evidence-audit",
+    "warning": "subject-v2-certificate-atomic-binding-unavailable"
+  },
   "definitive_gate_v2": {
     "status": "draft",
     "bounded_composition": "compositions/fixture-stage2-v2-bounded.preview.json",

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/akaitigo/atlas-interoperability-lab/schemas/composition-evidence-closure-plan.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "id", "core_commit", "policy", "tranches", "definitive_eligible"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "id": {"const": "fixture-stage2-evidence-closure-preview"},
+    "core_commit": {"const": "072d7ca77981f51754e824d70c6d4ecd55ea67e5"},
+    "policy": {"const": "no-gap-aggregation"},
+    "tranches": {
+      "type": "array", "minItems": 2, "maxItems": 2,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "state", "rows"],
+        "properties": {
+          "id": {"enum": ["runtime-binding", "subject-v2-atomic-binding"]},
+          "state": {"enum": ["completed-with-explicit-gaps", "blocked-by-subject-authority"]},
+          "rows": {"type": "array", "minItems": 2, "uniqueItems": true, "items": {"type": "string", "minLength": 3}}
+        }
+      }
+    },
+    "definitive_eligible": {"const": false}
+  }
+}

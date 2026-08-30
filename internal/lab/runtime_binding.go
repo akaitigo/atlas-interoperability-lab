@@ -13,21 +13,23 @@ import (
 )
 
 type RuntimeBindingEvidence struct {
-	SchemaVersion      int                      `json:"schema_version"`
-	ID                 string                   `json:"id"`
-	CoreCommit         string                   `json:"core_commit"`
-	CompositionID      string                   `json:"composition_id"`
-	CompositionDigest  string                   `json:"composition_digest"`
-	Profile            string                   `json:"profile"`
-	ObservedAt         string                   `json:"observed_at"`
-	Platform           RuntimeBindingPlatform   `json:"platform"`
-	Executable         RuntimeExecutableBinding `json:"executable"`
-	Subjects           []RuntimeSubjectBinding  `json:"subjects"`
-	RuntimeEvidence    RuntimeEvidenceBinding   `json:"runtime_evidence"`
-	BindingState       string                   `json:"binding_state"`
-	Gaps               []string                 `json:"gaps"`
-	DefinitiveEligible bool                     `json:"definitive_eligible"`
-	Verdict            string                   `json:"verdict"`
+	SchemaVersion        int                      `json:"schema_version"`
+	ID                   string                   `json:"id"`
+	CoreCommit           string                   `json:"core_commit"`
+	CompositionID        string                   `json:"composition_id"`
+	CompositionDigest    string                   `json:"composition_digest"`
+	Profile              string                   `json:"profile"`
+	ObservedAt           string                   `json:"observed_at"`
+	ExecutionStartedAt   string                   `json:"execution_started_at"`
+	ExecutionCompletedAt string                   `json:"execution_completed_at"`
+	Platform             RuntimeBindingPlatform   `json:"platform"`
+	Executable           RuntimeExecutableBinding `json:"executable"`
+	Subjects             []RuntimeSubjectBinding  `json:"subjects"`
+	RuntimeEvidence      RuntimeEvidenceBinding   `json:"runtime_evidence"`
+	BindingState         string                   `json:"binding_state"`
+	Gaps                 []string                 `json:"gaps"`
+	DefinitiveEligible   bool                     `json:"definitive_eligible"`
+	Verdict              string                   `json:"verdict"`
 }
 
 type RuntimeBindingPlatform struct {
@@ -65,6 +67,10 @@ type RuntimeEvidenceBinding struct {
 }
 
 func GenerateRuntimeBindingEvidence(root, profile string) (RuntimeBindingEvidence, error) {
+	return generateRuntimeBindingEvidence(root, profile, true)
+}
+
+func generateRuntimeBindingEvidence(root, profile string, requireNonRegression bool) (RuntimeBindingEvidence, error) {
 	if profile != "local" && profile != "container" {
 		return RuntimeBindingEvidence{}, fmt.Errorf("Runtime Bindingはlocalまたはcontainer Profileが必須です")
 	}
@@ -73,8 +79,10 @@ func GenerateRuntimeBindingEvidence(root, profile string) (RuntimeBindingEvidenc
 		return RuntimeBindingEvidence{}, err
 	}
 	root = absoluteRoot
-	if _, err := NonRegressionGate(root); err != nil {
-		return RuntimeBindingEvidence{}, err
+	if requireNonRegression {
+		if _, err := NonRegressionGate(root); err != nil {
+			return RuntimeBindingEvidence{}, err
+		}
 	}
 	temporaryRoot, err := os.MkdirTemp("", "atlas-lab-runtime-binding-")
 	if err != nil {
@@ -92,7 +100,9 @@ func GenerateRuntimeBindingEvidence(root, profile string) (RuntimeBindingEvidenc
 	if err != nil {
 		return RuntimeBindingEvidence{}, err
 	}
+	executionStartedAt := time.Now().UTC()
 	summary, runErr := Run(temporaryRoot, "compositions/fixture-stage2.json", profile)
+	executionCompletedAt := time.Now().UTC()
 	if runErr != nil {
 		return RuntimeBindingEvidence{}, fmt.Errorf("隔離%s Runtime実行失敗: %w", profile, runErr)
 	}
@@ -136,7 +146,7 @@ func GenerateRuntimeBindingEvidence(root, profile string) (RuntimeBindingEvidenc
 	sort.Slice(subjects, func(i, j int) bool { return subjects[i].Name < subjects[j].Name })
 	evidence := RuntimeBindingEvidence{
 		SchemaVersion: 1, ID: "fixture-stage2-" + profile + "-runtime-binding", CoreCommit: evidenceDependencyCoreCommit,
-		CompositionID: validated.Manifest.ID, CompositionDigest: validated.Digest, Profile: profile, ObservedAt: time.Now().UTC().Format(time.RFC3339),
+		CompositionID: validated.Manifest.ID, CompositionDigest: validated.Digest, Profile: profile, ObservedAt: executionCompletedAt.Format(time.RFC3339), ExecutionStartedAt: executionStartedAt.Format(time.RFC3339), ExecutionCompletedAt: executionCompletedAt.Format(time.RFC3339),
 		Platform: platform, Executable: RuntimeExecutableBinding{SourceArtifactDigest: artifactDigest, RuntimeBinaryDigest: binaryDigest, BuildRecipe: recipe, BindingMethod: "sealed-runner-reproducible-build-recipe"}, Subjects: subjects,
 		RuntimeEvidence: RuntimeEvidenceBinding{Summary: summaryLock, Scenarios: scenarioLocks, Cleanup: cleanupLock, ScenarioCount: len(scenarioLocks), ExecutionState: "pass", CleanupState: "pass"},
 		BindingState:    "runtime-recipe-observed-with-explicit-gaps", Gaps: []string{"process-executable-attestation-unavailable", "subject-v2-certificate-atomic-binding-unavailable"}, DefinitiveEligible: false, Verdict: "pass",
@@ -155,8 +165,14 @@ func ValidateRuntimeBindingEvidence(root string, evidence RuntimeBindingEvidence
 	if evidence.SchemaVersion != 1 || evidence.ID != "fixture-stage2-"+evidence.Profile+"-runtime-binding" || evidence.CoreCommit != evidenceDependencyCoreCommit || evidence.CompositionID != validated.Manifest.ID || evidence.CompositionDigest != validated.Digest || evidence.Verdict != "pass" || evidence.DefinitiveEligible || evidence.BindingState != "runtime-recipe-observed-with-explicit-gaps" || !sameSet(evidence.Gaps, []string{"process-executable-attestation-unavailable", "subject-v2-certificate-atomic-binding-unavailable"}) {
 		return fmt.Errorf("Runtime Binding Evidenceの状態契約が不正です")
 	}
-	if _, err := time.Parse(time.RFC3339, evidence.ObservedAt); err != nil {
+	observedAt, err := time.Parse(time.RFC3339, evidence.ObservedAt)
+	if err != nil {
 		return fmt.Errorf("Runtime Binding Evidenceの観測時刻が不正です: %w", err)
+	}
+	startedAt, startErr := time.Parse(time.RFC3339, evidence.ExecutionStartedAt)
+	completedAt, completeErr := time.Parse(time.RFC3339, evidence.ExecutionCompletedAt)
+	if startErr != nil || completeErr != nil || completedAt.Before(startedAt) || !observedAt.Equal(completedAt) {
+		return fmt.Errorf("Runtime Binding Evidenceの実行時刻契約が不正です")
 	}
 	if evidence.Executable.BindingMethod != "sealed-runner-reproducible-build-recipe" || evidence.Executable.BuildRecipe == "" || !validSHA256Digest(evidence.Executable.RuntimeBinaryDigest) || !validSHA256Digest(evidence.Executable.SourceArtifactDigest) {
 		return fmt.Errorf("Runtime executableのrecipe／digest契約が不正です")

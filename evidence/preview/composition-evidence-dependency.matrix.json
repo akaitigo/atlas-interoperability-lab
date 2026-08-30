@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "core_commit": "072d7ca77981f51754e824d70c6d4ecd55ea67e5",
+  "results": [
+    {
+      "id": "accept-current-closure",
+      "mutation": "none",
+      "state": "pass",
+      "classification": "none",
+      "verdict": "pass"
+    },
+    {
+      "id": "reject-stale-status",
+      "mutation": "stale-status",
+      "state": "reject",
+      "classification": "stale-status",
+      "verdict": "pass"
+    },
+    {
+      "id": "reject-digest-only-closure",
+      "mutation": "digest-only-closure",
+      "state": "reject",
+      "classification": "digest-only-closure",
+      "verdict": "pass"
+    },
+    {
+      "id": "reject-local-rerun-target-omission",
+      "mutation": "missing-local-rerun-target",
+      "state": "reject",
+      "classification": "missing-local-rerun-target",
+      "verdict": "pass"
+    },
+    {
+      "id": "reject-container-rerun-target-omission",
+      "mutation": "missing-container-rerun-target",
+      "state": "reject",
+      "classification": "missing-container-rerun-target",
+      "verdict": "pass"
+    },
+    {
+      "id": "reject-output-withdrawal",
+      "mutation": "output-withdrawal",
+      "state": "reject",
+      "classification": "output-withdrawal",
+      "verdict": "pass"
+    },
+    {
+      "id": "reject-proof-structure-shrink",
+      "mutation": "proof-structure-shrink",
+      "state": "reject",
+      "classification": "proof-structure-shrink",
+      "verdict": "pass"
+    },
+    {
+      "id": "reject-closure-structure-shrink",
+      "mutation": "closure-structure-shrink",
+      "state": "reject",
+      "classification": "closure-structure-shrink",
+      "verdict": "pass"
+    },
+    {
+      "id": "reject-definitive-promotion",
+      "mutation": "definitive-promotion",
+      "state": "reject",
+      "classification": "definitive-promotion",
+      "verdict": "pass"
+    },
+    {
+      "id": "reject-runtime-identity-drift",
+      "mutation": "runtime-identity-drift",
+      "state": "reject",
+      "classification": "runtime-identity-drift",
+      "verdict": "pass"
+    }
+  ],
+  "verdict": "pass"
+}

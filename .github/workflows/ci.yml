@@ -39,6 +39,7 @@ jobs:
           go run ./cmd/atlas-lab definitive-migrate
           go run ./cmd/atlas-lab evidence-dependency-matrix
           go run ./cmd/atlas-lab composition-compatibility-matrix
+          go run ./cmd/atlas-lab composition-evidence-audit
           go run ./cmd/atlas-lab legacy-v1-check
           go run ./cmd/atlas-lab definitive-preview-audit
           go run ./cmd/atlas-lab preview-publication-gate
@@ -59,6 +60,8 @@ jobs:
           go run ./cmd/atlas-lab runtime-binding --profile local
           go run ./cmd/atlas-lab runtime-binding --profile container
           go test ./internal/lab -run TestSavedRuntimeBindingEvidence -count=1
+          ATLAS_LAB_REFERENCE_ROOT="$GITHUB_WORKSPACE" go run ./cmd/atlas-lab composition-evidence-closure
+          go test ./internal/lab -run 'Test(SavedRuntimeBindingEvidence|SavedCompositionEvidenceDependencyClosure|CompositionEvidenceDependencyNegativeMatrix)' -count=1
       - name: Failure diagnostics
         working-directory: /tmp/atlas-lab-e2e
         run: |

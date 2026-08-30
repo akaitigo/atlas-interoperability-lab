@@ -121,6 +121,26 @@
       },
       "id": "v2.preview-publication",
       "result": "pass"
+    },
+    {
+      "checks": {
+        "command": true,
+        "decision": true,
+        "status": true,
+        "warning": true
+      },
+      "id": "v2.composition-evidence-closure",
+      "result": "pass"
+    },
+    {
+      "checks": {
+        "command": true,
+        "decision": true,
+        "status": true,
+        "warning": true
+      },
+      "id": "v2.composition-evidence-audit",
+      "result": "pass"
     }
   ],
   "core_v2_status": "draft",

@@ -26,3 +26,5 @@ Evidence Dependency consumer互換性は`evidence-dependency-core-lock.schema.js
 Composition互換性Previewは`composition-compatibility-matrix.schema.json`を使用します。各Subject probe instanceのEvidence Dependency Gate／Certificate、Composition SubjectとのBinding状態、Cross-Subject Claim/Evidence link、Composition互換状態、継承Gapを別fieldで記録し、集約結果だけによるDefinitive昇格を禁止します。
 
 Runtime Binding Previewは`runtime-binding-evidence.schema.json`を使用します。local／containerごとに実Platform、Runtime binary digest、固定Subject Release、5 Scenario Report、Cleanup ReceiptをDigest固定します。build recipeによる観測と実process／container executableのattestationは区別し、Subject v2 Certificateとのatomic bindingを含む未閉鎖gapを必須fieldとして保持します。
+
+Composition-level closureは`composition-evidence-dependency.schema.json`、`composition-evidence-dependency-matrix.schema.json`、`runtime-binding-proof-index.schema.json`、`composition-evidence-closure-plan.schema.json`を使用します。Core portable predicate、全input member、全required output、local／container／derived run、Runtime Identity、Proof／Closure構造baselineを分離します。Lab固有の2 ProfileやScenario数をCore共通閾値へ持ち上げず、このComposition自身のclosureとして検証します。
