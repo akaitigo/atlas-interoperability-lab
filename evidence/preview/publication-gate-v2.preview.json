@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "audit": "definitive-v2-preview-publication",
+  "checks": [
+    {
+      "name": "v1-publication-baseline",
+      "verdict": "pass",
+      "detail": "検証済み"
+    },
+    {
+      "name": "depth-gap-inheritance",
+      "verdict": "pass",
+      "detail": "検証済み"
+    },
+    {
+      "name": "runtime-binding-local",
+      "verdict": "pass",
+      "detail": "検証済み"
+    },
+    {
+      "name": "runtime-binding-container",
+      "verdict": "pass",
+      "detail": "検証済み"
+    },
+    {
+      "name": "composition-evidence-dependency-closure",
+      "verdict": "pass",
+      "detail": "検証済み"
+    },
+    {
+      "name": "actual-subject-binding-admission",
+      "verdict": "pass",
+      "detail": "検証済み"
+    },
+    {
+      "name": "multi-subject-composition-compatibility",
+      "verdict": "pass",
+      "detail": "検証済み"
+    },
+    {
+      "name": "no-gap-aggregation",
+      "verdict": "pass",
+      "detail": "検証済み"
+    },
+    {
+      "name": "router-v2-eval",
+      "verdict": "pass",
+      "detail": "検証済み"
+    },
+    {
+      "name": "neutral-language",
+      "verdict": "pass",
+      "detail": "検証済み"
+    }
+  ],
+  "verdict": "pass"
+}

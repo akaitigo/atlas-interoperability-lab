@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/akaitigo/atlas-interoperability-lab/schemas/integration-depth-proofs.schema.json",
+  "title": "Stage 2 Integration Depth Proofs",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "id", "source_composition_id", "source_composition_digest", "target_composition_ids", "scope", "proofs", "verdict"],
+  "properties": {
+    "schema_version": {"const":1},
+    "id": {"type":"string","minLength":1},
+    "source_composition_id": {"const":"fixture-http-stage2-v1"},
+    "source_composition_digest": {"type":"string","pattern":"^sha256:[a-f0-9]{64}$"},
+    "target_composition_ids": {"type":"array","minItems":2,"uniqueItems":true,"items":{"type":"string","minLength":1}},
+    "scope": {"const":"bounded-v1-fixture"},
+    "proofs": {"type":"array","minItems":10,"maxItems":10,"items":{"$ref":"#/$defs/proof"}},
+    "verdict": {"const":"pass"}
+  },
+  "$defs": {
+    "profile": {"type":"object","additionalProperties":false,"required":["profile","path","digest"],"properties":{"profile":{"enum":["local","container"]},"path":{"type":"string","pattern":"^evidence/runs/.+\\.json$"},"digest":{"type":"string","pattern":"^sha256:[a-f0-9]{64}$"}}},
+    "proof": {"type":"object","additionalProperties":false,"required":["id","axis","scenario_id","profiles"],"properties":{"id":{"type":"string","pattern":"^integration\\.[a-z-]+$"},"axis":{"type":"string","minLength":1},"scenario_id":{"type":"string","minLength":1},"profiles":{"type":"array","minItems":2,"maxItems":2,"items":{"$ref":"#/$defs/profile"}}}}
+  }
+}

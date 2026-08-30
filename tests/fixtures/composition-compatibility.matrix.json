@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "core_lock": "compatibility/evidence-dependency-core.lock.json",
+  "composition": "compositions/fixture-stage2-v2-definitive.preview.json",
+  "claim_evidence_graph": "graphs/fixture-stage2.claim-evidence.json",
+  "consumers": ["codex", "claude-code", "generic-cli"],
+  "subjects": ["source", "sink"],
+  "cases": [
+    {
+      "id": "accept-both-current-with-inherited-gaps",
+      "mutations": {"source": "none", "sink": "none"},
+      "graph_mutation": "none",
+      "expected_composition": "incomplete",
+      "expected_claim_graph": "pass",
+      "expected_failed_subjects": []
+    },
+    {
+      "id": "reject-source-stale",
+      "mutations": {"source": "stale-status", "sink": "none"},
+      "graph_mutation": "none",
+      "expected_composition": "reject",
+      "expected_claim_graph": "pass",
+      "expected_failed_subjects": ["source"]
+    },
+    {
+      "id": "reject-sink-digest-only",
+      "mutations": {"source": "none", "sink": "digest-only-closure"},
+      "graph_mutation": "none",
+      "expected_composition": "reject",
+      "expected_claim_graph": "pass",
+      "expected_failed_subjects": ["sink"]
+    },
+    {
+      "id": "reject-source-missing-rerun-target",
+      "mutations": {"source": "missing-rerun-target", "sink": "none"},
+      "graph_mutation": "none",
+      "expected_composition": "reject",
+      "expected_claim_graph": "pass",
+      "expected_failed_subjects": ["source"]
+    },
+    {
+      "id": "reject-sink-output-withdrawal",
+      "mutations": {"source": "none", "sink": "output-withdrawal"},
+      "graph_mutation": "none",
+      "expected_composition": "reject",
+      "expected_claim_graph": "pass",
+      "expected_failed_subjects": ["sink"]
+    },
+    {
+      "id": "reject-source-proof-structure-shrink",
+      "mutations": {"source": "proof-structure-shrink", "sink": "none"},
+      "graph_mutation": "none",
+      "expected_composition": "reject",
+      "expected_claim_graph": "pass",
+      "expected_failed_subjects": ["source"]
+    },
+    {
+      "id": "reject-sink-closure-structure-shrink",
+      "mutations": {"source": "none", "sink": "closure-structure-shrink"},
+      "graph_mutation": "none",
+      "expected_composition": "reject",
+      "expected_claim_graph": "pass",
+      "expected_failed_subjects": ["sink"]
+    },
+    {
+      "id": "reject-multiple-subject-failures-without-aggregation",
+      "mutations": {"source": "stale-status", "sink": "digest-only-closure"},
+      "graph_mutation": "none",
+      "expected_composition": "reject",
+      "expected_claim_graph": "pass",
+      "expected_failed_subjects": ["source", "sink"]
+    },
+    {
+      "id": "reject-cross-subject-claim-link-gap",
+      "mutations": {"source": "none", "sink": "none"},
+      "graph_mutation": "remove-subject-link",
+      "expected_composition": "reject",
+      "expected_claim_graph": "reject",
+      "expected_failed_subjects": []
+    }
+  ]
+}

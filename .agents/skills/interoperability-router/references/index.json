@@ -17,5 +17,50 @@
   "claim_evidence_graph": "graphs/fixture-stage2.claim-evidence.json",
   "diagnostics": {"local":"go run ./cmd/atlas-lab diagnose --profile local","container":"go run ./cmd/atlas-lab diagnose --profile container"},
   "self_audit_command": "go run ./cmd/atlas-lab self-audit",
+  "non_regression": {
+    "baseline": "baselines/interop-v1.non-regression.json",
+    "mapping": "migrations/interop-v1-non-regression.json",
+    "command": "go run ./cmd/atlas-lab non-regression-gate"
+  },
+  "depth_reference": {
+    "lock": "depth/fe-depth-reference.lock.json",
+    "scenario_contract": "depth/fe-scenario-contract.lock.json",
+    "subject_depth_parity": "depth/fixture-subjects.depth-parity.preview.json",
+    "integration_proofs": "depth/fixture-stage2.integration-proofs.preview.json",
+    "command": "go run ./cmd/atlas-lab depth-parity"
+  },
+  "evidence_dependency": {
+    "core_lock": "compatibility/evidence-dependency-core.lock.json",
+    "matrix": "tests/fixtures/evidence-dependency-consumer.matrix.json",
+    "evidence": "evidence/preview/evidence-dependency-consumer.matrix.json",
+    "command": "go run ./cmd/atlas-lab evidence-dependency-matrix",
+    "warning": "consumer-independent-stale-closure"
+  },
+  "composition_compatibility": {
+    "matrix": "tests/fixtures/composition-compatibility.matrix.json",
+    "evidence": "evidence/preview/composition-compatibility.matrix.json",
+    "matrix_command": "go run ./cmd/atlas-lab composition-compatibility-matrix",
+    "publication_command": "go run ./cmd/atlas-lab preview-publication-gate",
+    "warning": "subject-gaps-not-aggregated"
+  },
+  "composition_evidence_dependency": {
+    "graph": "evidence/preview/composition-evidence-dependency.json",
+    "matrix": "tests/fixtures/composition-evidence-dependency.matrix.json",
+    "evidence": "evidence/preview/composition-evidence-dependency.matrix.json",
+    "closure_command": "go run ./cmd/atlas-lab composition-evidence-closure",
+    "audit_command": "go run ./cmd/atlas-lab composition-evidence-audit",
+    "warning": "subject-v2-certificate-atomic-binding-unavailable"
+  },
+  "definitive_gate_v2": {
+    "status": "draft",
+    "bounded_composition": "compositions/fixture-stage2-v2-bounded.preview.json",
+    "definitive_composition": "compositions/fixture-stage2-v2-definitive.preview.json",
+    "matrix": "tests/fixtures/definitive-gate-v2.matrix.json",
+    "bounded_command": "go run ./cmd/atlas-lab definitive-gate --composition compositions/fixture-stage2-v2-bounded.preview.json",
+    "definitive_command": "go run ./cmd/atlas-lab definitive-gate --composition compositions/fixture-stage2-v2-definitive.preview.json",
+    "matrix_command": "go run ./cmd/atlas-lab definitive-matrix",
+    "migration_command": "go run ./cmd/atlas-lab definitive-migrate",
+    "legacy_v1_command": "go run ./cmd/atlas-lab legacy-v1-check"
+  },
   "rejections": {"incomplete_subject":"tests/fixtures/composition-incomplete.json","coverage_gap":"atlas/exclusions/exclusions.json"}
 }

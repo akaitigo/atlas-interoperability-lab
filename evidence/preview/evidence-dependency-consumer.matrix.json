@@ -1,0 +1,208 @@
+{
+  "schema_version": 1,
+  "core_commit": "072d7ca77981f51754e824d70c6d4ecd55ea67e5",
+  "core_status": "main-ci-confirmed",
+  "threshold_policy": {
+    "subject_counts": "subject-defined",
+    "subject_profiles": "subject-defined",
+    "shared_predicates": [
+      "transitive-staleness",
+      "actual-rerun",
+      "complete-output-closure",
+      "proof-structure-invariant",
+      "closure-plan-structure-invariant"
+    ]
+  },
+  "results": [
+    {
+      "consumer": "codex",
+      "case_id": "accept-current-closure",
+      "gate_state": "pass",
+      "certificate_state": "pass",
+      "classification": "current-closure",
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "claude-code",
+      "case_id": "accept-current-closure",
+      "gate_state": "pass",
+      "certificate_state": "pass",
+      "classification": "current-closure",
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "generic-cli",
+      "case_id": "accept-current-closure",
+      "gate_state": "pass",
+      "certificate_state": "pass",
+      "classification": "current-closure",
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "codex",
+      "case_id": "reject-stale-status",
+      "gate_state": "reject",
+      "certificate_state": "reject",
+      "classification": "stale-status",
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "claude-code",
+      "case_id": "reject-stale-status",
+      "gate_state": "reject",
+      "certificate_state": "reject",
+      "classification": "stale-status",
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "generic-cli",
+      "case_id": "reject-stale-status",
+      "gate_state": "reject",
+      "certificate_state": "reject",
+      "classification": "stale-status",
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "codex",
+      "case_id": "reject-digest-only-closure",
+      "gate_state": "reject",
+      "certificate_state": "reject",
+      "classification": "digest-only-closure",
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "claude-code",
+      "case_id": "reject-digest-only-closure",
+      "gate_state": "reject",
+      "certificate_state": "reject",
+      "classification": "digest-only-closure",
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "generic-cli",
+      "case_id": "reject-digest-only-closure",
+      "gate_state": "reject",
+      "certificate_state": "reject",
+      "classification": "digest-only-closure",
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "codex",
+      "case_id": "reject-missing-rerun-target",
+      "gate_state": "reject",
+      "certificate_state": "reject",
+      "classification": "missing-rerun-target",
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "claude-code",
+      "case_id": "reject-missing-rerun-target",
+      "gate_state": "reject",
+      "certificate_state": "reject",
+      "classification": "missing-rerun-target",
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "generic-cli",
+      "case_id": "reject-missing-rerun-target",
+      "gate_state": "reject",
+      "certificate_state": "reject",
+      "classification": "missing-rerun-target",
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "codex",
+      "case_id": "reject-output-withdrawal",
+      "gate_state": "reject",
+      "certificate_state": "reject",
+      "classification": "output-withdrawal",
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "claude-code",
+      "case_id": "reject-output-withdrawal",
+      "gate_state": "reject",
+      "certificate_state": "reject",
+      "classification": "output-withdrawal",
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "generic-cli",
+      "case_id": "reject-output-withdrawal",
+      "gate_state": "reject",
+      "certificate_state": "reject",
+      "classification": "output-withdrawal",
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "codex",
+      "case_id": "reject-proof-structure-shrink",
+      "gate_state": "reject",
+      "certificate_state": "reject",
+      "classification": "proof-structure-shrink",
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "claude-code",
+      "case_id": "reject-proof-structure-shrink",
+      "gate_state": "reject",
+      "certificate_state": "reject",
+      "classification": "proof-structure-shrink",
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "generic-cli",
+      "case_id": "reject-proof-structure-shrink",
+      "gate_state": "reject",
+      "certificate_state": "reject",
+      "classification": "proof-structure-shrink",
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "codex",
+      "case_id": "reject-closure-structure-shrink",
+      "gate_state": "reject",
+      "certificate_state": "reject",
+      "classification": "closure-structure-shrink",
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "claude-code",
+      "case_id": "reject-closure-structure-shrink",
+      "gate_state": "reject",
+      "certificate_state": "reject",
+      "classification": "closure-structure-shrink",
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "generic-cli",
+      "case_id": "reject-closure-structure-shrink",
+      "gate_state": "reject",
+      "certificate_state": "reject",
+      "classification": "closure-structure-shrink",
+      "consumer_independent": true,
+      "verdict": "pass"
+    }
+  ],
+  "verdict": "pass"
+}

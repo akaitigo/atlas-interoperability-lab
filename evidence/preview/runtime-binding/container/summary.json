@@ -1,0 +1,14 @@
+{
+  "profile": "container",
+  "composition_digest": "sha256:f562551e4081576ed603010e77f025d1a78b91feefde57647c48c300259293ce",
+  "scenario_reports": [
+    "evidence/runs/container/normal.json",
+    "evidence/runs/container/rejection.json",
+    "evidence/runs/container/failure.json",
+    "evidence/runs/container/recovery.json",
+    "evidence/runs/container/compatibility.json"
+  ],
+  "evidence_set_digest": "sha256:67e4bedfeb0d0a388250a1eb0cfbe160852a526632541aa5a8f6077657d8b29e",
+  "verdict": "pass",
+  "cleanup_receipt": "cleanup/container.receipt.json"
+}

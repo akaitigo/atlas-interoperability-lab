@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/akaitigo/atlas-interoperability-lab/schemas/evidence-dependency-core-lock.schema.json",
+  "title": "Core Evidence Dependency Contract Lock",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "id", "repository", "commit", "version", "license", "status", "commands", "threshold_policy"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "id": {"const": "core-evidence-dependency-v1"},
+    "repository": {"const": "reference-atlas-core"},
+    "commit": {"const": "072d7ca77981f51754e824d70c6d4ecd55ea67e5"},
+    "version": {"const": "1.1.0"},
+    "license": {"const": "Apache-2.0"},
+    "status": {"const": "main-ci-confirmed"},
+    "commands": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["gate", "certificate"],
+      "properties": {
+        "gate": {"const": "atlas audit <subject-root> --gate evidence-dependency"},
+        "certificate": {"const": "atlas certificate verify-definitive <subject-root>"}
+      }
+    },
+    "threshold_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["subject_counts", "subject_profiles", "shared_predicates"],
+      "properties": {
+        "subject_counts": {"const": "subject-defined"},
+        "subject_profiles": {"const": "subject-defined"},
+        "shared_predicates": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 5,
+          "uniqueItems": true,
+          "items": {"enum": ["transitive-staleness", "actual-rerun", "complete-output-closure", "proof-structure-invariant", "closure-plan-structure-invariant"]}
+        }
+      }
+    }
+  }
+}

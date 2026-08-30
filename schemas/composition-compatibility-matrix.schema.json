@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/akaitigo/atlas-interoperability-lab/schemas/composition-compatibility-matrix.schema.json",
+  "title": "Multi-Subject Composition Compatibility Matrix",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "core_lock", "composition", "claim_evidence_graph", "consumers", "subjects", "cases"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "core_lock": {"const": "compatibility/evidence-dependency-core.lock.json"},
+    "composition": {"const": "compositions/fixture-stage2-v2-definitive.preview.json"},
+    "claim_evidence_graph": {"const": "graphs/fixture-stage2.claim-evidence.json"},
+    "consumers": {"type": "array", "minItems": 3, "uniqueItems": true, "items": {"enum": ["codex", "claude-code", "generic-cli"]}},
+    "subjects": {"type": "array", "minItems": 2, "uniqueItems": true, "items": {"enum": ["source", "sink"]}},
+    "cases": {
+      "type": "array",
+      "minItems": 9,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "mutations", "graph_mutation", "expected_composition", "expected_claim_graph", "expected_failed_subjects"],
+        "properties": {
+          "id": {"type": "string", "minLength": 3},
+          "mutations": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["source", "sink"],
+            "properties": {
+              "source": {"$ref": "#/$defs/mutation"},
+              "sink": {"$ref": "#/$defs/mutation"}
+            }
+          },
+          "graph_mutation": {"enum": ["none", "remove-subject-link"]},
+          "expected_composition": {"enum": ["incomplete", "reject"]},
+          "expected_claim_graph": {"enum": ["pass", "reject"]},
+          "expected_failed_subjects": {"type": "array", "uniqueItems": true, "items": {"enum": ["source", "sink"]}}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "mutation": {"enum": ["none", "stale-status", "digest-only-closure", "missing-rerun-target", "output-withdrawal", "proof-structure-shrink", "closure-structure-shrink"]}
+  }
+}

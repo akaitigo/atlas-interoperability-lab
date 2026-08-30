@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "scenario_id": "normal",
+  "profile": "container",
+  "composition_digest": "sha256:f562551e4081576ed603010e77f025d1a78b91feefde57647c48c300259293ce",
+  "scenario_digest": "sha256:20438607a2faf08a6745837c2d7f391d07abeac40746720c6b4f907b64bba74f",
+  "axes": [
+    "communication",
+    "identity",
+    "data",
+    "messaging",
+    "deployment",
+    "observability"
+  ],
+  "actions": [
+    {
+      "id": "source-ready",
+      "type": "http",
+      "status": 200,
+      "assertions": 2,
+      "verdict": "pass"
+    },
+    {
+      "id": "invoke",
+      "type": "http",
+      "status": 200,
+      "assertions": 3,
+      "verdict": "pass"
+    },
+    {
+      "id": "data-persisted",
+      "type": "http",
+      "status": 200,
+      "assertions": 2,
+      "verdict": "pass"
+    },
+    {
+      "id": "trace-propagated",
+      "type": "http",
+      "status": 200,
+      "assertions": 3,
+      "verdict": "pass"
+    }
+  ],
+  "verdict": "pass"
+}

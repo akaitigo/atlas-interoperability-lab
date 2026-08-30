@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "id": "fixture-stage2-container-runtime-binding",
+  "core_commit": "072d7ca77981f51754e824d70c6d4ecd55ea67e5",
+  "composition_id": "fixture-http-stage2-v1",
+  "composition_digest": "sha256:f562551e4081576ed603010e77f025d1a78b91feefde57647c48c300259293ce",
+  "profile": "container",
+  "observed_at": "2026-08-30T20:36:50Z",
+  "execution_started_at": "2026-08-30T20:36:43Z",
+  "execution_completed_at": "2026-08-30T20:36:50Z",
+  "platform": {
+    "kind": "docker-container",
+    "os": "linux",
+    "architecture": "arm64",
+    "go_version": "go1.26.0",
+    "container_runtime": "docker/29.7.2"
+  },
+  "executable": {
+    "source_artifact_digest": "sha256:38b9e0e5a03b973da837856ccc25f939b6ed1e76d87ebc2a226d7edb8b5d6294",
+    "runtime_binary_digest": "sha256:32c6ecc606d834eea770b5995586199c9b28f3a6bbe7bfb9ecc8faa4358d3799",
+    "build_recipe": "CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -trimpath",
+    "binding_method": "sealed-runner-live-executable-attestation",
+    "attestations": [
+      {
+        "subject_name": "sink",
+        "capture_method": "docker-cp-live-container",
+        "observed_digest": "sha256:32c6ecc606d834eea770b5995586199c9b28f3a6bbe7bfb9ecc8faa4358d3799",
+        "observed_at": "2026-08-30T20:36:49Z"
+      },
+      {
+        "subject_name": "source",
+        "capture_method": "docker-cp-live-container",
+        "observed_digest": "sha256:32c6ecc606d834eea770b5995586199c9b28f3a6bbe7bfb9ecc8faa4358d3799",
+        "observed_at": "2026-08-30T20:36:49Z"
+      }
+    ]
+  },
+  "subjects": [
+    {
+      "name": "sink",
+      "subject_id": "fixture-http-sink",
+      "version": "v1.0.0",
+      "release_digest": "sha256:eb8b28f493911a9e273921cf6e775f80cda57055f31ded056fff2582a7d70290",
+      "certificate_digest": "sha256:847542e6254fc6551f57f13e2b88252d413f2e1a6ffe6ca1bf21cba3f58eee21",
+      "artifact_digest": "sha256:38b9e0e5a03b973da837856ccc25f939b6ed1e76d87ebc2a226d7edb8b5d6294",
+      "launch_driver": "go-source"
+    },
+    {
+      "name": "source",
+      "subject_id": "fixture-http-source",
+      "version": "v1.0.0",
+      "release_digest": "sha256:25449c959e2fbdb2de10b38cc6842fb1d1c7b5c329028c777b2617979e56b74d",
+      "certificate_digest": "sha256:a814802b327c98b9ca7e668414c4939c491aa70ac18b5aede5651d2e30b5a9e6",
+      "artifact_digest": "sha256:38b9e0e5a03b973da837856ccc25f939b6ed1e76d87ebc2a226d7edb8b5d6294",
+      "launch_driver": "go-source"
+    }
+  ],
+  "runtime_evidence": {
+    "summary": {
+      "path": "evidence/preview/runtime-binding/container/summary.json",
+      "digest": "sha256:9c01d74b27af576e5cceb64f4f967272820c9d6a67664da69978bdf4a95f1e25"
+    },
+    "scenarios": [
+      {
+        "path": "evidence/preview/runtime-binding/container/normal.json",
+        "digest": "sha256:bc04ca3801687856c798842056e8ed741109c234aba0735b492c14481f557b48"
+      },
+      {
+        "path": "evidence/preview/runtime-binding/container/rejection.json",
+        "digest": "sha256:dbab0b4afa42cb71b977d665e69d5888ddd418c0a7fea6b323b50f265e7663dd"
+      },
+      {
+        "path": "evidence/preview/runtime-binding/container/failure.json",
+        "digest": "sha256:4c71c0fb799c137d76c7f996b3b9336ed07a659269fb207489fb5e4064d5f447"
+      },
+      {
+        "path": "evidence/preview/runtime-binding/container/recovery.json",
+        "digest": "sha256:d05fd7417193a4c21a1bbcd08efed346beb5d99e026a9e7ea3747fd4a083db68"
+      },
+      {
+        "path": "evidence/preview/runtime-binding/container/compatibility.json",
+        "digest": "sha256:aa4799286e4ae5c7bfc622588646da1f58c2fc44c133004fd6fbd7eb4bfbe0b3"
+      }
+    ],
+    "cleanup": {
+      "path": "evidence/preview/runtime-binding/container/cleanup.receipt.json",
+      "digest": "sha256:3123a587342e556d83030b5d9ad04a34d6a838d55f4d528e47fc5df17c79a775"
+    },
+    "scenario_count": 5,
+    "execution_state": "pass",
+    "cleanup_state": "pass"
+  },
+  "binding_state": "runtime-executable-attested-with-certificate-gap",
+  "gaps": [
+    "subject-v2-certificate-atomic-binding-unavailable"
+  ],
+  "definitive_eligible": false,
+  "verdict": "pass"
+}

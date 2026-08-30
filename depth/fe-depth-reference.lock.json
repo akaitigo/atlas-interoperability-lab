@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "fe-depth-reference-v1",
+  "repository": "frontend-behavior-atlas",
+  "source_url": "https://github.com/akaitigo/frontend-behavior-atlas/blob/deadad18b6588d2c907170a451c3b5cea5ea4192/FE_DEPTH_REFERENCE.json",
+  "license": "Apache-2.0",
+  "commit": "deadad18b6588d2c907170a451c3b5cea5ea4192",
+  "path": "FE_DEPTH_REFERENCE.json",
+  "digest": "sha256:4f88b8bfd22a9b8262e4a1e8184e50cded0372dd82458fbbcc308b3647876d0d",
+  "expected_status": "incomplete",
+  "expected_summary": {
+    "satisfied": 1,
+    "partial": 17,
+    "missing": 0
+  }
+}

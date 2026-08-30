@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/akaitigo/atlas-interoperability-lab/schemas/non-regression-migration.schema.json",
+  "title": "Interop Non-Regression Replacement Mapping",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "baseline_id", "mappings"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "baseline_id": {"const": "interop-v1-non-regression"},
+    "mappings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["old_id", "old_path", "replacement_ids", "replacement_paths", "integration_proofs", "migration_evidence"],
+        "properties": {
+          "old_id": {"type": "string", "minLength": 1},
+          "old_path": {"type": "string", "minLength": 1},
+          "replacement_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+          "replacement_paths": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+          "integration_proofs": {"type": "array", "minItems": 2, "items": {"$ref": "#/$defs/evidence"}},
+          "migration_evidence": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/evidence"}}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "path", "digest", "profile"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)*$"},
+        "path": {"type": "string", "pattern": "^evidence/.+"},
+        "digest": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+        "profile": {"enum": ["local", "container"]}
+      }
+    }
+  }
+}

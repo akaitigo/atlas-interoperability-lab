@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "gate": "interop-non-regression",
+  "baseline_commit": "1894452124e722955576a6a3744da7744c68f6f9",
+  "checks": [
+    {
+      "name": "sealed-baseline",
+      "verdict": "pass",
+      "detail": "main固定CommitとManifest Digestを検証"
+    },
+    {
+      "name": "repository-contract",
+      "verdict": "pass",
+      "detail": "正規fleet contractと書込み境界を検証"
+    },
+    {
+      "name": "runtime-binding-attestation-migration",
+      "verdict": "pass",
+      "detail": "旧Gap IDとlive executable proofの置換対応を検証"
+    },
+    {
+      "name": "neutral-language",
+      "verdict": "pass",
+      "detail": "Docs・Scenario・Metadataの中立表現と技術的namespace参照を検証"
+    },
+    {
+      "name": "no-skip-disable-optional",
+      "verdict": "pass",
+      "detail": "禁止Controlなし"
+    },
+    {
+      "name": "composition-components-versions",
+      "verdict": "pass",
+      "detail": "subjects=2 profiles=2"
+    },
+    {
+      "name": "scenario-action-assertion-threshold",
+      "verdict": "pass",
+      "detail": "scenarios=5"
+    },
+    {
+      "name": "contracts-tests-integration-evidence",
+      "verdict": "pass",
+      "detail": "immutable_artifacts=50"
+    },
+    {
+      "name": "ci-private-upstream-separation",
+      "verdict": "pass",
+      "detail": "public CIは署名lock/preview/reportをfail-closed検証し、live upstream照合はlocal make verifyへ保持"
+    }
+  ],
+  "verdict": "pass"
+}

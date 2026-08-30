@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "id": "fixture-subjects-depth-parity-preview",
+  "reference_id": "fe-depth-reference-v1",
+  "reference_commit": "deadad18b6588d2c907170a451c3b5cea5ea4192",
+  "reference_digest": "sha256:4f88b8bfd22a9b8262e4a1e8184e50cded0372dd82458fbbcc308b3647876d0d",
+  "subjects": [
+    {
+      "subject_id": "fixture-http-source",
+      "status": "incomplete",
+      "summary": {"satisfied": 1, "partial": 17, "missing": 0},
+      "axes": [
+        {"id": "authority-body-digestion", "status": "partial", "proofs": []},
+        {"id": "surface-atomic-behavior-variant", "status": "partial", "proofs": []},
+        {"id": "real-runtime-lab", "status": "partial", "proofs": []},
+        {"id": "scenario-normal", "status": "partial", "proofs": []},
+        {"id": "scenario-boundary", "status": "partial", "proofs": []},
+        {"id": "scenario-refusal", "status": "partial", "proofs": []},
+        {"id": "scenario-failure", "status": "partial", "proofs": []},
+        {"id": "scenario-recovery", "status": "partial", "proofs": []},
+        {"id": "scenario-migration", "status": "partial", "proofs": []},
+        {"id": "scenario-operations", "status": "partial", "proofs": []},
+        {"id": "scenario-security", "status": "partial", "proofs": []},
+        {"id": "scenario-performance", "status": "partial", "proofs": []},
+        {"id": "scenario-compatibility", "status": "partial", "proofs": []},
+        {"id": "artifact-trace", "status": "partial", "proofs": []},
+        {"id": "integrated-reference-system", "status": "partial", "proofs": []},
+        {"id": "skill-eval", "status": "partial", "proofs": []},
+        {"id": "rights-provenance", "status": "partial", "proofs": []},
+        {"id": "non-regression-gate", "status": "satisfied", "proofs": [{"id": "interop-non-regression", "path": "evidence/preview/interop-v1.non-regression-gate.json", "digest": "sha256:cbdb0ea8417f36f1f6fd3a752591f1fca8d709e3d4285e786ba745d6c92c1975"}]}
+      ]
+    },
+    {
+      "subject_id": "fixture-http-sink",
+      "status": "incomplete",
+      "summary": {"satisfied": 1, "partial": 17, "missing": 0},
+      "axes": [
+        {"id": "authority-body-digestion", "status": "partial", "proofs": []},
+        {"id": "surface-atomic-behavior-variant", "status": "partial", "proofs": []},
+        {"id": "real-runtime-lab", "status": "partial", "proofs": []},
+        {"id": "scenario-normal", "status": "partial", "proofs": []},
+        {"id": "scenario-boundary", "status": "partial", "proofs": []},
+        {"id": "scenario-refusal", "status": "partial", "proofs": []},
+        {"id": "scenario-failure", "status": "partial", "proofs": []},
+        {"id": "scenario-recovery", "status": "partial", "proofs": []},
+        {"id": "scenario-migration", "status": "partial", "proofs": []},
+        {"id": "scenario-operations", "status": "partial", "proofs": []},
+        {"id": "scenario-security", "status": "partial", "proofs": []},
+        {"id": "scenario-performance", "status": "partial", "proofs": []},
+        {"id": "scenario-compatibility", "status": "partial", "proofs": []},
+        {"id": "artifact-trace", "status": "partial", "proofs": []},
+        {"id": "integrated-reference-system", "status": "partial", "proofs": []},
+        {"id": "skill-eval", "status": "partial", "proofs": []},
+        {"id": "rights-provenance", "status": "partial", "proofs": []},
+        {"id": "non-regression-gate", "status": "satisfied", "proofs": [{"id": "interop-non-regression", "path": "evidence/preview/interop-v1.non-regression-gate.json", "digest": "sha256:cbdb0ea8417f36f1f6fd3a752591f1fca8d709e3d4285e786ba745d6c92c1975"}]}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "results": [
+    {
+      "id": "reject.v1-certificate-promotion",
+      "rejected": true,
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.v2-certificate-claim",
+      "rejected": true,
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.release-digest-invention",
+      "rejected": true,
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.signature-claim",
+      "rejected": true,
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.commit-binding-claim",
+      "rejected": true,
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.depth-completion-claim",
+      "rejected": true,
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.surface-pattern-completion-claim",
+      "rejected": true,
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.atomic-authority-claim",
+      "rejected": true,
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.multi-subject-gap-aggregation",
+      "rejected": true,
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.candidate-denominator-shrink",
+      "rejected": true,
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.fixture-substitution",
+      "rejected": true,
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.public-completion-effect",
+      "rejected": true,
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.source-commit-drift",
+      "rejected": true,
+      "verdict": "pass"
+    },
+    {
+      "id": "reject.certificate-digest-drift",
+      "rejected": true,
+      "verdict": "pass"
+    }
+  ],
+  "verdict": "pass"
+}

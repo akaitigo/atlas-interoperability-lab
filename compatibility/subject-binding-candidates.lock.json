@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "id": "actual-subject-binding-candidates-v1",
+  "core_commit": "072d7ca77981f51754e824d70c6d4ecd55ea67e5",
+  "policy": "per-subject-no-aggregation",
+  "verification_boundary": {
+    "local_git_object_verification": "required",
+    "public_ci_verification": "owner-signed-tracked-input",
+    "local_gate_required": true,
+    "completion_effect": "none"
+  },
+  "candidates": [
+    {
+      "subject_id": "rabbitmq-reference-atlas",
+      "repository": "https://github.com/akaitigo/rabbitmq-reference-atlas",
+      "commit": "22ab07cc6c3d92ab489fe6ff8855c9fb8a97db5a",
+      "certificate": {
+        "path": "evidence/completion-certificate.json",
+        "digest": "sha256:8dbf8e2820e0e839eef7574e447f5607350f84f7a6367af58022d34a6ce69099",
+        "schema_version": 1,
+        "core_policy_version": "unasserted",
+        "release": "unasserted",
+        "subject_commit": "unasserted",
+        "signature_kind": "none"
+      },
+      "requirements": {
+        "fixed_release_digest": false,
+        "v2_certificate": false,
+        "certificate_commit_atomic": false,
+        "cryptographic_signature_verified": false,
+        "depth_complete": false,
+        "surface_pattern_complete": false,
+        "authority_atomic_binding": false
+      },
+      "admission_state": "rejected",
+      "rejection_reasons": [
+        "fixed-release-digest-unavailable",
+        "certificate-v1-only",
+        "certificate-commit-unbound",
+        "cryptographic-signature-missing",
+        "v2-depth-unavailable",
+        "surface-pattern-proof-unavailable",
+        "atomic-authority-binding-unavailable"
+      ]
+    },
+    {
+      "subject_id": "postgresql-reference-atlas",
+      "repository": "https://github.com/akaitigo/postgresql-reference-atlas",
+      "commit": "8a4259d2de288178b8b87f09a09e5b57654c88e0",
+      "certificate": {
+        "path": "evidence/completion-certificate.json",
+        "digest": "sha256:7f88fc0e072438d84b296b51428e88983688eca85cf4f97d7bf819b0bde9a26a",
+        "schema_version": 1,
+        "core_policy_version": "1.0.0",
+        "release": "v1.0.0",
+        "subject_commit": "9704d11b19a65755cb6d5738131d104d48309ef5",
+        "signature_kind": "payload-sha256"
+      },
+      "requirements": {
+        "fixed_release_digest": false,
+        "v2_certificate": false,
+        "certificate_commit_atomic": false,
+        "cryptographic_signature_verified": false,
+        "depth_complete": false,
+        "surface_pattern_complete": false,
+        "authority_atomic_binding": false
+      },
+      "admission_state": "rejected",
+      "rejection_reasons": [
+        "fixed-release-digest-unavailable",
+        "certificate-v1-only",
+        "certificate-main-commit-mismatch",
+        "cryptographic-signature-missing",
+        "v2-depth-unavailable",
+        "surface-pattern-proof-unavailable",
+        "atomic-authority-binding-unavailable"
+      ]
+    },
+    {
+      "subject_id": "zero-trust-reference-atlas",
+      "repository": "https://github.com/akaitigo/zero-trust-reference-atlas",
+      "commit": "fef700605d4aecb7d8f7975a6a4067bfe390ac86",
+      "certificate": {
+        "path": "evidence/completion-certificate.json",
+        "digest": "sha256:59f0e0b2f8a85f3705fd9b4d5198f2df6f662932ca5a8f616091650cb0e3f700",
+        "schema_version": 1,
+        "core_policy_version": "1.0.0",
+        "release": "v1.0.0",
+        "subject_commit": "8d4ace98787167df25725756d4fc3ac22ba7d272",
+        "signature_kind": "payload-sha256"
+      },
+      "requirements": {
+        "fixed_release_digest": false,
+        "v2_certificate": false,
+        "certificate_commit_atomic": false,
+        "cryptographic_signature_verified": false,
+        "depth_complete": false,
+        "surface_pattern_complete": false,
+        "authority_atomic_binding": false
+      },
+      "admission_state": "rejected",
+      "rejection_reasons": [
+        "fixed-release-digest-unavailable",
+        "certificate-v1-only",
+        "certificate-main-commit-mismatch",
+        "cryptographic-signature-missing",
+        "v2-depth-unavailable",
+        "surface-pattern-proof-unavailable",
+        "atomic-authority-binding-unavailable"
+      ]
+    }
+  ],
+  "completion_state": "incomplete",
+  "gaps": [
+    "subject-v2-certificate-atomic-binding-unavailable"
+  ],
+  "definitive_eligible": false
+}

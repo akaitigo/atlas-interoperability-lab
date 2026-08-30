@@ -140,6 +140,24 @@ func resolve(root, path string) string {
 }
 
 func ValidateRepository(root string) error {
+	if err := ValidateRepositoryContract(root); err != nil {
+		return err
+	}
+	if err := ValidateRuntimeBindingMigration(root); err != nil {
+		return err
+	}
+	if report, err := ValidatePublicCIGate(root); err != nil || report.Verdict != "pass" {
+		if err != nil {
+			return err
+		}
+		return fmt.Errorf("public CI upstream separationがpassではありません")
+	}
+	if report, err := EvaluateSubjectBindingAdmission(root, root); err != nil || report.Verdict != "pass" || report.CompletionState != "incomplete" || report.DefinitiveEligible {
+		if err != nil {
+			return err
+		}
+		return fmt.Errorf("Actual Subject binding admissionが正直なincompleteではありません")
+	}
 	if _, err := Preflight(root, "compositions/fixture-stage2.json", "local"); err != nil {
 		return err
 	}
@@ -153,6 +171,12 @@ func ValidateRepository(root string) error {
 	_, err := Preflight(root, "tests/fixtures/composition-incomplete.json", "local")
 	if err == nil || !strings.Contains(err.Error(), "未完成Release") {
 		return fmt.Errorf("未完成Subjectの拒否契約が実証されませんでした")
+	}
+	if _, err := NonRegressionGate(root); err != nil {
+		return err
+	}
+	if err := ValidateDepthInheritance(root); err != nil {
+		return err
 	}
 	return nil
 }

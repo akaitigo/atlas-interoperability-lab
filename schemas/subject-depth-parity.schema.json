@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/akaitigo/atlas-interoperability-lab/schemas/subject-depth-parity.schema.json",
+  "title": "Composition Subject Depth Parity",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "id", "reference_id", "reference_commit", "reference_digest", "subjects"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "id": {"type":"string","minLength":1},
+    "reference_id": {"const":"fe-depth-reference-v1"},
+    "reference_commit": {"const":"deadad18b6588d2c907170a451c3b5cea5ea4192"},
+    "reference_digest": {"const":"sha256:4f88b8bfd22a9b8262e4a1e8184e50cded0372dd82458fbbcc308b3647876d0d"},
+    "subjects": {"type":"array","minItems":2,"uniqueItems":true,"items":{"$ref":"#/$defs/subject"}}
+  },
+  "$defs": {
+    "digest": {"type":"string","pattern":"^sha256:[a-f0-9]{64}$"},
+    "summary": {"type":"object","additionalProperties":false,"required":["satisfied","partial","missing"],"properties":{"satisfied":{"type":"integer","minimum":0},"partial":{"type":"integer","minimum":0},"missing":{"type":"integer","minimum":0}}},
+    "proof": {"type":"object","additionalProperties":false,"required":["id","path","digest"],"properties":{"id":{"type":"string","minLength":1},"path":{"type":"string","minLength":1},"digest":{"$ref":"#/$defs/digest"}}},
+    "axis": {"type":"object","additionalProperties":false,"required":["id","status","proofs"],"properties":{"id":{"type":"string","minLength":1},"status":{"enum":["satisfied","partial","missing"]},"proofs":{"type":"array","items":{"$ref":"#/$defs/proof"}}}},
+    "subject": {"type":"object","additionalProperties":false,"required":["subject_id","status","summary","axes"],"properties":{"subject_id":{"type":"string","minLength":1},"status":{"enum":["complete","incomplete"]},"summary":{"$ref":"#/$defs/summary"},"axes":{"type":"array","minItems":18,"maxItems":18,"items":{"$ref":"#/$defs/axis"}}}}
+  }
+}

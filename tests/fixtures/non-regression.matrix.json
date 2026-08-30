@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {"id":"reject.public-ci-validator-tamper","operation":"tamper-public-ci-validator","expected_code":"ci-regressed"},
+    {"id":"reject.public-ci-command-routing-bypass","operation":"bypass-public-ci-command-routing","expected_code":"ci-regressed"},
+    {"id":"reject.public-ci-trust-root-addition","operation":"add-public-ci-trust-root","expected_code":"ci-regressed"},
+    {"id":"reject.dco-range-verifier-weaken","operation":"weaken-dco-range-verifier","expected_code":"ci-regressed"},
+    {"id":"reject.runtime-binding-attestation-migration-delete","operation":"delete-runtime-binding-attestation-migration","expected_code":"runtime-binding-migration-removed"},
+    {"id":"reject.repository-contract-delete","operation":"delete-repository-contract","expected_code":"repository-contract-removed"},
+    {"id":"reject.repository-boundary-loosen","operation":"loosen-repository-boundary","expected_code":"repository-contract-regressed"},
+    {"id":"reject.scenario-delete","operation":"delete-scenario","expected_code":"scenario-removed"},
+    {"id":"reject.scenario-scope-out","operation":"scope-out-scenario","expected_code":"scenario-removed"},
+    {"id":"reject.scenario-aggregate","operation":"aggregate-scenarios","expected_code":"scenario-removed"},
+    {"id":"reject.assertion-shrink","operation":"shrink-assertion","expected_code":"assertion-regressed"},
+    {"id":"reject.threshold-weaken","operation":"weaken-threshold","expected_code":"assertion-regressed"},
+    {"id":"reject.component-delete","operation":"delete-component","expected_code":"component-removed"},
+    {"id":"reject.version-change","operation":"change-version","expected_code":"component-regressed"},
+    {"id":"reject.contract-change","operation":"change-contract","expected_code":"artifact-regressed"},
+    {"id":"reject.test-disable","operation":"disable-test","expected_code":"forbidden-control"},
+    {"id":"reject.scenario-disabled","operation":"disable-scenario","expected_code":"forbidden-control"},
+    {"id":"reject.ci-shrink","operation":"shrink-ci","expected_code":"ci-regressed"},
+    {"id":"reject.ci-step-skip","operation":"skip-ci-step","expected_code":"forbidden-control"},
+    {"id":"reject.mock-replacement","operation":"replace-integration-with-mock","expected_code":"artifact-regressed"},
+    {"id":"reject.failure-evidence-delete","operation":"delete-failure-evidence","expected_code":"artifact-removed"},
+    {"id":"reject.recovery-evidence-delete","operation":"delete-recovery-evidence","expected_code":"artifact-removed"},
+    {"id":"reject.optionalize-component","operation":"optionalize-component","expected_code":"forbidden-control"},
+    {"id":"reject.mapping-without-proof","operation":"mapping-without-proof","expected_code":"replacement-proof-insufficient"},
+    {"id":"reject.mapping-single-profile","operation":"mapping-single-profile","expected_code":"replacement-proof-insufficient"},
+    {"id":"reject.promotional-copy","operation":"promotional-copy","expected_code":"promotional-language"},
+    {"id":"reject.author-praise","operation":"author-praise","expected_code":"author-praise"}
+  ]
+}

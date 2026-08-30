@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/akaitigo/atlas-interoperability-lab/schemas/non-regression-baseline.schema.json",
+  "title": "Interop Non-Regression Baseline",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "id", "source_commit", "composition_path", "required_profiles", "immutable_prefixes", "immutable_paths", "ci_path", "replacement_manifest"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "id": {"const": "interop-v1-non-regression"},
+    "source_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+    "composition_path": {"const": "compositions/fixture-stage2.json"},
+    "required_profiles": {"type": "array", "minItems": 2, "uniqueItems": true, "items": {"enum": ["local", "container"]}},
+    "immutable_prefixes": {"type": "array", "minItems": 6, "uniqueItems": true, "items": {"type": "string", "pattern": "^[a-z][a-z0-9-]*$"}},
+    "immutable_paths": {"type": "array", "minItems": 9, "uniqueItems": true, "items": {"type": "string", "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+"}},
+    "ci_path": {"const": ".github/workflows/ci.yml"},
+    "replacement_manifest": {"const": "migrations/interop-v1-non-regression.json"}
+  }
+}

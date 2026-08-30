@@ -2,9 +2,7 @@ package lab
 
 import (
 	"fmt"
-	"os"
 	"os/exec"
-	"path/filepath"
 	"regexp"
 	"strings"
 )
@@ -49,10 +47,7 @@ func (report *SelfAuditReport) add(name string, err error) {
 }
 
 func runCoreAudit(root string) error {
-	core := filepath.Join(root, "..", "reference-atlas-core")
-	cmd := exec.Command("go", "-C", core, "run", "./cmd/atlas", "audit", root)
-	cmd.Env = append(os.Environ(), "GOCACHE="+filepath.Join(root, ".cache", "go-build"))
-	output, err := cmd.CombinedOutput()
+	output, err := runPinnedV1Core(root, "audit", root)
 	if err != nil {
 		return fmt.Errorf("Core audit失敗: %w: %s", err, strings.TrimSpace(string(output)))
 	}

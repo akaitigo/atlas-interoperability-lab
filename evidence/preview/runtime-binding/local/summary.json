@@ -1,0 +1,14 @@
+{
+  "profile": "local",
+  "composition_digest": "sha256:f562551e4081576ed603010e77f025d1a78b91feefde57647c48c300259293ce",
+  "scenario_reports": [
+    "evidence/runs/local/normal.json",
+    "evidence/runs/local/rejection.json",
+    "evidence/runs/local/failure.json",
+    "evidence/runs/local/recovery.json",
+    "evidence/runs/local/compatibility.json"
+  ],
+  "evidence_set_digest": "sha256:16949fa220d50d08c38246294fe3463874111ec3d5a8526f51ec726b7d94b7b9",
+  "verdict": "pass",
+  "cleanup_receipt": "cleanup/local.receipt.json"
+}

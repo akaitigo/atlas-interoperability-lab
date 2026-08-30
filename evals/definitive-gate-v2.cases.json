@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "minimum_pass_rate": 1.0,
+  "cases": [
+    {"id":"v2.definitive","query":"Core v2のSubject Definitive completeを確認したい","decision":"definitive_preview","status":"draft","warning":"core-v2-draft"},
+    {"id":"v2.bounded","query":"bounded/epoch-complete構成を確認したい","decision":"bounded_preview","status":"draft","warning":"core-v2-draft"},
+    {"id":"v2.excluded","query":"excludedを含むDefinitive構成の降格を確認したい","decision":"definitive_preview","command":"go run ./cmd/atlas-lab definitive-matrix"},
+    {"id":"v2.mixed","query":"v1/v2 Certificate混在Versionを確認したい","decision":"definitive_preview","command":"go run ./cmd/atlas-lab definitive-matrix"},
+    {"id":"v2.revoked","query":"失効CertificateのRouter挙動を確認したい","decision":"definitive_preview","command":"go run ./cmd/atlas-lab definitive-matrix"},
+    {"id":"v2.renewed","query":"失効後のCertificate更新を確認したい","decision":"definitive_preview","command":"go run ./cmd/atlas-lab definitive-matrix"},
+    {"id":"v2.migration","query":"旧Compositionからv2へ非破壊移行したい","decision":"migration_preview","warning":"no-definitive-promotion"},
+    {"id":"v2.legacy","query":"旧v1 Bundleを検証したい","decision":"legacy_v1","status":"verifiable"},
+    {"id":"v2.non-regression","query":"Scenario削除やCI縮小を非後退Gateで拒否したい","decision":"non_regression_gate","command":"go run ./cmd/atlas-lab non-regression-gate"},
+    {"id":"v2.depth-parity","query":"構成SubjectのDepth Parity 18軸とInterop Proofを確認したい","decision":"depth_parity","command":"go run ./cmd/atlas-lab depth-parity","warning":"integration-proof-cannot-promote-depth-gap"},
+    {"id":"v2.surface-pattern-proof","query":"統合Trace成功と850 Surface/Pattern Proofの421 gapを確認したい","decision":"depth_parity","command":"go run ./cmd/atlas-lab depth-parity","warning":"integrated-trace-not-component-proof"},
+    {"id":"v2.evidence-dependency","query":"CodexとClaude Codeでstale、digest-only closure、再実行漏れの判定を揃えたい","decision":"evidence_dependency","status":"main-ci-confirmed","command":"go run ./cmd/atlas-lab evidence-dependency-matrix","warning":"consumer-independent-stale-closure"},
+    {"id":"v2.composition-compatibility","query":"複数SubjectのComposition互換性とClaim link欠落を確認したい","decision":"composition_compatibility","status":"incomplete","command":"go run ./cmd/atlas-lab composition-compatibility-matrix","warning":"subject-gaps-not-aggregated"},
+    {"id":"v2.preview-publication","query":"Preview PublicationでSubjectのGapを隠していないか確認したい","decision":"composition_compatibility","status":"incomplete","command":"go run ./cmd/atlas-lab preview-publication-gate","warning":"subject-gaps-not-aggregated"},
+    {"id":"v2.composition-evidence-closure","query":"Composition Evidenceのlocal/container実Evidence更新とclosureを再実行したい","decision":"composition_evidence_dependency","status":"incomplete","command":"go run ./cmd/atlas-lab composition-evidence-closure","warning":"subject-v2-certificate-atomic-binding-unavailable"},
+    {"id":"v2.composition-evidence-audit","query":"Runtime BindingとPlatform Evidenceを読み取り監査したい","decision":"composition_evidence_dependency","status":"incomplete","command":"go run ./cmd/atlas-lab composition-evidence-audit","warning":"subject-v2-certificate-atomic-binding-unavailable"}
+  ]
+}

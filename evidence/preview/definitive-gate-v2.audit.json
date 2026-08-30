@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "audit": "definitive-gate-v2-preview",
+  "checks": [
+    {
+      "name": "feature-branch",
+      "verdict": "pass",
+      "detail": "検証済み"
+    },
+    {
+      "name": "fixture-matrix",
+      "verdict": "pass",
+      "detail": "検証済み"
+    },
+    {
+      "name": "non-destructive-migration",
+      "verdict": "pass",
+      "detail": "検証済み"
+    },
+    {
+      "name": "legacy-v1-bundle",
+      "verdict": "pass",
+      "detail": "検証済み"
+    },
+    {
+      "name": "router-eval",
+      "verdict": "pass",
+      "detail": "検証済み"
+    },
+    {
+      "name": "core-v2-draft-lock",
+      "verdict": "pass",
+      "detail": "検証済み"
+    },
+    {
+      "name": "evidence-dependency-consumer-matrix",
+      "verdict": "pass",
+      "detail": "検証済み"
+    },
+    {
+      "name": "runtime-binding-local",
+      "verdict": "pass",
+      "detail": "検証済み"
+    },
+    {
+      "name": "runtime-binding-container",
+      "verdict": "pass",
+      "detail": "検証済み"
+    },
+    {
+      "name": "composition-evidence-dependency-closure",
+      "verdict": "pass",
+      "detail": "検証済み"
+    },
+    {
+      "name": "actual-subject-binding-admission",
+      "verdict": "pass",
+      "detail": "検証済み"
+    },
+    {
+      "name": "multi-subject-composition-compatibility",
+      "verdict": "pass",
+      "detail": "検証済み"
+    },
+    {
+      "name": "interop-non-regression",
+      "verdict": "pass",
+      "detail": "検証済み"
+    },
+    {
+      "name": "neutral-language",
+      "verdict": "pass",
+      "detail": "検証済み"
+    },
+    {
+      "name": "subject-depth-parity-inheritance",
+      "verdict": "pass",
+      "detail": "検証済み"
+    },
+    {
+      "name": "depth-parity-evidence",
+      "verdict": "pass",
+      "detail": "検証済み"
+    }
+  ],
+  "verdict": "pass"
+}

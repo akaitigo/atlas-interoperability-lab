@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": "core-evidence-dependency-v1",
+  "repository": "reference-atlas-core",
+  "commit": "072d7ca77981f51754e824d70c6d4ecd55ea67e5",
+  "version": "1.1.0",
+  "license": "Apache-2.0",
+  "status": "main-ci-confirmed",
+  "commands": {
+    "gate": "atlas audit <subject-root> --gate evidence-dependency",
+    "certificate": "atlas certificate verify-definitive <subject-root>"
+  },
+  "threshold_policy": {
+    "subject_counts": "subject-defined",
+    "subject_profiles": "subject-defined",
+    "shared_predicates": [
+      "transitive-staleness",
+      "actual-rerun",
+      "complete-output-closure",
+      "proof-structure-invariant",
+      "closure-plan-structure-invariant"
+    ]
+  }
+}

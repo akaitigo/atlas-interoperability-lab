@@ -1,0 +1,37 @@
+{
+  "authority_denominator": "interop-runtime-binding-only",
+  "id": "fixture-stage2-runtime-proof-index",
+  "rows": [
+    {
+      "binding": "evidence/preview/runtime-binding/local.binding.json",
+      "gaps": [
+        "subject-v2-certificate-atomic-binding-unavailable"
+      ],
+      "id": "local-runtime-binding",
+      "profile": "local",
+      "scenarios": [
+        "normal",
+        "rejection",
+        "failure",
+        "recovery",
+        "compatibility"
+      ]
+    },
+    {
+      "binding": "evidence/preview/runtime-binding/container.binding.json",
+      "gaps": [
+        "subject-v2-certificate-atomic-binding-unavailable"
+      ],
+      "id": "container-runtime-binding",
+      "profile": "container",
+      "scenarios": [
+        "normal",
+        "rejection",
+        "failure",
+        "recovery",
+        "compatibility"
+      ]
+    }
+  ],
+  "schema_version": 1
+}

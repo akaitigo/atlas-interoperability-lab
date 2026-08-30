@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {"id":"reject.v1-certificate-promotion","operation":"admit-v1-certificate"},
+    {"id":"reject.v2-certificate-claim","operation":"claim-v2-certificate"},
+    {"id":"reject.release-digest-invention","operation":"invent-release-digest"},
+    {"id":"reject.signature-claim","operation":"claim-cryptographic-signature"},
+    {"id":"reject.commit-binding-claim","operation":"claim-certificate-main-binding"},
+    {"id":"reject.depth-completion-claim","operation":"claim-depth-complete"},
+    {"id":"reject.surface-pattern-completion-claim","operation":"claim-surface-pattern-complete"},
+    {"id":"reject.atomic-authority-claim","operation":"claim-atomic-authority"},
+    {"id":"reject.multi-subject-gap-aggregation","operation":"aggregate-rejections"},
+    {"id":"reject.candidate-denominator-shrink","operation":"drop-candidate"},
+    {"id":"reject.fixture-substitution","operation":"substitute-fixture"},
+    {"id":"reject.public-completion-effect","operation":"public-completion-effect"},
+    {"id":"reject.source-commit-drift","operation":"source-commit-drift"},
+    {"id":"reject.certificate-digest-drift","operation":"certificate-digest-drift"}
+  ]
+}

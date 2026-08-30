@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/akaitigo/atlas-interoperability-lab/schemas/evidence-dependency-consumer-matrix.schema.json",
+  "title": "Evidence Dependency Consumer Compatibility Matrix",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "core_lock", "consumers", "cases"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "core_lock": {"const": "compatibility/evidence-dependency-core.lock.json"},
+    "consumers": {
+      "type": "array",
+      "minItems": 3,
+      "uniqueItems": true,
+      "contains": {"const": "codex"},
+      "items": {"type": "string", "minLength": 1}
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 7,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "mutation", "expected_gate", "expected_certificate"],
+        "properties": {
+          "id": {"type": "string", "minLength": 3},
+          "mutation": {"enum": ["none", "stale-status", "digest-only-closure", "missing-rerun-target", "output-withdrawal", "proof-structure-shrink", "closure-structure-shrink"]},
+          "expected_gate": {"enum": ["pass", "reject"]},
+          "expected_certificate": {"enum": ["pass", "reject"]},
+          "expected_error": {"type": "string", "minLength": 3}
+        }
+      }
+    }
+  }
+}

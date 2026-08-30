@@ -21,6 +21,19 @@ def main() -> int:
         index.get("claim_evidence_graph") == "graphs/fixture-stage2.claim-evidence.json",
         set(index.get("diagnostics", {})) == {"local", "container"},
         index.get("self_audit_command") == "go run ./cmd/atlas-lab self-audit",
+        index.get("definitive_gate_v2", {}).get("status") == "draft",
+        index.get("definitive_gate_v2", {}).get("legacy_v1_command") == "go run ./cmd/atlas-lab legacy-v1-check",
+        index.get("non_regression", {}).get("command") == "go run ./cmd/atlas-lab non-regression-gate",
+        index.get("depth_reference", {}).get("lock") == "depth/fe-depth-reference.lock.json",
+        index.get("depth_reference", {}).get("scenario_contract") == "depth/fe-scenario-contract.lock.json",
+        index.get("depth_reference", {}).get("command") == "go run ./cmd/atlas-lab depth-parity",
+        index.get("evidence_dependency", {}).get("core_lock") == "compatibility/evidence-dependency-core.lock.json",
+        index.get("evidence_dependency", {}).get("command") == "go run ./cmd/atlas-lab evidence-dependency-matrix",
+        index.get("composition_compatibility", {}).get("matrix_command") == "go run ./cmd/atlas-lab composition-compatibility-matrix",
+        index.get("composition_compatibility", {}).get("publication_command") == "go run ./cmd/atlas-lab preview-publication-gate",
+        index.get("composition_evidence_dependency", {}).get("graph") == "evidence/preview/composition-evidence-dependency.json",
+        index.get("composition_evidence_dependency", {}).get("closure_command") == "go run ./cmd/atlas-lab composition-evidence-closure",
+        index.get("composition_evidence_dependency", {}).get("audit_command") == "go run ./cmd/atlas-lab composition-evidence-audit",
     )
     if not all(required):
         raise SystemExit("Router Skillのfrontmatter、UI metadata、Reference Indexが不正です")

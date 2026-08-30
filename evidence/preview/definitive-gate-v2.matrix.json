@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "core_v2_status": "draft",
+  "cases": [
+    {
+      "id": "definitive-all-v2",
+      "effective_state": "incomplete",
+      "warnings": [
+        "core-v2-draft",
+        "integrated-trace-not-component-proof",
+        "integration-proof-cannot-promote-depth-gap",
+        "state-downgraded",
+        "subject-depth-parity-incomplete",
+        "surface-pattern-proof-gaps"
+      ],
+      "verdict": "pass"
+    },
+    {
+      "id": "bounded-excluded",
+      "effective_state": "incomplete",
+      "warnings": [
+        "bounded-scope-only",
+        "core-v2-draft",
+        "coverage-excluded",
+        "integrated-trace-not-component-proof",
+        "integration-proof-cannot-promote-depth-gap",
+        "not-subject-definitive",
+        "subject-depth-parity-incomplete",
+        "surface-pattern-proof-gaps"
+      ],
+      "verdict": "pass"
+    },
+    {
+      "id": "definitive-excluded-downgrade",
+      "effective_state": "incomplete",
+      "warnings": [
+        "core-v2-draft",
+        "coverage-excluded",
+        "integrated-trace-not-component-proof",
+        "integration-proof-cannot-promote-depth-gap",
+        "not-subject-definitive",
+        "state-downgraded",
+        "subject-depth-parity-incomplete",
+        "surface-pattern-proof-gaps"
+      ],
+      "verdict": "pass"
+    },
+    {
+      "id": "definitive-infeasible-downgrade",
+      "effective_state": "incomplete",
+      "warnings": [
+        "core-v2-draft",
+        "coverage-infeasible",
+        "integrated-trace-not-component-proof",
+        "integration-proof-cannot-promote-depth-gap",
+        "not-subject-definitive",
+        "state-downgraded",
+        "subject-depth-parity-incomplete",
+        "surface-pattern-proof-gaps"
+      ],
+      "verdict": "pass"
+    },
+    {
+      "id": "definitive-partial-incomplete",
+      "effective_state": "incomplete",
+      "warnings": [
+        "core-v2-draft",
+        "coverage-partial",
+        "integrated-trace-not-component-proof",
+        "integration-proof-cannot-promote-depth-gap",
+        "not-subject-definitive",
+        "state-downgraded",
+        "subject-depth-parity-incomplete",
+        "surface-pattern-proof-gaps"
+      ],
+      "verdict": "pass"
+    },
+    {
+      "id": "definitive-v1-only-downgrade",
+      "effective_state": "incomplete",
+      "warnings": [
+        "core-v2-draft",
+        "integrated-trace-not-component-proof",
+        "integration-proof-cannot-promote-depth-gap",
+        "legacy-v1-certificate",
+        "state-downgraded",
+        "subject-depth-parity-incomplete",
+        "surface-pattern-proof-gaps"
+      ],
+      "verdict": "pass"
+    },
+    {
+      "id": "definitive-mixed-certificate-version",
+      "effective_state": "incomplete",
+      "warnings": [
+        "core-v2-draft",
+        "integrated-trace-not-component-proof",
+        "integration-proof-cannot-promote-depth-gap",
+        "legacy-v1-certificate",
+        "mixed-certificate-versions",
+        "mixed-subject-release-versions",
+        "state-downgraded",
+        "subject-depth-parity-incomplete",
+        "surface-pattern-proof-gaps"
+      ],
+      "verdict": "pass"
+    },
+    {
+      "id": "definitive-revoked-rejected",
+      "effective_state": "incomplete",
+      "warnings": [
+        "certificate-revoked",
+        "core-v2-draft",
+        "integrated-trace-not-component-proof",
+        "integration-proof-cannot-promote-depth-gap",
+        "state-downgraded",
+        "subject-depth-parity-incomplete",
+        "surface-pattern-proof-gaps"
+      ],
+      "verdict": "pass"
+    },
+    {
+      "id": "definitive-renewed-candidate",
+      "effective_state": "incomplete",
+      "warnings": [
+        "certificate-renewed",
+        "core-v2-draft",
+        "integrated-trace-not-component-proof",
+        "integration-proof-cannot-promote-depth-gap",
+        "mixed-subject-release-versions",
+        "state-downgraded",
+        "subject-depth-parity-incomplete",
+        "surface-pattern-proof-gaps"
+      ],
+      "verdict": "pass"
+    },
+    {
+      "id": "bounded-partial-incomplete",
+      "effective_state": "incomplete",
+      "warnings": [
+        "bounded-scope-only",
+        "core-v2-draft",
+        "coverage-partial",
+        "integrated-trace-not-component-proof",
+        "integration-proof-cannot-promote-depth-gap",
+        "not-subject-definitive",
+        "subject-depth-parity-incomplete",
+        "surface-pattern-proof-gaps"
+      ],
+      "verdict": "pass"
+    }
+  ],
+  "verdict": "pass"
+}

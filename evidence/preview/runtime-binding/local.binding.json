@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "id": "fixture-stage2-local-runtime-binding",
+  "core_commit": "072d7ca77981f51754e824d70c6d4ecd55ea67e5",
+  "composition_id": "fixture-http-stage2-v1",
+  "composition_digest": "sha256:f562551e4081576ed603010e77f025d1a78b91feefde57647c48c300259293ce",
+  "profile": "local",
+  "observed_at": "2026-08-30T20:36:37Z",
+  "execution_started_at": "2026-08-30T20:36:32Z",
+  "execution_completed_at": "2026-08-30T20:36:37Z",
+  "platform": {
+    "kind": "local-process",
+    "os": "darwin",
+    "architecture": "arm64",
+    "go_version": "go1.26.0"
+  },
+  "executable": {
+    "source_artifact_digest": "sha256:38b9e0e5a03b973da837856ccc25f939b6ed1e76d87ebc2a226d7edb8b5d6294",
+    "runtime_binary_digest": "sha256:0418becff63a07e7c5ae3f8b92abe90c2c3eb6ba58d298be7bcf653900449733",
+    "build_recipe": "go build -trimpath",
+    "binding_method": "sealed-runner-live-executable-attestation",
+    "attestations": [
+      {
+        "subject_name": "sink",
+        "capture_method": "darwin-ps-live-process",
+        "observed_digest": "sha256:0418becff63a07e7c5ae3f8b92abe90c2c3eb6ba58d298be7bcf653900449733",
+        "observed_at": "2026-08-30T20:36:37Z"
+      },
+      {
+        "subject_name": "source",
+        "capture_method": "darwin-ps-live-process",
+        "observed_digest": "sha256:0418becff63a07e7c5ae3f8b92abe90c2c3eb6ba58d298be7bcf653900449733",
+        "observed_at": "2026-08-30T20:36:37Z"
+      }
+    ]
+  },
+  "subjects": [
+    {
+      "name": "sink",
+      "subject_id": "fixture-http-sink",
+      "version": "v1.0.0",
+      "release_digest": "sha256:eb8b28f493911a9e273921cf6e775f80cda57055f31ded056fff2582a7d70290",
+      "certificate_digest": "sha256:847542e6254fc6551f57f13e2b88252d413f2e1a6ffe6ca1bf21cba3f58eee21",
+      "artifact_digest": "sha256:38b9e0e5a03b973da837856ccc25f939b6ed1e76d87ebc2a226d7edb8b5d6294",
+      "launch_driver": "go-source"
+    },
+    {
+      "name": "source",
+      "subject_id": "fixture-http-source",
+      "version": "v1.0.0",
+      "release_digest": "sha256:25449c959e2fbdb2de10b38cc6842fb1d1c7b5c329028c777b2617979e56b74d",
+      "certificate_digest": "sha256:a814802b327c98b9ca7e668414c4939c491aa70ac18b5aede5651d2e30b5a9e6",
+      "artifact_digest": "sha256:38b9e0e5a03b973da837856ccc25f939b6ed1e76d87ebc2a226d7edb8b5d6294",
+      "launch_driver": "go-source"
+    }
+  ],
+  "runtime_evidence": {
+    "summary": {
+      "path": "evidence/preview/runtime-binding/local/summary.json",
+      "digest": "sha256:d5864c8b118165d65b5c734b83c433aec01171f09fd4656d6a465b11ab1e9f95"
+    },
+    "scenarios": [
+      {
+        "path": "evidence/preview/runtime-binding/local/normal.json",
+        "digest": "sha256:85b6adfd9d756123a309ae789057e4344067c598bbe660468c9840d2ef0afead"
+      },
+      {
+        "path": "evidence/preview/runtime-binding/local/rejection.json",
+        "digest": "sha256:1759c0dd1184ac2925b63c192de5e5e4f78b21443e78ef2c333aa9f6177d4eb1"
+      },
+      {
+        "path": "evidence/preview/runtime-binding/local/failure.json",
+        "digest": "sha256:b0e2d2390e084005332ea5b84bb31b80f132328677266bf68784609da3429488"
+      },
+      {
+        "path": "evidence/preview/runtime-binding/local/recovery.json",
+        "digest": "sha256:dc17a5ca1aa1a06c3dd49abcfd02c56c21be1a575e40785a13737d11b87f61e5"
+      },
+      {
+        "path": "evidence/preview/runtime-binding/local/compatibility.json",
+        "digest": "sha256:059754e00bdf32405d1ba8ceaf25be0bd43634e9726a82ea853d7504263b6f4e"
+      }
+    ],
+    "cleanup": {
+      "path": "evidence/preview/runtime-binding/local/cleanup.receipt.json",
+      "digest": "sha256:316eff76611497dc1bcffdc95643c7315fe3945493b841fe23fa007f40a2e177"
+    },
+    "scenario_count": 5,
+    "execution_state": "pass",
+    "cleanup_state": "pass"
+  },
+  "binding_state": "runtime-executable-attested-with-certificate-gap",
+  "gaps": [
+    "subject-v2-certificate-atomic-binding-unavailable"
+  ],
+  "definitive_eligible": false,
+  "verdict": "pass"
+}
