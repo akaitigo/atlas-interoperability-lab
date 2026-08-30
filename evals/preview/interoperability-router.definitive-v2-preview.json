@@ -101,6 +101,26 @@
       },
       "id": "v2.evidence-dependency",
       "result": "pass"
+    },
+    {
+      "checks": {
+        "command": true,
+        "decision": true,
+        "status": true,
+        "warning": true
+      },
+      "id": "v2.composition-compatibility",
+      "result": "pass"
+    },
+    {
+      "checks": {
+        "command": true,
+        "decision": true,
+        "status": true,
+        "warning": true
+      },
+      "id": "v2.preview-publication",
+      "result": "pass"
     }
   ],
   "core_v2_status": "draft",

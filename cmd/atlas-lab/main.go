@@ -167,6 +167,26 @@ func main() {
 			fatal(err)
 		}
 		printJSON(report)
+	case "composition-compatibility-matrix":
+		report, err := lab.RunCompositionCompatibilityMatrix(root, "tests/fixtures/composition-compatibility.matrix.json")
+		if writeErr := lab.WriteJSON(filepath.Join(root, "evidence", "preview", "composition-compatibility.matrix.json"), report); writeErr != nil {
+			fatal(writeErr)
+		}
+		if err != nil {
+			printJSON(report)
+			fatal(err)
+		}
+		printJSON(report)
+	case "preview-publication-gate":
+		report, err := lab.PreviewPublicationGate(root)
+		if writeErr := lab.WriteJSON(filepath.Join(root, "evidence", "preview", "publication-gate-v2.preview.json"), report); writeErr != nil {
+			fatal(writeErr)
+		}
+		if err != nil {
+			printJSON(report)
+			fatal(err)
+		}
+		printJSON(report)
 	case "legacy-v1-check":
 		if err := lab.ValidateLegacyV1Bundle(root); err != nil {
 			fatal(err)
@@ -196,7 +216,7 @@ func main() {
 	}
 }
 func usage() {
-	fmt.Fprintln(os.Stderr, "usage: atlas-lab <validate|preflight|run|reproducibility|provenance|publication-gate|certificate|certificate-check|diagnose|self-audit|definitive-gate|depth-parity|definitive-matrix|definitive-migrate|definitive-preview-audit|evidence-dependency-matrix|legacy-v1-check|non-regression-gate>")
+	fmt.Fprintln(os.Stderr, "usage: atlas-lab <validate|preflight|run|reproducibility|provenance|publication-gate|preview-publication-gate|certificate|certificate-check|diagnose|self-audit|definitive-gate|depth-parity|definitive-matrix|definitive-migrate|definitive-preview-audit|evidence-dependency-matrix|composition-compatibility-matrix|legacy-v1-check|non-regression-gate>")
 }
 func fatal(err error) { fmt.Fprintln(os.Stderr, "ERROR:", err); os.Exit(1) }
 

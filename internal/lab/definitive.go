@@ -514,6 +514,20 @@ func AuditDefinitivePreview(root string) DefinitivePreviewAudit {
 		consumerMatrixErr = fmt.Errorf("Evidence Dependency consumer互換性Matrixが確定main契約を保持していません")
 	}
 	report.add("evidence-dependency-consumer-matrix", consumerMatrixErr)
+	var compositionMatrix CompositionCompatibilityResult
+	compositionMatrixErr := LoadJSON(filepath.Join(root, "evidence", "preview", "composition-compatibility.matrix.json"), &compositionMatrix)
+	if compositionMatrixErr == nil {
+		if compositionMatrix.Verdict != "pass" || compositionMatrix.CoreCommit != evidenceDependencyCoreCommit || len(compositionMatrix.Results) != 24 {
+			compositionMatrixErr = fmt.Errorf("複数Subject Composition互換性Evidenceが不正です")
+		}
+		for _, result := range compositionMatrix.Results {
+			if result.DefinitiveEligible || !result.ConsumerIndependent || !containsAll(result.InheritedGaps, []string{"core-v2-draft", "subject-depth-parity-incomplete", "subject-probe-atomic-binding-gap", "surface-pattern-proof-gaps"}) {
+				compositionMatrixErr = fmt.Errorf("複数Subject CompositionがGapを隠しています")
+				break
+			}
+		}
+	}
+	report.add("multi-subject-composition-compatibility", compositionMatrixErr)
 	_, nonRegressionErr := NonRegressionGate(root)
 	report.add("interop-non-regression", nonRegressionErr)
 	report.add("neutral-language", ValidateNeutralLanguage(root))

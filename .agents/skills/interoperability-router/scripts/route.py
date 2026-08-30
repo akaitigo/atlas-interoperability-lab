@@ -17,6 +17,10 @@ def route(query: str) -> dict:
     if any(keyword in normalized for keyword in ("evidence dependency", "dependency graph", "stale", "digest-only", "digest only", "再実行漏れ", "output退避", "closure構造", "proof構造", "consumer互換")):
         dependency = index["evidence_dependency"]
         return {"decision":"evidence_dependency","status":"main-ci-confirmed","command":dependency["command"],"core_lock":dependency["core_lock"],"matrix":dependency["matrix"],"warning":dependency["warning"],"non_regression_command":non_regression}
+    if any(keyword in normalized for keyword in ("複数subject", "multi-subject", "composition互換", "構成互換", "claim link", "claim/evidence link", "preview publication")):
+        compatibility = index["composition_compatibility"]
+        publication = "publication" in normalized
+        return {"decision":"composition_compatibility","status":"incomplete","command":compatibility["publication_command"] if publication else compatibility["matrix_command"],"matrix":compatibility["matrix"],"evidence":compatibility["evidence"],"warning":compatibility["warning"],"non_regression_command":non_regression}
     if any(keyword in normalized for keyword in ("depth", "parity", "18軸", "深度", "surface", "pattern proof", "850", "421", "統合trace", "個別proof")):
         depth = index["depth_reference"]
         scenario_boundary = any(keyword in normalized for keyword in ("surface", "pattern proof", "850", "421", "統合trace", "個別proof"))

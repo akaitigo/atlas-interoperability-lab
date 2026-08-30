@@ -38,8 +38,10 @@ jobs:
           go run ./cmd/atlas-lab definitive-matrix
           go run ./cmd/atlas-lab definitive-migrate
           go run ./cmd/atlas-lab evidence-dependency-matrix
+          go run ./cmd/atlas-lab composition-compatibility-matrix
           go run ./cmd/atlas-lab legacy-v1-check
           go run ./cmd/atlas-lab definitive-preview-audit
+          go run ./cmd/atlas-lab preview-publication-gate
           git log --format='%H%x00%B%x00' | python3 ../reference-atlas-core/scripts/check_dco.py
       - name: Isolate E2E output from signed baseline
         run: |

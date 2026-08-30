@@ -22,3 +22,5 @@ v2準備契約は`composition-v2-preview.schema.json`と`subject-certificate-v2-
 Depth Parityは`fe-depth-reference-lock.schema.json`、`fe-scenario-contract-lock.schema.json`、`subject-depth-parity.schema.json`、`integration-depth-proofs.schema.json`へ分離します。外部Reference、各Subjectの18軸状態、Interop固有のlocal／container Proof、FE統合10 Scenario、Surface/Pattern 850 rowを混同しません。各rowのDigest、固有Evidence、Runtime Identity、Atomic Authority Bindingまたは明示gapを検証し、421 gap／completion eligible 0の状態では統合成功からSubjectまたはInterop完成を推論しません。
 
 Evidence Dependency consumer互換性は`evidence-dependency-core-lock.schema.json`と`evidence-dependency-consumer-matrix.schema.json`へ分離します。Core正式main commit、CLI Gate、Definitive Certificate検証を固定し、consumer名によらず同じstale／closure結果を要求します。Subject固有の件数とprofileはMatrix共通閾値に含めません。
+
+Composition互換性Previewは`composition-compatibility-matrix.schema.json`を使用します。各Subject probe instanceのEvidence Dependency Gate／Certificate、Composition SubjectとのBinding状態、Cross-Subject Claim/Evidence link、Composition互換状態、継承Gapを別fieldで記録し、集約結果だけによるDefinitive昇格を禁止します。

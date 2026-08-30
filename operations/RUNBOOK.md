@@ -33,3 +33,5 @@ Depth診断では`go run ./cmd/atlas-lab depth-parity`の`depth_reference_status
 ## Evidence Dependency consumer互換性
 
 `go run ./cmd/atlas-lab evidence-dependency-matrix`を実行します。Core GateとDefinitive Certificateの両方が、Codex、Claude Code、generic CLIで同一の`pass`／`reject`を返す必要があります。negative fixtureの拒否をDigest再固定、output削除、profileや件数の固定値で迂回してはいけません。Matrixは一時Fixtureだけを操作し、既存EvidenceやDocker資産をCleanup対象にしません。
+
+複数Subjectの個別Core Gate、Claim/Evidence link、Gap継承は`go run ./cmd/atlas-lab composition-compatibility-matrix`で確認します。Preview Publication全体は`go run ./cmd/atlas-lab preview-publication-gate`で確認します。

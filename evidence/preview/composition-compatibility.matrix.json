@@ -1,0 +1,1028 @@
+{
+  "schema_version": 1,
+  "core_commit": "072d7ca77981f51754e824d70c6d4ecd55ea67e5",
+  "composition_id": "fixture-http-stage2-v2-definitive-preview",
+  "results": [
+    {
+      "consumer": "codex",
+      "case_id": "accept-both-current-with-inherited-gaps",
+      "subjects": [
+        {
+          "name": "source",
+          "composition_subject_id": "fixture-http-source",
+          "probe_identity": "core-generated-definitive-fixture-source",
+          "binding_state": "explicit-gap",
+          "mutation": "none",
+          "gate_state": "pass",
+          "certificate_state": "pass",
+          "classification": "current-closure"
+        },
+        {
+          "name": "sink",
+          "composition_subject_id": "fixture-http-sink",
+          "probe_identity": "core-generated-definitive-fixture-sink",
+          "binding_state": "explicit-gap",
+          "mutation": "none",
+          "gate_state": "pass",
+          "certificate_state": "pass",
+          "classification": "current-closure"
+        }
+      ],
+      "claim_graph_state": "pass",
+      "compatibility_state": "incomplete",
+      "failed_subjects": [],
+      "definitive_eligible": false,
+      "inherited_gaps": [
+        "core-v2-draft",
+        "integrated-trace-not-component-proof",
+        "integration-proof-cannot-promote-depth-gap",
+        "state-downgraded",
+        "subject-depth-parity-incomplete",
+        "subject-probe-atomic-binding-gap",
+        "surface-pattern-proof-gaps"
+      ],
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "claude-code",
+      "case_id": "accept-both-current-with-inherited-gaps",
+      "subjects": [
+        {
+          "name": "source",
+          "composition_subject_id": "fixture-http-source",
+          "probe_identity": "core-generated-definitive-fixture-source",
+          "binding_state": "explicit-gap",
+          "mutation": "none",
+          "gate_state": "pass",
+          "certificate_state": "pass",
+          "classification": "current-closure"
+        },
+        {
+          "name": "sink",
+          "composition_subject_id": "fixture-http-sink",
+          "probe_identity": "core-generated-definitive-fixture-sink",
+          "binding_state": "explicit-gap",
+          "mutation": "none",
+          "gate_state": "pass",
+          "certificate_state": "pass",
+          "classification": "current-closure"
+        }
+      ],
+      "claim_graph_state": "pass",
+      "compatibility_state": "incomplete",
+      "failed_subjects": [],
+      "definitive_eligible": false,
+      "inherited_gaps": [
+        "core-v2-draft",
+        "integrated-trace-not-component-proof",
+        "integration-proof-cannot-promote-depth-gap",
+        "state-downgraded",
+        "subject-depth-parity-incomplete",
+        "subject-probe-atomic-binding-gap",
+        "surface-pattern-proof-gaps"
+      ],
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "generic-cli",
+      "case_id": "accept-both-current-with-inherited-gaps",
+      "subjects": [
+        {
+          "name": "source",
+          "composition_subject_id": "fixture-http-source",
+          "probe_identity": "core-generated-definitive-fixture-source",
+          "binding_state": "explicit-gap",
+          "mutation": "none",
+          "gate_state": "pass",
+          "certificate_state": "pass",
+          "classification": "current-closure"
+        },
+        {
+          "name": "sink",
+          "composition_subject_id": "fixture-http-sink",
+          "probe_identity": "core-generated-definitive-fixture-sink",
+          "binding_state": "explicit-gap",
+          "mutation": "none",
+          "gate_state": "pass",
+          "certificate_state": "pass",
+          "classification": "current-closure"
+        }
+      ],
+      "claim_graph_state": "pass",
+      "compatibility_state": "incomplete",
+      "failed_subjects": [],
+      "definitive_eligible": false,
+      "inherited_gaps": [
+        "core-v2-draft",
+        "integrated-trace-not-component-proof",
+        "integration-proof-cannot-promote-depth-gap",
+        "state-downgraded",
+        "subject-depth-parity-incomplete",
+        "subject-probe-atomic-binding-gap",
+        "surface-pattern-proof-gaps"
+      ],
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "codex",
+      "case_id": "reject-source-stale",
+      "subjects": [
+        {
+          "name": "source",
+          "composition_subject_id": "fixture-http-source",
+          "probe_identity": "core-generated-definitive-fixture-source",
+          "binding_state": "explicit-gap",
+          "mutation": "stale-status",
+          "gate_state": "reject",
+          "certificate_state": "reject",
+          "classification": "stale-status"
+        },
+        {
+          "name": "sink",
+          "composition_subject_id": "fixture-http-sink",
+          "probe_identity": "core-generated-definitive-fixture-sink",
+          "binding_state": "explicit-gap",
+          "mutation": "none",
+          "gate_state": "pass",
+          "certificate_state": "pass",
+          "classification": "current-closure"
+        }
+      ],
+      "claim_graph_state": "pass",
+      "compatibility_state": "reject",
+      "failed_subjects": [
+        "source"
+      ],
+      "definitive_eligible": false,
+      "inherited_gaps": [
+        "core-v2-draft",
+        "integrated-trace-not-component-proof",
+        "integration-proof-cannot-promote-depth-gap",
+        "state-downgraded",
+        "subject-depth-parity-incomplete",
+        "subject-probe-atomic-binding-gap",
+        "surface-pattern-proof-gaps"
+      ],
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "claude-code",
+      "case_id": "reject-source-stale",
+      "subjects": [
+        {
+          "name": "source",
+          "composition_subject_id": "fixture-http-source",
+          "probe_identity": "core-generated-definitive-fixture-source",
+          "binding_state": "explicit-gap",
+          "mutation": "stale-status",
+          "gate_state": "reject",
+          "certificate_state": "reject",
+          "classification": "stale-status"
+        },
+        {
+          "name": "sink",
+          "composition_subject_id": "fixture-http-sink",
+          "probe_identity": "core-generated-definitive-fixture-sink",
+          "binding_state": "explicit-gap",
+          "mutation": "none",
+          "gate_state": "pass",
+          "certificate_state": "pass",
+          "classification": "current-closure"
+        }
+      ],
+      "claim_graph_state": "pass",
+      "compatibility_state": "reject",
+      "failed_subjects": [
+        "source"
+      ],
+      "definitive_eligible": false,
+      "inherited_gaps": [
+        "core-v2-draft",
+        "integrated-trace-not-component-proof",
+        "integration-proof-cannot-promote-depth-gap",
+        "state-downgraded",
+        "subject-depth-parity-incomplete",
+        "subject-probe-atomic-binding-gap",
+        "surface-pattern-proof-gaps"
+      ],
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "generic-cli",
+      "case_id": "reject-source-stale",
+      "subjects": [
+        {
+          "name": "source",
+          "composition_subject_id": "fixture-http-source",
+          "probe_identity": "core-generated-definitive-fixture-source",
+          "binding_state": "explicit-gap",
+          "mutation": "stale-status",
+          "gate_state": "reject",
+          "certificate_state": "reject",
+          "classification": "stale-status"
+        },
+        {
+          "name": "sink",
+          "composition_subject_id": "fixture-http-sink",
+          "probe_identity": "core-generated-definitive-fixture-sink",
+          "binding_state": "explicit-gap",
+          "mutation": "none",
+          "gate_state": "pass",
+          "certificate_state": "pass",
+          "classification": "current-closure"
+        }
+      ],
+      "claim_graph_state": "pass",
+      "compatibility_state": "reject",
+      "failed_subjects": [
+        "source"
+      ],
+      "definitive_eligible": false,
+      "inherited_gaps": [
+        "core-v2-draft",
+        "integrated-trace-not-component-proof",
+        "integration-proof-cannot-promote-depth-gap",
+        "state-downgraded",
+        "subject-depth-parity-incomplete",
+        "subject-probe-atomic-binding-gap",
+        "surface-pattern-proof-gaps"
+      ],
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "codex",
+      "case_id": "reject-sink-digest-only",
+      "subjects": [
+        {
+          "name": "source",
+          "composition_subject_id": "fixture-http-source",
+          "probe_identity": "core-generated-definitive-fixture-source",
+          "binding_state": "explicit-gap",
+          "mutation": "none",
+          "gate_state": "pass",
+          "certificate_state": "pass",
+          "classification": "current-closure"
+        },
+        {
+          "name": "sink",
+          "composition_subject_id": "fixture-http-sink",
+          "probe_identity": "core-generated-definitive-fixture-sink",
+          "binding_state": "explicit-gap",
+          "mutation": "digest-only-closure",
+          "gate_state": "reject",
+          "certificate_state": "reject",
+          "classification": "digest-only-closure"
+        }
+      ],
+      "claim_graph_state": "pass",
+      "compatibility_state": "reject",
+      "failed_subjects": [
+        "sink"
+      ],
+      "definitive_eligible": false,
+      "inherited_gaps": [
+        "core-v2-draft",
+        "integrated-trace-not-component-proof",
+        "integration-proof-cannot-promote-depth-gap",
+        "state-downgraded",
+        "subject-depth-parity-incomplete",
+        "subject-probe-atomic-binding-gap",
+        "surface-pattern-proof-gaps"
+      ],
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "claude-code",
+      "case_id": "reject-sink-digest-only",
+      "subjects": [
+        {
+          "name": "source",
+          "composition_subject_id": "fixture-http-source",
+          "probe_identity": "core-generated-definitive-fixture-source",
+          "binding_state": "explicit-gap",
+          "mutation": "none",
+          "gate_state": "pass",
+          "certificate_state": "pass",
+          "classification": "current-closure"
+        },
+        {
+          "name": "sink",
+          "composition_subject_id": "fixture-http-sink",
+          "probe_identity": "core-generated-definitive-fixture-sink",
+          "binding_state": "explicit-gap",
+          "mutation": "digest-only-closure",
+          "gate_state": "reject",
+          "certificate_state": "reject",
+          "classification": "digest-only-closure"
+        }
+      ],
+      "claim_graph_state": "pass",
+      "compatibility_state": "reject",
+      "failed_subjects": [
+        "sink"
+      ],
+      "definitive_eligible": false,
+      "inherited_gaps": [
+        "core-v2-draft",
+        "integrated-trace-not-component-proof",
+        "integration-proof-cannot-promote-depth-gap",
+        "state-downgraded",
+        "subject-depth-parity-incomplete",
+        "subject-probe-atomic-binding-gap",
+        "surface-pattern-proof-gaps"
+      ],
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "generic-cli",
+      "case_id": "reject-sink-digest-only",
+      "subjects": [
+        {
+          "name": "source",
+          "composition_subject_id": "fixture-http-source",
+          "probe_identity": "core-generated-definitive-fixture-source",
+          "binding_state": "explicit-gap",
+          "mutation": "none",
+          "gate_state": "pass",
+          "certificate_state": "pass",
+          "classification": "current-closure"
+        },
+        {
+          "name": "sink",
+          "composition_subject_id": "fixture-http-sink",
+          "probe_identity": "core-generated-definitive-fixture-sink",
+          "binding_state": "explicit-gap",
+          "mutation": "digest-only-closure",
+          "gate_state": "reject",
+          "certificate_state": "reject",
+          "classification": "digest-only-closure"
+        }
+      ],
+      "claim_graph_state": "pass",
+      "compatibility_state": "reject",
+      "failed_subjects": [
+        "sink"
+      ],
+      "definitive_eligible": false,
+      "inherited_gaps": [
+        "core-v2-draft",
+        "integrated-trace-not-component-proof",
+        "integration-proof-cannot-promote-depth-gap",
+        "state-downgraded",
+        "subject-depth-parity-incomplete",
+        "subject-probe-atomic-binding-gap",
+        "surface-pattern-proof-gaps"
+      ],
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "codex",
+      "case_id": "reject-source-missing-rerun-target",
+      "subjects": [
+        {
+          "name": "source",
+          "composition_subject_id": "fixture-http-source",
+          "probe_identity": "core-generated-definitive-fixture-source",
+          "binding_state": "explicit-gap",
+          "mutation": "missing-rerun-target",
+          "gate_state": "reject",
+          "certificate_state": "reject",
+          "classification": "missing-rerun-target"
+        },
+        {
+          "name": "sink",
+          "composition_subject_id": "fixture-http-sink",
+          "probe_identity": "core-generated-definitive-fixture-sink",
+          "binding_state": "explicit-gap",
+          "mutation": "none",
+          "gate_state": "pass",
+          "certificate_state": "pass",
+          "classification": "current-closure"
+        }
+      ],
+      "claim_graph_state": "pass",
+      "compatibility_state": "reject",
+      "failed_subjects": [
+        "source"
+      ],
+      "definitive_eligible": false,
+      "inherited_gaps": [
+        "core-v2-draft",
+        "integrated-trace-not-component-proof",
+        "integration-proof-cannot-promote-depth-gap",
+        "state-downgraded",
+        "subject-depth-parity-incomplete",
+        "subject-probe-atomic-binding-gap",
+        "surface-pattern-proof-gaps"
+      ],
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "claude-code",
+      "case_id": "reject-source-missing-rerun-target",
+      "subjects": [
+        {
+          "name": "source",
+          "composition_subject_id": "fixture-http-source",
+          "probe_identity": "core-generated-definitive-fixture-source",
+          "binding_state": "explicit-gap",
+          "mutation": "missing-rerun-target",
+          "gate_state": "reject",
+          "certificate_state": "reject",
+          "classification": "missing-rerun-target"
+        },
+        {
+          "name": "sink",
+          "composition_subject_id": "fixture-http-sink",
+          "probe_identity": "core-generated-definitive-fixture-sink",
+          "binding_state": "explicit-gap",
+          "mutation": "none",
+          "gate_state": "pass",
+          "certificate_state": "pass",
+          "classification": "current-closure"
+        }
+      ],
+      "claim_graph_state": "pass",
+      "compatibility_state": "reject",
+      "failed_subjects": [
+        "source"
+      ],
+      "definitive_eligible": false,
+      "inherited_gaps": [
+        "core-v2-draft",
+        "integrated-trace-not-component-proof",
+        "integration-proof-cannot-promote-depth-gap",
+        "state-downgraded",
+        "subject-depth-parity-incomplete",
+        "subject-probe-atomic-binding-gap",
+        "surface-pattern-proof-gaps"
+      ],
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "generic-cli",
+      "case_id": "reject-source-missing-rerun-target",
+      "subjects": [
+        {
+          "name": "source",
+          "composition_subject_id": "fixture-http-source",
+          "probe_identity": "core-generated-definitive-fixture-source",
+          "binding_state": "explicit-gap",
+          "mutation": "missing-rerun-target",
+          "gate_state": "reject",
+          "certificate_state": "reject",
+          "classification": "missing-rerun-target"
+        },
+        {
+          "name": "sink",
+          "composition_subject_id": "fixture-http-sink",
+          "probe_identity": "core-generated-definitive-fixture-sink",
+          "binding_state": "explicit-gap",
+          "mutation": "none",
+          "gate_state": "pass",
+          "certificate_state": "pass",
+          "classification": "current-closure"
+        }
+      ],
+      "claim_graph_state": "pass",
+      "compatibility_state": "reject",
+      "failed_subjects": [
+        "source"
+      ],
+      "definitive_eligible": false,
+      "inherited_gaps": [
+        "core-v2-draft",
+        "integrated-trace-not-component-proof",
+        "integration-proof-cannot-promote-depth-gap",
+        "state-downgraded",
+        "subject-depth-parity-incomplete",
+        "subject-probe-atomic-binding-gap",
+        "surface-pattern-proof-gaps"
+      ],
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "codex",
+      "case_id": "reject-sink-output-withdrawal",
+      "subjects": [
+        {
+          "name": "source",
+          "composition_subject_id": "fixture-http-source",
+          "probe_identity": "core-generated-definitive-fixture-source",
+          "binding_state": "explicit-gap",
+          "mutation": "none",
+          "gate_state": "pass",
+          "certificate_state": "pass",
+          "classification": "current-closure"
+        },
+        {
+          "name": "sink",
+          "composition_subject_id": "fixture-http-sink",
+          "probe_identity": "core-generated-definitive-fixture-sink",
+          "binding_state": "explicit-gap",
+          "mutation": "output-withdrawal",
+          "gate_state": "reject",
+          "certificate_state": "reject",
+          "classification": "output-withdrawal"
+        }
+      ],
+      "claim_graph_state": "pass",
+      "compatibility_state": "reject",
+      "failed_subjects": [
+        "sink"
+      ],
+      "definitive_eligible": false,
+      "inherited_gaps": [
+        "core-v2-draft",
+        "integrated-trace-not-component-proof",
+        "integration-proof-cannot-promote-depth-gap",
+        "state-downgraded",
+        "subject-depth-parity-incomplete",
+        "subject-probe-atomic-binding-gap",
+        "surface-pattern-proof-gaps"
+      ],
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "claude-code",
+      "case_id": "reject-sink-output-withdrawal",
+      "subjects": [
+        {
+          "name": "source",
+          "composition_subject_id": "fixture-http-source",
+          "probe_identity": "core-generated-definitive-fixture-source",
+          "binding_state": "explicit-gap",
+          "mutation": "none",
+          "gate_state": "pass",
+          "certificate_state": "pass",
+          "classification": "current-closure"
+        },
+        {
+          "name": "sink",
+          "composition_subject_id": "fixture-http-sink",
+          "probe_identity": "core-generated-definitive-fixture-sink",
+          "binding_state": "explicit-gap",
+          "mutation": "output-withdrawal",
+          "gate_state": "reject",
+          "certificate_state": "reject",
+          "classification": "output-withdrawal"
+        }
+      ],
+      "claim_graph_state": "pass",
+      "compatibility_state": "reject",
+      "failed_subjects": [
+        "sink"
+      ],
+      "definitive_eligible": false,
+      "inherited_gaps": [
+        "core-v2-draft",
+        "integrated-trace-not-component-proof",
+        "integration-proof-cannot-promote-depth-gap",
+        "state-downgraded",
+        "subject-depth-parity-incomplete",
+        "subject-probe-atomic-binding-gap",
+        "surface-pattern-proof-gaps"
+      ],
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "generic-cli",
+      "case_id": "reject-sink-output-withdrawal",
+      "subjects": [
+        {
+          "name": "source",
+          "composition_subject_id": "fixture-http-source",
+          "probe_identity": "core-generated-definitive-fixture-source",
+          "binding_state": "explicit-gap",
+          "mutation": "none",
+          "gate_state": "pass",
+          "certificate_state": "pass",
+          "classification": "current-closure"
+        },
+        {
+          "name": "sink",
+          "composition_subject_id": "fixture-http-sink",
+          "probe_identity": "core-generated-definitive-fixture-sink",
+          "binding_state": "explicit-gap",
+          "mutation": "output-withdrawal",
+          "gate_state": "reject",
+          "certificate_state": "reject",
+          "classification": "output-withdrawal"
+        }
+      ],
+      "claim_graph_state": "pass",
+      "compatibility_state": "reject",
+      "failed_subjects": [
+        "sink"
+      ],
+      "definitive_eligible": false,
+      "inherited_gaps": [
+        "core-v2-draft",
+        "integrated-trace-not-component-proof",
+        "integration-proof-cannot-promote-depth-gap",
+        "state-downgraded",
+        "subject-depth-parity-incomplete",
+        "subject-probe-atomic-binding-gap",
+        "surface-pattern-proof-gaps"
+      ],
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "codex",
+      "case_id": "reject-source-proof-structure-shrink",
+      "subjects": [
+        {
+          "name": "source",
+          "composition_subject_id": "fixture-http-source",
+          "probe_identity": "core-generated-definitive-fixture-source",
+          "binding_state": "explicit-gap",
+          "mutation": "proof-structure-shrink",
+          "gate_state": "reject",
+          "certificate_state": "reject",
+          "classification": "proof-structure-shrink"
+        },
+        {
+          "name": "sink",
+          "composition_subject_id": "fixture-http-sink",
+          "probe_identity": "core-generated-definitive-fixture-sink",
+          "binding_state": "explicit-gap",
+          "mutation": "none",
+          "gate_state": "pass",
+          "certificate_state": "pass",
+          "classification": "current-closure"
+        }
+      ],
+      "claim_graph_state": "pass",
+      "compatibility_state": "reject",
+      "failed_subjects": [
+        "source"
+      ],
+      "definitive_eligible": false,
+      "inherited_gaps": [
+        "core-v2-draft",
+        "integrated-trace-not-component-proof",
+        "integration-proof-cannot-promote-depth-gap",
+        "state-downgraded",
+        "subject-depth-parity-incomplete",
+        "subject-probe-atomic-binding-gap",
+        "surface-pattern-proof-gaps"
+      ],
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "claude-code",
+      "case_id": "reject-source-proof-structure-shrink",
+      "subjects": [
+        {
+          "name": "source",
+          "composition_subject_id": "fixture-http-source",
+          "probe_identity": "core-generated-definitive-fixture-source",
+          "binding_state": "explicit-gap",
+          "mutation": "proof-structure-shrink",
+          "gate_state": "reject",
+          "certificate_state": "reject",
+          "classification": "proof-structure-shrink"
+        },
+        {
+          "name": "sink",
+          "composition_subject_id": "fixture-http-sink",
+          "probe_identity": "core-generated-definitive-fixture-sink",
+          "binding_state": "explicit-gap",
+          "mutation": "none",
+          "gate_state": "pass",
+          "certificate_state": "pass",
+          "classification": "current-closure"
+        }
+      ],
+      "claim_graph_state": "pass",
+      "compatibility_state": "reject",
+      "failed_subjects": [
+        "source"
+      ],
+      "definitive_eligible": false,
+      "inherited_gaps": [
+        "core-v2-draft",
+        "integrated-trace-not-component-proof",
+        "integration-proof-cannot-promote-depth-gap",
+        "state-downgraded",
+        "subject-depth-parity-incomplete",
+        "subject-probe-atomic-binding-gap",
+        "surface-pattern-proof-gaps"
+      ],
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "generic-cli",
+      "case_id": "reject-source-proof-structure-shrink",
+      "subjects": [
+        {
+          "name": "source",
+          "composition_subject_id": "fixture-http-source",
+          "probe_identity": "core-generated-definitive-fixture-source",
+          "binding_state": "explicit-gap",
+          "mutation": "proof-structure-shrink",
+          "gate_state": "reject",
+          "certificate_state": "reject",
+          "classification": "proof-structure-shrink"
+        },
+        {
+          "name": "sink",
+          "composition_subject_id": "fixture-http-sink",
+          "probe_identity": "core-generated-definitive-fixture-sink",
+          "binding_state": "explicit-gap",
+          "mutation": "none",
+          "gate_state": "pass",
+          "certificate_state": "pass",
+          "classification": "current-closure"
+        }
+      ],
+      "claim_graph_state": "pass",
+      "compatibility_state": "reject",
+      "failed_subjects": [
+        "source"
+      ],
+      "definitive_eligible": false,
+      "inherited_gaps": [
+        "core-v2-draft",
+        "integrated-trace-not-component-proof",
+        "integration-proof-cannot-promote-depth-gap",
+        "state-downgraded",
+        "subject-depth-parity-incomplete",
+        "subject-probe-atomic-binding-gap",
+        "surface-pattern-proof-gaps"
+      ],
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "codex",
+      "case_id": "reject-sink-closure-structure-shrink",
+      "subjects": [
+        {
+          "name": "source",
+          "composition_subject_id": "fixture-http-source",
+          "probe_identity": "core-generated-definitive-fixture-source",
+          "binding_state": "explicit-gap",
+          "mutation": "none",
+          "gate_state": "pass",
+          "certificate_state": "pass",
+          "classification": "current-closure"
+        },
+        {
+          "name": "sink",
+          "composition_subject_id": "fixture-http-sink",
+          "probe_identity": "core-generated-definitive-fixture-sink",
+          "binding_state": "explicit-gap",
+          "mutation": "closure-structure-shrink",
+          "gate_state": "reject",
+          "certificate_state": "reject",
+          "classification": "closure-structure-shrink"
+        }
+      ],
+      "claim_graph_state": "pass",
+      "compatibility_state": "reject",
+      "failed_subjects": [
+        "sink"
+      ],
+      "definitive_eligible": false,
+      "inherited_gaps": [
+        "core-v2-draft",
+        "integrated-trace-not-component-proof",
+        "integration-proof-cannot-promote-depth-gap",
+        "state-downgraded",
+        "subject-depth-parity-incomplete",
+        "subject-probe-atomic-binding-gap",
+        "surface-pattern-proof-gaps"
+      ],
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "claude-code",
+      "case_id": "reject-sink-closure-structure-shrink",
+      "subjects": [
+        {
+          "name": "source",
+          "composition_subject_id": "fixture-http-source",
+          "probe_identity": "core-generated-definitive-fixture-source",
+          "binding_state": "explicit-gap",
+          "mutation": "none",
+          "gate_state": "pass",
+          "certificate_state": "pass",
+          "classification": "current-closure"
+        },
+        {
+          "name": "sink",
+          "composition_subject_id": "fixture-http-sink",
+          "probe_identity": "core-generated-definitive-fixture-sink",
+          "binding_state": "explicit-gap",
+          "mutation": "closure-structure-shrink",
+          "gate_state": "reject",
+          "certificate_state": "reject",
+          "classification": "closure-structure-shrink"
+        }
+      ],
+      "claim_graph_state": "pass",
+      "compatibility_state": "reject",
+      "failed_subjects": [
+        "sink"
+      ],
+      "definitive_eligible": false,
+      "inherited_gaps": [
+        "core-v2-draft",
+        "integrated-trace-not-component-proof",
+        "integration-proof-cannot-promote-depth-gap",
+        "state-downgraded",
+        "subject-depth-parity-incomplete",
+        "subject-probe-atomic-binding-gap",
+        "surface-pattern-proof-gaps"
+      ],
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "generic-cli",
+      "case_id": "reject-sink-closure-structure-shrink",
+      "subjects": [
+        {
+          "name": "source",
+          "composition_subject_id": "fixture-http-source",
+          "probe_identity": "core-generated-definitive-fixture-source",
+          "binding_state": "explicit-gap",
+          "mutation": "none",
+          "gate_state": "pass",
+          "certificate_state": "pass",
+          "classification": "current-closure"
+        },
+        {
+          "name": "sink",
+          "composition_subject_id": "fixture-http-sink",
+          "probe_identity": "core-generated-definitive-fixture-sink",
+          "binding_state": "explicit-gap",
+          "mutation": "closure-structure-shrink",
+          "gate_state": "reject",
+          "certificate_state": "reject",
+          "classification": "closure-structure-shrink"
+        }
+      ],
+      "claim_graph_state": "pass",
+      "compatibility_state": "reject",
+      "failed_subjects": [
+        "sink"
+      ],
+      "definitive_eligible": false,
+      "inherited_gaps": [
+        "core-v2-draft",
+        "integrated-trace-not-component-proof",
+        "integration-proof-cannot-promote-depth-gap",
+        "state-downgraded",
+        "subject-depth-parity-incomplete",
+        "subject-probe-atomic-binding-gap",
+        "surface-pattern-proof-gaps"
+      ],
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "codex",
+      "case_id": "reject-cross-subject-claim-link-gap",
+      "subjects": [
+        {
+          "name": "source",
+          "composition_subject_id": "fixture-http-source",
+          "probe_identity": "core-generated-definitive-fixture-source",
+          "binding_state": "explicit-gap",
+          "mutation": "none",
+          "gate_state": "pass",
+          "certificate_state": "pass",
+          "classification": "current-closure"
+        },
+        {
+          "name": "sink",
+          "composition_subject_id": "fixture-http-sink",
+          "probe_identity": "core-generated-definitive-fixture-sink",
+          "binding_state": "explicit-gap",
+          "mutation": "none",
+          "gate_state": "pass",
+          "certificate_state": "pass",
+          "classification": "current-closure"
+        }
+      ],
+      "claim_graph_state": "reject",
+      "compatibility_state": "reject",
+      "failed_subjects": [],
+      "definitive_eligible": false,
+      "inherited_gaps": [
+        "core-v2-draft",
+        "integrated-trace-not-component-proof",
+        "integration-proof-cannot-promote-depth-gap",
+        "state-downgraded",
+        "subject-depth-parity-incomplete",
+        "subject-probe-atomic-binding-gap",
+        "surface-pattern-proof-gaps"
+      ],
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "claude-code",
+      "case_id": "reject-cross-subject-claim-link-gap",
+      "subjects": [
+        {
+          "name": "source",
+          "composition_subject_id": "fixture-http-source",
+          "probe_identity": "core-generated-definitive-fixture-source",
+          "binding_state": "explicit-gap",
+          "mutation": "none",
+          "gate_state": "pass",
+          "certificate_state": "pass",
+          "classification": "current-closure"
+        },
+        {
+          "name": "sink",
+          "composition_subject_id": "fixture-http-sink",
+          "probe_identity": "core-generated-definitive-fixture-sink",
+          "binding_state": "explicit-gap",
+          "mutation": "none",
+          "gate_state": "pass",
+          "certificate_state": "pass",
+          "classification": "current-closure"
+        }
+      ],
+      "claim_graph_state": "reject",
+      "compatibility_state": "reject",
+      "failed_subjects": [],
+      "definitive_eligible": false,
+      "inherited_gaps": [
+        "core-v2-draft",
+        "integrated-trace-not-component-proof",
+        "integration-proof-cannot-promote-depth-gap",
+        "state-downgraded",
+        "subject-depth-parity-incomplete",
+        "subject-probe-atomic-binding-gap",
+        "surface-pattern-proof-gaps"
+      ],
+      "consumer_independent": true,
+      "verdict": "pass"
+    },
+    {
+      "consumer": "generic-cli",
+      "case_id": "reject-cross-subject-claim-link-gap",
+      "subjects": [
+        {
+          "name": "source",
+          "composition_subject_id": "fixture-http-source",
+          "probe_identity": "core-generated-definitive-fixture-source",
+          "binding_state": "explicit-gap",
+          "mutation": "none",
+          "gate_state": "pass",
+          "certificate_state": "pass",
+          "classification": "current-closure"
+        },
+        {
+          "name": "sink",
+          "composition_subject_id": "fixture-http-sink",
+          "probe_identity": "core-generated-definitive-fixture-sink",
+          "binding_state": "explicit-gap",
+          "mutation": "none",
+          "gate_state": "pass",
+          "certificate_state": "pass",
+          "classification": "current-closure"
+        }
+      ],
+      "claim_graph_state": "reject",
+      "compatibility_state": "reject",
+      "failed_subjects": [],
+      "definitive_eligible": false,
+      "inherited_gaps": [
+        "core-v2-draft",
+        "integrated-trace-not-component-proof",
+        "integration-proof-cannot-promote-depth-gap",
+        "state-downgraded",
+        "subject-depth-parity-incomplete",
+        "subject-probe-atomic-binding-gap",
+        "surface-pattern-proof-gaps"
+      ],
+      "consumer_independent": true,
+      "verdict": "pass"
+    }
+  ],
+  "verdict": "pass"
+}

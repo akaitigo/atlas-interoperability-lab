@@ -20,4 +20,6 @@ Matrixはcurrent closureを受理し、次を全consumerで拒否します。
 
 共通契約にするのは推移stale、変更観測後の実再実行、現在Input Binding、到達可能な全output、Proof／Closure Plan構造不変です。FixtureのBehavior数、Scenario row数、profile名はSubject固有入力として扱い、consumer共通閾値にはしません。
 
+複数SubjectへのComposition規則は`composition-compatibility.matrix.json`で追加検証します。各Subjectの結果を保持したまま構成全体を判定し、片側のrejectまたはCross-Subject Claim link欠落を他のpassで相殺しません。
+
 Fixtureと全派生caseはOSの一時Directoryだけに作成し、検証終了時に回収します。Repository Evidence、Docker Volume、ユーザーデータは変更または削除しません。

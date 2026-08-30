@@ -156,12 +156,11 @@ func RunEvidenceDependencyConsumerMatrix(root, matrixPath string) (EvidenceDepen
 }
 
 func validateEvidenceDependencyMatrixContract(matrix EvidenceDependencyMatrix, lock EvidenceDependencyCoreLock) error {
-	expectedPredicates := []string{"transitive-staleness", "actual-rerun", "complete-output-closure", "proof-structure-invariant", "closure-plan-structure-invariant"}
 	if matrix.SchemaVersion != 1 || matrix.CoreLock != "compatibility/evidence-dependency-core.lock.json" || !sameSet(matrix.Consumers, []string{"codex", "claude-code", "generic-cli"}) || len(matrix.Cases) != 7 {
 		return fmt.Errorf("Evidence Dependency consumer Matrix契約が不正です")
 	}
-	if lock.SchemaVersion != 1 || lock.ID != "core-evidence-dependency-v1" || lock.Repository != "reference-atlas-core" || lock.Commit != evidenceDependencyCoreCommit || lock.Version != "1.1.0" || lock.License != "Apache-2.0" || lock.Status != "main-ci-confirmed" || lock.Commands.Gate != "atlas audit <subject-root> --gate evidence-dependency" || lock.Commands.Certificate != "atlas certificate verify-definitive <subject-root>" || lock.Thresholds.SubjectCounts != "subject-defined" || lock.Thresholds.SubjectProfiles != "subject-defined" || !sameSet(lock.Thresholds.Predicates, expectedPredicates) {
-		return fmt.Errorf("Evidence Dependency Core Lockが確定値と一致しません")
+	if err := validateEvidenceDependencyCoreLock(lock); err != nil {
+		return err
 	}
 	seen := map[string]bool{}
 	for _, testCase := range matrix.Cases {
@@ -169,6 +168,14 @@ func validateEvidenceDependencyMatrixContract(matrix EvidenceDependencyMatrix, l
 			return fmt.Errorf("Evidence Dependency Matrix caseが不正です: %s", testCase.ID)
 		}
 		seen[testCase.ID] = true
+	}
+	return nil
+}
+
+func validateEvidenceDependencyCoreLock(lock EvidenceDependencyCoreLock) error {
+	expectedPredicates := []string{"transitive-staleness", "actual-rerun", "complete-output-closure", "proof-structure-invariant", "closure-plan-structure-invariant"}
+	if lock.SchemaVersion != 1 || lock.ID != "core-evidence-dependency-v1" || lock.Repository != "reference-atlas-core" || lock.Commit != evidenceDependencyCoreCommit || lock.Version != "1.1.0" || lock.License != "Apache-2.0" || lock.Status != "main-ci-confirmed" || lock.Commands.Gate != "atlas audit <subject-root> --gate evidence-dependency" || lock.Commands.Certificate != "atlas certificate verify-definitive <subject-root>" || lock.Thresholds.SubjectCounts != "subject-defined" || lock.Thresholds.SubjectProfiles != "subject-defined" || !sameSet(lock.Thresholds.Predicates, expectedPredicates) {
+		return fmt.Errorf("Evidence Dependency Core Lockが確定値と一致しません")
 	}
 	return nil
 }

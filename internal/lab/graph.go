@@ -30,12 +30,16 @@ type GraphLink struct {
 }
 
 func ValidateCrossSubjectGraph(root string) error {
+	return validateCrossSubjectGraphFile(root, filepath.Join(root, "graphs", "fixture-stage2.claim-evidence.json"))
+}
+
+func validateCrossSubjectGraphFile(root, graphPath string) error {
 	validated, err := Preflight(root, "compositions/fixture-stage2.json", "local")
 	if err != nil {
 		return err
 	}
 	var graph ClaimEvidenceGraph
-	if err := LoadJSON(filepath.Join(root, "graphs", "fixture-stage2.claim-evidence.json"), &graph); err != nil {
+	if err := LoadJSON(graphPath, &graph); err != nil {
 		return err
 	}
 	if graph.SchemaVersion != 1 || graph.CompositionID != validated.Manifest.ID {

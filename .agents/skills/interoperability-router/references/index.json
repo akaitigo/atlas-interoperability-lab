@@ -36,6 +36,13 @@
     "command": "go run ./cmd/atlas-lab evidence-dependency-matrix",
     "warning": "consumer-independent-stale-closure"
   },
+  "composition_compatibility": {
+    "matrix": "tests/fixtures/composition-compatibility.matrix.json",
+    "evidence": "evidence/preview/composition-compatibility.matrix.json",
+    "matrix_command": "go run ./cmd/atlas-lab composition-compatibility-matrix",
+    "publication_command": "go run ./cmd/atlas-lab preview-publication-gate",
+    "warning": "subject-gaps-not-aggregated"
+  },
   "definitive_gate_v2": {
     "status": "draft",
     "bounded_composition": "compositions/fixture-stage2-v2-bounded.preview.json",

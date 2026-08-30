@@ -51,3 +51,36 @@ func TestEvidenceDependencyConsumerCompatibilityMatrix(t *testing.T) {
 		}
 	}
 }
+
+func TestMultiSubjectCompositionCompatibilityDoesNotHideGaps(t *testing.T) {
+	report, err := RunCompositionCompatibilityMatrix("../..", "tests/fixtures/composition-compatibility.matrix.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if report.Verdict != "pass" || report.CoreCommit != evidenceDependencyCoreCommit || len(report.Results) != 24 {
+		t.Fatalf("unexpected Composition Compatibility Matrix: %#v", report)
+	}
+	honestIncomplete, claimLinkRejections := 0, 0
+	for _, result := range report.Results {
+		if result.Verdict != "pass" || !result.ConsumerIndependent || result.DefinitiveEligible || len(result.Subjects) != 2 || !containsAll(result.InheritedGaps, []string{"core-v2-draft", "subject-depth-parity-incomplete", "subject-probe-atomic-binding-gap", "surface-pattern-proof-gaps"}) {
+			t.Fatalf("Gapまたはconsumer判定が不正です: %#v", result)
+		}
+		if result.CompatibilityState == "incomplete" {
+			honestIncomplete++
+		}
+		if result.CaseID == "reject-cross-subject-claim-link-gap" && result.ClaimGraphState == "reject" && len(result.FailedSubjects) == 0 {
+			claimLinkRejections++
+		}
+		if len(result.FailedSubjects) == 1 {
+			failed := result.FailedSubjects[0]
+			for _, subject := range result.Subjects {
+				if subject.Name == failed && (subject.GateState != "reject" || subject.CertificateState != "reject") {
+					t.Fatalf("失敗Subjectが構成成功で隠されています: %#v", result)
+				}
+			}
+		}
+	}
+	if honestIncomplete != 3 || claimLinkRejections != 3 {
+		t.Fatalf("incompleteまたはClaim link negative fixtureのconsumer網羅が不足しています: incomplete=%d claim=%d", honestIncomplete, claimLinkRejections)
+	}
+}

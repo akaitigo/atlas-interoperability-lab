@@ -19,5 +19,6 @@ description: 固定済みSubject ReleaseのStage 2相互運用について、該
 10. `depth_reference`と`subject_depth_parity`を読み、各構成Subjectの18軸が全て`satisfied`でない場合はInterop固有ProofやScenario成功で補完しない。`subject-depth-parity-incomplete`と`integration-proof-cannot-promote-depth-gap`を保持する。
 11. `scenario_contract`を読み、10件の統合Scenario成功と850件のSurface/Pattern rowを別に扱う。統合Traceを全rowの専用Proofへ流用せず、各rowの固有Evidence、Runtime Identity、Atomic Authority Binding、または明示gapを確認する。固定境界のgap=421、completion eligible=0を保持し、`integrated-trace-not-component-proof`を返す。
 12. staleまたはEvidence再実行Closureの問いでは`evidence_dependency`を読み、Core確定main commitのconsumer互換性Matrixを実行する。Codex、Claude Code、CLIで判定を変えず、Subject固有件数やprofileではなく、推移stale、実再実行、全output包含、Proof／Closure Plan構造不変だけを共通predicateとして扱う。
+13. 複数Subjectの互換性またはPreview Publicationの問いでは`composition_compatibility`を読み、各SubjectのGate／Certificate結果とCross-Subject Claim/Evidence linkを個別に確認する。一方の成功で他方のstaleやlink欠落を相殺せず、全SubjectがCore Gateを通ってもDepth／Surface Gapを継承してDefinitiveへ昇格しない。
 
 検証軸とCanonical Pathの索引が必要な場合だけ [references/index.json](references/index.json) を読みます。
